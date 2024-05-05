@@ -34,6 +34,8 @@ PseudoGUIManager            *gPsGuiMan;
 FileManager                 *gFileMan;
 ExtWindow                   *gFileManWnd;
 
+/* Creates File Manager window and shows directory listing. */
+
 void openFileManager() {
     char wndTitle[] = "File Manager";
     gFileManWnd = gPsGuiMan->createWindow(wndTitle, 0, 0, true);
@@ -54,18 +56,26 @@ int main() {
     return 0;
 }
 
+/* Handles File Manager errors. */
+
 void IOpenDSSFileManager::onError(int cmdId, int errorCode) {
     mvwprintw((WINDOW*)gFileManWnd, 1, 1, "Oops");
 }
+
+/* Handles File Manager successed responses. */
 
 void IOpenDSSFileManager::onResult(int cmdId, int resultCode) {
 
 }
 
+/* Handles File Manager directory list. */
+
 void IOpenDSSFileManager::onDirectoryRead(struct dirent* ent, int index) {
     mvwprintw((WINDOW*)gFileManWnd, index + 1, 2, "%s", ent->d_name);
     wrefresh((WINDOW*)gFileManWnd);
 }
+
+/* Handles keyboard pressed keys. */
 
 void IOpenDSSPseudoGUIManager::onKeyPressed(char k) {
     char objName[255];

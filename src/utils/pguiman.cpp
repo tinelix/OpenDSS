@@ -3,6 +3,8 @@
 
 char key;
 
+/* Initializes ncurses screen. */
+
 PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *interface) {
     setlocale(LC_ALL, "");
     initscr();
@@ -12,23 +14,29 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *interface) {
         start_color();
         init_pair(1, COLOR_RED, -1);
     }
+    noecho();
+    curs_set(0);
     gInterface = interface;
 }
 
+/* Shows version info and copyright in console top area. */
+
 void PseudoGUIManager::showTopVersionInfo() {
     getmaxyx(stdscr, gActiveHeight, gActiveWidth);
-    noecho();
-    curs_set(0);
     char verInfoStr[] = "Tinelix OpenDSS v. 0.0.1. Copyright (C) 2024 Dmitry Tretyakov\n";
     move(0, (gActiveWidth - strlen(verInfoStr)) / 2);
     printw("%s", verInfoStr);
     refresh();
 }
 
+/* Listens pressed keys on keyboard. */
+
 void PseudoGUIManager::listenKeyboard() {
     key = getch();
     gInterface->onKeyPressed(key);
 }
+
+/* Draws text in window. */
 
 void PseudoGUIManager::drawText(ExtWindow *wnd, char* text, int x, int y) {
     move(y, 0);
@@ -39,6 +47,8 @@ void PseudoGUIManager::drawText(ExtWindow *wnd, char* text, int x, int y) {
     mvwprintw((WINDOW*)wnd, 0, (wnd->width - strlen(wnd->title)) / 2, "┤ %s ├", wnd->title);
     wrefresh((WINDOW*)wnd);
 }
+
+/* Create window area with titlebar. */
 
 ExtWindow* PseudoGUIManager::createWindow(char* title, int width, int height, bool alignCenter) {
     ExtWindow *wnd;
@@ -55,7 +65,7 @@ ExtWindow* PseudoGUIManager::createWindow(char* title, int width, int height, bo
         if(height < gActiveHeight) {
             height = gActiveHeight - 6;
         } else {
-            width = gActiveHeight - 1;
+            height = gActiveHeight - 1;
         }
 
         wnd = (ExtWindow*)newwin(height, width, ((gActiveHeight - height) / 2 + 1), (gActiveWidth - width) / 2);
@@ -71,6 +81,8 @@ ExtWindow* PseudoGUIManager::createWindow(char* title, int width, int height, bo
     wrefresh((WINDOW*)wnd);
     return wnd;
 }
+
+/* Freeing ncurses */
 
 PseudoGUIManager::~PseudoGUIManager() {
     endwin();

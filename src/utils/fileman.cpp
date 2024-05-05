@@ -11,6 +11,8 @@ FileManager::~FileManager() {
     free(gEnts);
 }
 
+/* Reads working directory and shows listing */
+
 void FileManager::readCurrentDir() {
     int object_index = 0;
     char cwd[255];
