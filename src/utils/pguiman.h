@@ -7,6 +7,12 @@
 #include <string.h>
 #include <interfaces/pguiman.h>
 
+class ExtWindow : WINDOW {
+public:
+    char title[255];
+    int width, height;
+};
+
 class PseudoGUIManager {
     public:
         int gActiveWidth, gActiveHeight;
@@ -14,7 +20,8 @@ class PseudoGUIManager {
         ~PseudoGUIManager();
         void showTopVersionInfo();
         void listenKeyboard();
-        WINDOW* createWindow(char* title, int width, int height, bool alignCenter);
+        ExtWindow* createWindow(char* title, int width, int height, bool alignCenter);
+        void drawText(ExtWindow *wnd, char* text, int x, int y);
     private:
         IPseudoGUIManager *gInterface;
 };

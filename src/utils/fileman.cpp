@@ -1,7 +1,14 @@
 #include "fileman.h"
+#include <curses.h>
 
 FileManager::FileManager(IFileManager *interface) {
     gInterface = interface;
+    gSelectionIndex = -1;
+    gEnts = (dirent**)malloc(640 * sizeof(dirent));
+}
+
+FileManager::~FileManager() {
+    free(gEnts);
 }
 
 void FileManager::readCurrentDir() {
@@ -10,9 +17,14 @@ void FileManager::readCurrentDir() {
     DIR *dir;
     struct dirent *ent;
     if (getcwd(cwd, sizeof(cwd))) {
+        gCurrentPath = cwd;
         if ((dir = opendir(cwd)) != NULL) {
             /* print all the files and directories within directory */
             while ((ent = readdir (dir)) != NULL) {
+                if(object_index >= 640) {
+                    break;
+                }
+                gEnts[object_index] = ent;
                 gInterface->onDirectoryRead(ent, object_index);
                 object_index++;
             }
@@ -23,4 +35,13 @@ void FileManager::readCurrentDir() {
     } else {
         gInterface->onError(0, 0);
     }
+}
+
+dirent* FileManager::getFile(int index) {
+    gSelectionIndex = index;
+    return gEnts[index];
+}
+
+int FileManager::getSelectionIndex() {
+    return gSelectionIndex;
 }

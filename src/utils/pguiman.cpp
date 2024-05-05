@@ -6,6 +6,12 @@ char key;
 PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *interface) {
     setlocale(LC_ALL, "");
     initscr();
+    keypad(stdscr, true);
+    if (has_colors()) {
+        use_default_colors();
+        start_color();
+        init_pair(1, COLOR_RED, -1);
+    }
     gInterface = interface;
 }
 
@@ -24,8 +30,18 @@ void PseudoGUIManager::listenKeyboard() {
     gInterface->onKeyPressed(key);
 }
 
-WINDOW* PseudoGUIManager::createWindow(char* title, int width, int height, bool alignCenter) {
-    WINDOW *wnd;
+void PseudoGUIManager::drawText(ExtWindow *wnd, char* text, int x, int y) {
+    move(y, 0);
+    wclrtoeol((WINDOW*)wnd);
+    mvwprintw((WINDOW*)wnd, y, x, "%s", text);
+
+    box((WINDOW*)wnd, 0, 0);
+    mvwprintw((WINDOW*)wnd, 0, (wnd->width - strlen(wnd->title)) / 2, "┤ %s ├", wnd->title);
+    wrefresh((WINDOW*)wnd);
+}
+
+ExtWindow* PseudoGUIManager::createWindow(char* title, int width, int height, bool alignCenter) {
+    ExtWindow *wnd;
 
     // newwin(height, width, y, x)
 
@@ -42,13 +58,17 @@ WINDOW* PseudoGUIManager::createWindow(char* title, int width, int height, bool 
             width = gActiveHeight - 1;
         }
 
-        wnd = newwin(height, width, ((gActiveHeight - height) / 2 + 1), (gActiveWidth - width) / 2);
+        wnd = (ExtWindow*)newwin(height, width, ((gActiveHeight - height) / 2 + 1), (gActiveWidth - width) / 2);
     } else {
-        wnd = newwin(height, width, 1, 0);
+        wnd = (ExtWindow*)newwin(height, width, 1, 0);
     }
-    box(wnd, 0, 0);
-    mvwprintw(wnd, 0, (width - strlen(title)) / 2, "┤ %s ├", title);
-    wrefresh(wnd);
+
+    sprintf(wnd->title, "%s", title);
+    wnd->width = width;
+    wnd->height = height;
+    box((WINDOW*)wnd, 0, 0);
+    mvwprintw((WINDOW*)wnd, 0, (width - strlen(wnd->title)) / 2, "┤ %s ├", wnd->title);
+    wrefresh((WINDOW*)wnd);
     return wnd;
 }
 

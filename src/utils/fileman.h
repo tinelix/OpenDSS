@@ -4,13 +4,21 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <interfaces/fileman.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 class FileManager {
     public:
         FileManager(IFileManager *interface);
+        ~FileManager();
         void readCurrentDir();
+        dirent* getFile(int index);
+        int getSelectionIndex();
     private:
         IFileManager *gInterface;
+        char         *gCurrentPath;
+        int          gSelectionIndex;
+        dirent       **gEnts;
 };
 
 #endif

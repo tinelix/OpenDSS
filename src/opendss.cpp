@@ -12,6 +12,7 @@
 
 #include <interfaces/fileman.h>
 #include <interfaces/pguiman.h>
+#include <unistd.h>
 
 class IOpenDSSFileManager : IFileManager {
     public:
@@ -31,7 +32,13 @@ IOpenDSSPseudoGUIManager    *gPsGUIManInterface;
 
 PseudoGUIManager            *gPsGuiMan;
 FileManager                 *gFileMan;
-WINDOW                      *gFileManWnd;
+ExtWindow                   *gFileManWnd;
+
+void openFileManager() {
+    char wndTitle[] = "File Manager";
+    gFileManWnd = gPsGuiMan->createWindow(wndTitle, 0, 0, true);
+    gFileMan->readCurrentDir();
+}
 
 int main() {
     gPsGUIManInterface = new IOpenDSSPseudoGUIManager();
@@ -41,13 +48,14 @@ int main() {
     gPsGuiMan = new PseudoGUIManager((IPseudoGUIManager*)gPsGUIManInterface);
 
     gPsGuiMan->showTopVersionInfo();
+    openFileManager();
     gPsGuiMan->listenKeyboard();
     delete gPsGuiMan;
     return 0;
 }
 
 void IOpenDSSFileManager::onError(int cmdId, int errorCode) {
-    mvwprintw(gFileManWnd, 1, 1, "Oops");
+    mvwprintw((WINDOW*)gFileManWnd, 1, 1, "Oops");
 }
 
 void IOpenDSSFileManager::onResult(int cmdId, int resultCode) {
@@ -55,14 +63,32 @@ void IOpenDSSFileManager::onResult(int cmdId, int resultCode) {
 }
 
 void IOpenDSSFileManager::onDirectoryRead(struct dirent* ent, int index) {
-    mvwprintw(gFileManWnd, index + 1, 1, "%s", ent->d_name);
+    mvwprintw((WINDOW*)gFileManWnd, index + 1, 2, "%s", ent->d_name);
+    wrefresh((WINDOW*)gFileManWnd);
 }
 
 void IOpenDSSPseudoGUIManager::onKeyPressed(char k) {
-    if(k == 'f') {
-        char wndTitle[] = "File Manager";
-        gFileManWnd = gPsGuiMan->createWindow(wndTitle, 0, 0, true);
-        gFileMan->readCurrentDir();
+    char objName[255];
+    struct dirent *ent, *prev_ent;
+
+    if((int)k == 2) { // bottom arrow key
+        int index = gFileMan->getSelectionIndex() + 1;
+        if(index > 0) {
+            prev_ent = gFileMan->getFile(gFileMan->getSelectionIndex());
+            gPsGuiMan->drawText(gFileManWnd, prev_ent->d_name, 2, index);
+        }
+
+        ent = gFileMan->getFile(index);
+        sprintf(objName, "* %s", ent->d_name);
+        gPsGuiMan->drawText(gFileManWnd, objName, 2, index + 1);
+    } else if((int)k == 3 && gFileMan->getSelectionIndex() > 0) { // top arrow key
+        int index = gFileMan->getSelectionIndex() - 1;
+        prev_ent = gFileMan->getFile(gFileMan->getSelectionIndex());
+        gPsGuiMan->drawText(gFileManWnd, prev_ent->d_name, 2, gFileMan->getSelectionIndex() + 1);
+
+        ent = gFileMan->getFile(index);
+        sprintf(objName, "* %s", ent->d_name);
+        gPsGuiMan->drawText(gFileManWnd, objName, 2, index + 1);
     }
     gPsGuiMan->listenKeyboard();
 }
