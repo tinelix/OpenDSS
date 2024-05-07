@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <stdio.h>                  // Linking standard C functions
 #include <dirent.h>
+#include <unistd.h>
 
 // Linking FFmpeg headers
 #include <libavcodec/avcodec.h>
@@ -9,12 +10,13 @@
 
 #include <utils/fileman.h>
 #include <utils/pguiman.h>
+#include <utils/extstr.h>
+
 #include <controls/extwnd.h>
 #include <controls/listbox.h>
 
 #include <interfaces/fileman.h>
 #include <interfaces/pguiman.h>
-#include <unistd.h>
 
 class IOpenDSSFileManager : IFileManager {
     public:
@@ -83,7 +85,11 @@ void IOpenDSSFileManager::onResult(int cmdId, int resultCode) {
 /* Handles File Manager directory list. */
 
 void IOpenDSSFileManager::onDirectoryRead(struct dirent* ent, int index) {
-    mvwprintw(gFileManWnd->hWnd, index + 1, 4, "%s", ent->d_name);
+    char short_fname[255];
+    sprintf(short_fname, "%s", ent->d_name);
+    int result = ExtString::strcut(short_fname, 32, -1);
+    mvwprintw(gFileManWnd->hWnd, index + 2, 4, "%s", short_fname);
+    mvwprintw(gFileManWnd->hWnd, index + 2, 38, "0:00:00.000");
     wrefresh(gFileManWnd->hWnd);
 }
 
@@ -106,3 +112,4 @@ void IOpenDSSPseudoGUIManager::onKeyPressed(char k, ExtWindowCtrl* pExtWnd) {
         delete gFileManWnd;
     }
 }
+

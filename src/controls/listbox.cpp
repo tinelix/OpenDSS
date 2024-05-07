@@ -30,7 +30,7 @@ void ListBoxCtrl::onKeyPressed(char k) {
             index++;
         }
 
-        int list_index = getSelectionIndex() + 1;
+        int list_index = getSelectionIndex() + 2;
         if(index >= 0 && index < getItemCount()) {
             drawListPointer(
                 2,
@@ -41,7 +41,7 @@ void ListBoxCtrl::onKeyPressed(char k) {
 
         if(index <= getItemCount() - 1) {
             setSelectionIndex(index);
-            list_index = getSelectionIndex() + 1;
+            list_index = getSelectionIndex() + 2;
         }
 
         if(index < getItemCount()) {
