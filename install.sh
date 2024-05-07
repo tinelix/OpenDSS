@@ -43,5 +43,5 @@ make
 echo
 echo "Build completed!"
 echo
-echo "Run './out/opendss' for testing, 'gdb ./out/opendss' for debug"
+echo "Run './out/opendss' for testing, 'gdb ./out/opendss' + 'r' for debug"
 cd ./out

@@ -1,4 +1,5 @@
 #include "fileman.h"
+#include <cstring>
 #include <curses.h>
 
 FileManager::FileManager(IFileManager *interface) {
@@ -21,15 +22,20 @@ void FileManager::readCurrentDir() {
     if (getcwd(cwd, sizeof(cwd))) {
         gCurrentPath = cwd;
         if ((dir = opendir(cwd)) != NULL) {
-            /* print all the files and directories within directory */
+            /* Print all the files and directories within directory */
             while ((ent = readdir (dir)) != NULL) {
                 if(object_index >= 640) {
                     break;
+                } else if(strcmp(ent->d_name, ".") == 0) {
+                    /* Excludes '.' from the list, since opening this
+                       object returns the same directory. */
+                    continue;
                 }
                 gEnts[object_index] = ent;
                 gInterface->onDirectoryRead(ent, object_index);
                 object_index++;
             }
+            gFilesCount = object_index;
             closedir (dir);
         } else {
             gInterface->onError(0, 0);
@@ -46,4 +52,12 @@ dirent* FileManager::getFile(int index) {
 
 int FileManager::getSelectionIndex() {
     return gSelectionIndex;
+}
+
+void FileManager::setSelectionIndex(int index) {
+    gSelectionIndex = index;
+}
+
+long FileManager::getFilesCount() {
+    return gFilesCount;
 }

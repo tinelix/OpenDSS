@@ -7,10 +7,13 @@
 #include <string.h>
 #include <interfaces/pguiman.h>
 
-class ExtWindow : WINDOW {
+#define COLOR_GRAY 244
+
+class ExtWindow {
 public:
-    char title[255];
-    int width, height;
+    char hTitle[255];
+    int hWidth, hHeight;
+    WINDOW* hWnd;
 };
 
 class PseudoGUIManager {
@@ -22,8 +25,11 @@ class PseudoGUIManager {
         void listenKeyboard();
         ExtWindow* createWindow(char* title, int width, int height, bool alignCenter);
         void drawText(ExtWindow *wnd, char* text, int x, int y);
+        void drawListPointer(ExtWindow *pExtWnd, int x, int y, bool isVisible);
     private:
         IPseudoGUIManager *gInterface;
+        ExtWindow    *gWnd;
+        char         gWndTitle[255];
 };
 
 #endif // OPENDSS_UTILS_PGUIMAN_H
