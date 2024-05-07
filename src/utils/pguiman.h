@@ -7,7 +7,8 @@
 #include <string.h>
 #include <interfaces/pguiman.h>
 
-#define COLOR_GRAY 244
+#define COLOR_GRAY 242
+#define COLOR_DEEP_BLACK 16
 
 class ExtWindow {
 public:
