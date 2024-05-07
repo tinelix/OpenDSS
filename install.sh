@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install -y libtls-dev
+su -c "apt install -y libtls-dev"
 
 cd ffmpeg
 ./configure \
@@ -41,5 +41,6 @@ cd ..
 make
 
 echo
-echo "Run ./opendss for testing"
+echo "Build completed!"
+echo "Run './out/opendss' for testing, 'gdb ./out/opendss' for debug"
 cd ./out
