@@ -46,16 +46,7 @@ void FileManager::readCurrentDir() {
 }
 
 dirent* FileManager::getFile(int index) {
-    gSelectionIndex = index;
     return gEnts[index];
-}
-
-int FileManager::getSelectionIndex() {
-    return gSelectionIndex;
-}
-
-void FileManager::setSelectionIndex(int index) {
-    gSelectionIndex = index;
 }
 
 long FileManager::getFilesCount() {

@@ -7,8 +7,10 @@
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 
-#include "utils/fileman.h"
-#include "utils/pguiman.h"
+#include <utils/fileman.h>
+#include <utils/pguiman.h>
+#include <controls/extwnd.h>
+#include <controls/listbox.h>
 
 #include <interfaces/fileman.h>
 #include <interfaces/pguiman.h>
@@ -25,22 +27,27 @@ IOpenDSSFileManager         *gFileManInterface;
 
 class IOpenDSSPseudoGUIManager : IPseudoGUIManager {
     public:
-        void onKeyPressed(char k);
+        void onKeyPressed(char k) {};
+        void onKeyPressed(char k, ExtWindowCtrl *pExtWnd);
 };
 
 IOpenDSSPseudoGUIManager    *gPsGUIManInterface;
 
 PseudoGUIManager            *gPsGuiMan;
 FileManager                 *gFileMan;
-ExtWindow                   *gFileManWnd;
+ExtWindowCtrl               *gFileManWnd;
 
 /* Creates File Manager window and shows directory listing. */
 
 void openFileManager() {
     char wndTitle[] = "File Manager";
     gFileManWnd = gPsGuiMan->createWindow(wndTitle, 0, 0, true);
+    sprintf(gFileManWnd->id, "fm_wnd");
     gFileMan->readCurrentDir();
-    gFileMan->setSelectionIndex(0);
+
+    ListBoxCtrl *mFileListBox = new ListBoxCtrl(gFileManWnd, (int)gFileMan->getFilesCount());
+    mFileListBox->setSelectionIndex(0);
+    gFileManWnd->addControl((UIControl*)mFileListBox);
 }
 
 /* Application main function */
@@ -56,7 +63,7 @@ int main() {
 
     openFileManager();
 
-    gPsGuiMan->listenKeyboard();
+    gPsGuiMan->listenKeyboard(gFileManWnd);
     delete gPsGuiMan;
     return 0;
 }
@@ -82,47 +89,20 @@ void IOpenDSSFileManager::onDirectoryRead(struct dirent* ent, int index) {
 
 /* Handles keyboard pressed keys. */
 
-void IOpenDSSPseudoGUIManager::onKeyPressed(char k) {
+void IOpenDSSPseudoGUIManager::onKeyPressed(char k, ExtWindowCtrl* pExtWnd) {
     if((int)k == 2 || (int)k == 3) {
-        int index = gFileMan->getSelectionIndex();
-
-        if((int)k == 3 && index > 0) { // top arrow key
-            index--;
-        } else if((int)k == 2 && index < gFileMan->getFilesCount()) { // bottom arrow key
-            index++;
+        if(strcmp(pExtWnd->id, "fm_wnd") == 0) {
+            if(gFileManWnd->getControlsSize() > 0) {
+                ((ListBoxCtrl*)gFileManWnd->hCtrls[0])->onKeyPressed(k);
+            }
         }
-
-        int list_index = index + 1;
-        if(index >= 0 && index < gFileMan->getFilesCount()) {
-            gPsGuiMan->drawListPointer(
-                gFileManWnd,
-                2,
-                gFileMan->getSelectionIndex() + 1,
-                false
-            );
-        }
-
-        if(index < gFileMan->getFilesCount()) {
-            gPsGuiMan->drawListPointer(
-                        gFileManWnd,
-                        2,
-                        list_index,
-                        true
-            );
-        }
-
-        if(index <= gFileMan->getFilesCount() - 1) {
-            list_index = index + 1;
-                gFileMan->setSelectionIndex(index);
-        }
+    } else if((int)k == 10) { // ENTER key
+        // TODO: add 'Open File' function implementation
     }
 
-    /* Handles keyboard pressed keys except for the 'q' key
-     *
-     * The 'q' key is responsible for exiting the program.
-     */
-
     if(k != 'q') {
-        gPsGuiMan->listenKeyboard();
+        gPsGuiMan->listenKeyboard(gFileManWnd);
+    } else {
+        delete gFileManWnd;
     }
 }

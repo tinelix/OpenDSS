@@ -6,16 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <interfaces/pguiman.h>
+#include <controls/extwnd.h>
 
 #define COLOR_GRAY 242
 #define COLOR_DEEP_BLACK 16
-
-class ExtWindow {
-public:
-    char hTitle[255];
-    int hWidth, hHeight;
-    WINDOW* hWnd;
-};
 
 class PseudoGUIManager {
     public:
@@ -24,13 +18,13 @@ class PseudoGUIManager {
         ~PseudoGUIManager();
         void showTopVersionInfo();
         void listenKeyboard();
-        ExtWindow* createWindow(char* title, int width, int height, bool alignCenter);
-        void drawText(ExtWindow *wnd, char* text, int x, int y);
-        void drawListPointer(ExtWindow *pExtWnd, int x, int y, bool isVisible);
+        void listenKeyboard(ExtWindowCtrl *pExtWnd);
+        ExtWindowCtrl* createWindow(char* title, int width, int height, bool alignCenter);
+        void drawText(ExtWindowCtrl *wnd, char* text, int x, int y);
     private:
-        IPseudoGUIManager *gInterface;
-        ExtWindow    *gWnd;
-        char         gWndTitle[255];
+        IPseudoGUIManager   *gInterface;
+        ExtWindowCtrl       *gWnd;
+        char                gWndTitle[255];
 };
 
 #endif // OPENDSS_UTILS_PGUIMAN_H

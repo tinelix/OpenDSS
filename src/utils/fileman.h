@@ -4,6 +4,7 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <interfaces/fileman.h>
+#include <controls/listbox.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,9 +14,8 @@ class FileManager {
         ~FileManager();
         void readCurrentDir();
         dirent* getFile(int index);
-        int getSelectionIndex();
-        void setSelectionIndex(int index);
         long getFilesCount();
+
     private:
         IFileManager *gInterface;
         char         *gCurrentPath;

@@ -70,9 +70,14 @@ void PseudoGUIManager::listenKeyboard() {
     gInterface->onKeyPressed(key);
 }
 
+void PseudoGUIManager::listenKeyboard(ExtWindowCtrl *pExtWnd) {
+    key = wgetch(pExtWnd->hWnd);
+    gInterface->onKeyPressed(key, pExtWnd);
+}
+
 /* Draws text in window. */
 
-void PseudoGUIManager::drawText(ExtWindow *pExtWnd, char* text, int x, int y) {
+void PseudoGUIManager::drawText(ExtWindowCtrl *pExtWnd, char* text, int x, int y) {
     move(y, 0);
     wclrtoeol(pExtWnd->hWnd);                   // <-- clearing line (including window vetical borders)
     mvwprintw(pExtWnd->hWnd, y, x, "%s", text); // <-- overwrite line
@@ -91,23 +96,10 @@ void PseudoGUIManager::drawText(ExtWindow *pExtWnd, char* text, int x, int y) {
     wrefresh(pExtWnd->hWnd);
 }
 
-void PseudoGUIManager::drawListPointer(ExtWindow *pExtWnd, int x, int y, bool isVisible) {
-    if(isVisible) {
-        mvwaddch(pExtWnd->hWnd, y, x, '*');  // Adds a star pointer to the specified position
-        mvwchgat(pExtWnd->hWnd, y, x, pExtWnd->hWidth - 4, A_BOLD, 1, NULL);
-    } else {
-        mvwaddch(pExtWnd->hWnd, y, x, ' ');  // Removes a star pointer to the specified position
-        mvwchgat(pExtWnd->hWnd, y, x, pExtWnd->hWidth - 4, A_NORMAL, 2, NULL);
-    }
-
-    wrefresh(pExtWnd->hWnd);
-}
-
-
 /* Create window area with titlebar. */
 
-ExtWindow* PseudoGUIManager::createWindow(char* title, int width, int height, bool alignCenter) {
-    ExtWindow *pExtWnd = new ExtWindow();
+ExtWindowCtrl* PseudoGUIManager::createWindow(char* title, int width, int height, bool alignCenter) {
+    ExtWindowCtrl *pExtWnd = new ExtWindowCtrl();
 
     /*                       int     int   int int
      * WINDOW* wnd = newwin(height, width,  y , x ) <-- creates new window inside console screen
@@ -144,6 +136,8 @@ ExtWindow* PseudoGUIManager::createWindow(char* title, int width, int height, bo
     );
 
     wbkgd(pExtWnd->hWnd, COLOR_PAIR(2));
+
+    keypad(pExtWnd->hWnd, true);
 
     wrefresh(pExtWnd->hWnd);
     return pExtWnd;
