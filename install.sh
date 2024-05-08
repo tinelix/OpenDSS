@@ -2,7 +2,7 @@
 
 su -c "apt install -y libtls-dev"
 
-cd ffmpeg
+cd libs/ffmpeg
 ./configure \
     --prefix=../out/ffmpeg \
     --enable-version3 \
@@ -37,7 +37,7 @@ cd ffmpeg
 
 make -j8 && make install
 
-cd ..
+cd ../..
 make
 
 echo

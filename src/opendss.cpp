@@ -18,7 +18,7 @@
 #include "interfaces/fileman.h"
 #include "interfaces/pguiman.h"
 
-#define MAX_FILENAME_LENGTH 24
+#define MAX_FILENAME_LENGTH 32
 
 class IOpenDSSFileManager : IFileManager {
     public:
@@ -114,7 +114,7 @@ void IOpenDSSFileManager::onDirectoryRead(dirent** ents) {
             mvwprintw(
                 gFileManWnd->hWnd,
                 i + mFileListBox->hY,
-                MAX_FILENAME_LENGTH + 6,
+                MAX_FILENAME_LENGTH,
                 "0:00:00.000"
             );
         }
