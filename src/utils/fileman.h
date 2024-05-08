@@ -13,12 +13,14 @@ class FileManager {
         FileManager(IFileManager *interface);
         ~FileManager();
         void readCurrentDir();
+        void readDir(char* pDirPath);
         dirent* getFile(int index);
         long getFilesCount();
+        char* getCurrentPath();
 
     private:
         IFileManager *gInterface;
-        char         *gCurrentPath;
+        char         gCurrentPath[255];
         int          gSelectionIndex;
         dirent       **gEnts;
         long         gFilesCount;

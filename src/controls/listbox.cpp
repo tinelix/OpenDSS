@@ -20,9 +20,16 @@ int ListBoxCtrl::getItemCount() {
     return gItemCount;
 }
 
+void ListBoxCtrl::setItemCount(int count) {
+    gItemCount = count;
+}
+
 void ListBoxCtrl::onKeyPressed(char k) {
     if((int)k == 2 || (int)k == 3) {
         int index = getSelectionIndex();
+        if(index >= hHeight) {
+            index = -1;
+        }
 
         if((int)k == 3 && index > 0) { // top arrow key
             index--;
@@ -30,10 +37,10 @@ void ListBoxCtrl::onKeyPressed(char k) {
             index++;
         }
 
-        int list_index = getSelectionIndex() + 2;
+        int list_index = getSelectionIndex() + hY;
         if(index >= 0 && index < getItemCount()) {
             drawListPointer(
-                2,
+                hX,
                 list_index,
                 false
             );
@@ -41,12 +48,12 @@ void ListBoxCtrl::onKeyPressed(char k) {
 
         if(index <= getItemCount() - 1) {
             setSelectionIndex(index);
-            list_index = getSelectionIndex() + 2;
+            list_index = getSelectionIndex() + hY;
         }
 
         if(index < getItemCount()) {
             drawListPointer(
-                        2,
+                        hX,
                         list_index,
                         true
             );

@@ -78,6 +78,9 @@ void PseudoGUIManager::listenKeyboard(ExtWindowCtrl *pExtWnd) {
 /* Draws text in window. */
 
 void PseudoGUIManager::drawText(ExtWindowCtrl *pExtWnd, char* text, int x, int y) {
+    if(y > pExtWnd->hHeight - 20)
+        return;
+
     move(y, 0);
     wclrtoeol(pExtWnd->hWnd);                   // <-- clearing line (including window vetical borders)
     mvwprintw(pExtWnd->hWnd, y, x, "%s", text); // <-- overwrite line
@@ -106,19 +109,19 @@ ExtWindowCtrl* PseudoGUIManager::createWindow(char* title, int width, int height
      */
 
     if(alignCenter) {
-        if(width < gActiveWidth) {
+        if(width > gActiveWidth) {
             width = gActiveWidth - 6;
-        } else if(width == 0) {
-            width = gActiveWidth;
+        } else if(width <= 0) {
+            width = gActiveWidth + width;
         }
 
-        if(height < gActiveHeight) {
+        if(height > gActiveHeight) {
             height = gActiveHeight - 6;
-        } else {
-            height = gActiveHeight - 1;
+        } else if (height <= 0){
+            height = gActiveHeight + height - 1;
         }
 
-        pExtWnd->hWnd = newwin(height, width, ((gActiveHeight - height) / 2 + 1), (gActiveWidth - width) / 2);
+        pExtWnd->hWnd = newwin(height, width, ((gActiveHeight - height) / 2) + 1, (gActiveWidth - width) / 2);
     } else {
         pExtWnd->hWnd = newwin(height, width, 1, 0);
     }
@@ -141,6 +144,17 @@ ExtWindowCtrl* PseudoGUIManager::createWindow(char* title, int width, int height
 
     wrefresh(pExtWnd->hWnd);
     return pExtWnd;
+}
+
+void PseudoGUIManager::clearWindow(ExtWindowCtrl* pExtWnd) {
+    wclear(pExtWnd->hWnd);
+    box(pExtWnd->hWnd, 0, 0);                   // <-- draw window borders
+    mvwprintw(                                  // <-- draw window text in top border area
+        pExtWnd->hWnd,
+        0, (pExtWnd->hWidth - strlen(pExtWnd->hTitle)) / 2,
+        "\u2524 %s \u251c", pExtWnd->hTitle
+    );
+    wrefresh(pExtWnd->hWnd);
 }
 
 /* Freeing ncurses:

@@ -8,6 +8,7 @@
 class ExtString {
     public:
         static int strcut(char *str, int begin, int len);
+        static int strendq(const char *str, const char *suffix);
 };
 
 #endif

@@ -15,13 +15,21 @@ FileManager::~FileManager() {
 /* Reads working directory and shows listing */
 
 void FileManager::readCurrentDir() {
-    int object_index = 0;
     char cwd[255];
+    if(getcwd(cwd, sizeof(cwd)) != NULL) {
+        readDir(cwd);
+    } else
+        gInterface->onError(0, 1);
+}
+
+void FileManager::readDir(char* pDirPath) {
+    int object_index = 0;
     DIR *dir;
     struct dirent *ent;
-    if (getcwd(cwd, sizeof(cwd))) {
-        gCurrentPath = cwd;
-        if ((dir = opendir(cwd)) != NULL) {
+    if (pDirPath) {
+        sprintf(gCurrentPath, "%s", pDirPath);
+        if ((dir = opendir(pDirPath)) != NULL) {    // if this directory exist
+            gInterface->onResult(0, 1);
             /* Print all the files and directories within directory */
             while ((ent = readdir (dir)) != NULL) {
                 if(object_index >= 640) {
@@ -38,10 +46,10 @@ void FileManager::readCurrentDir() {
             gFilesCount = object_index;
             closedir (dir);
         } else {
-            gInterface->onError(0, 0);
+            gInterface->onError(0, 2);
         }
     } else {
-        gInterface->onError(0, 0);
+        gInterface->onError(0, 1);
     }
 }
 
@@ -51,4 +59,8 @@ dirent* FileManager::getFile(int index) {
 
 long FileManager::getFilesCount() {
     return gFilesCount;
+}
+
+char* FileManager::getCurrentPath() {
+    return gCurrentPath;
 }

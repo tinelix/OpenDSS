@@ -5,6 +5,7 @@ class UIControl {
     public:
         char hId[60];
         int hType;
+        int hX, hY, hWidth, hHeight;
 };
 
 #endif

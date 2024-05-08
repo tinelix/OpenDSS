@@ -2,7 +2,7 @@
 #define OPENDSS_CONTROLS_EXTWND_H
 
 #include <ncurses.h>
-#include <utils/uictrl.h>
+#include "../utils/uictrl.h"
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,8 +1,8 @@
 #ifndef OPENDSS_CONTROLS_LISTBOX_H
 #define OPENDSS_CONTROLS_LISTBOX_H
 
-#include <controls/extwnd.h>
-#include <utils/uictrl.h>
+#include "extwnd.h"
+#include "../utils/uictrl.h"
 #include <ncurses.h>
 
 class ListBoxCtrl : UIControl {
@@ -13,9 +13,12 @@ class ListBoxCtrl : UIControl {
         void onKeyPressed(char k);
         void drawListPointer(int x, int y, bool isVisible);
         int getItemCount();
-    private:
-        int gSelectionIndex, gItemCount;
+        void setItemCount(int count);
+        int hX, hY, hWidth, hHeight;
+    protected:
         ExtWindowCtrl* gParent;
+        int gSelectionIndex, gItemCount;
+
 };
 
 #endif
