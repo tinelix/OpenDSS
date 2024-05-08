@@ -27,8 +27,9 @@ void FileManager::readDir(char* pDirPath) {
     DIR *dir;
     struct dirent *ent;
     if (pDirPath) {
-        sprintf(gCurrentPath, "%s", pDirPath);
         if ((dir = opendir(pDirPath)) != NULL) {    // if this directory exist
+            sprintf(gCurrentPath, "%s", pDirPath);
+            object_index = 0;
             gInterface->onResult(0, 1);
             /* Print all the files and directories within directory */
             while ((ent = readdir (dir)) != NULL) {
@@ -40,10 +41,10 @@ void FileManager::readDir(char* pDirPath) {
                     continue;
                 }
                 gEnts[object_index] = ent;
-                gInterface->onDirectoryRead(ent, object_index);
                 object_index++;
             }
             gFilesCount = object_index;
+            gInterface->onDirectoryRead(gEnts);
             closedir (dir);
         } else {
             gInterface->onError(0, 2);

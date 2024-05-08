@@ -9,7 +9,7 @@ class IFileManager {
         virtual ~IFileManager() {};
         virtual void onError(int cmdId, int errorCode) = 0;
         virtual void onResult(int cmdId, int resultCode) = 0;
-        virtual void onDirectoryRead(struct dirent* ent, int index) = 0;
+        virtual void onDirectoryRead(dirent** ents) = 0;
 };
 
 #endif

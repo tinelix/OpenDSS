@@ -1,7 +1,7 @@
 #include "extwnd.h"
 
 ExtWindowCtrl::ExtWindowCtrl() {
-    hCtrls = (UIControl**)malloc(sizeof(UIControl*) * 255);
+    hCtrls = (UIControl**)malloc(sizeof(UIControl) * 255);
 }
 
 ExtWindowCtrl::~ExtWindowCtrl() {
