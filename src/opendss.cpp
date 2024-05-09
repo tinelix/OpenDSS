@@ -8,6 +8,7 @@
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 
+#include "utils/audtags.h"
 #include "utils/fileman.h"
 #include "utils/pguiman.h"
 #include "utils/extstr.h"
@@ -86,6 +87,20 @@ void IOpenDSSFileManager::onResult(int cmdId, int resultCode) {
     }
 }
 
+void readTagsFromFile(char* path, int y) {
+    AudioTager *pTagger = new AudioTager();
+    AudioTags *data = pTagger->readTags(path);
+    if(data) {
+        mvwprintw(
+                gFileManWnd->hWnd,
+                y,
+                MAX_FILENAME_LENGTH + 14,
+                "%s - %s",
+                data->artist, data->title
+        );
+    }
+}
+
 /* Handles File Manager directory list. */
 
 void IOpenDSSFileManager::onDirectoryRead(dirent** ents) {
@@ -120,6 +135,7 @@ void IOpenDSSFileManager::onDirectoryRead(dirent** ents) {
                 MAX_FILENAME_LENGTH,
                 "0:00:00.000"
             );
+            readTagsFromFile(full_fname, i + mFileListBox->hY);
         }
         mFileListBox->addListItem(i, item);
     }
