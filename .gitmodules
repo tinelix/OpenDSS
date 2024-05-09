@@ -1,6 +1,0 @@
-[submodule "libs/ffmpeg"]
-	path = libs/ffmpeg
-	url = https://github.com/ffmpeg/ffmpeg.git
-[submodule "libs/id3v2lib"]
-	path = libs/id3v2lib
-	url = https://github.com/larsbs/id3v2lib.git

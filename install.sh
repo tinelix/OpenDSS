@@ -37,6 +37,9 @@ cd libs/ffmpeg
 
 make -j8 && make install
 
+cd libs/id3v2lib
+make
+
 cd ../..
 make
 

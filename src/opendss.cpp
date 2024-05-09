@@ -40,6 +40,7 @@ IOpenDSSPseudoGUIManager    *gPsGUIManInterface;
 PseudoGUIManager            *gPsGuiMan;
 FileManager                 *gFileMan;
 ExtWindowCtrl               *gFileManWnd;
+//AudioTager                  *gAudioTager;
 
 /* Creates File Manager window and shows directory listing. */
 
@@ -111,6 +112,8 @@ void IOpenDSSFileManager::onDirectoryRead(dirent** ents) {
         }
         if(i <= mFileListBox->hHeight
             && ExtString::strendq(ents[i]->d_name, ".mp3"))  {
+            char full_fname[600];
+            sprintf(full_fname, "%s/%s", gFileMan->getCurrentPath(), ents[i]->d_name);
             mvwprintw(
                 gFileManWnd->hWnd,
                 i + mFileListBox->hY,

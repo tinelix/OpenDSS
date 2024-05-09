@@ -10,7 +10,8 @@ OUT_DIR=out
 # Libraries
 FFH_DIRS	= -I./out/ffmpeg/include
 FFL_DIRS	= -L./out/ffmpeg/lib
-LIBS		= $(FFH_DIRS) $(FFL_DIRS)
+
+LIBS		= $(FFH_DIRS) $(FFL_DIRS) $(ID3V2H_DIRS) $(ID3V2L_DIRS)
 EXT_INCLUDES	= -I./src
 POSTLIBS	= -lncursesw $(EXT_INCLUDES) -lstdc++
 
