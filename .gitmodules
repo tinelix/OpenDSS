@@ -1,0 +1,6 @@
+[submodule "libs/id3v2"]
+	path = libs/id3v2
+	url = https://github.com/larsbs/id3v2lib
+[submodule "libs/libid3"]
+	path = libs/libid3
+	url = https://github.com/vzxwco/libid3
