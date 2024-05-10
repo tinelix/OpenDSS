@@ -1,5 +1,10 @@
 # Compiler (GCC by default)
 CC=gcc
+
+ifeq ($(OSTYPE), "msys")
+	CC=mingw-w64-x86_64-gcc
+endif
+
 CC_FLAGS=-g -std=c++98 -Wall -Wl,-O1 -pipe -O2 -flto=2 \
 	 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
 
