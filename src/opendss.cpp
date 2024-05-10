@@ -1,4 +1,11 @@
-#include <ncurses.h>
+#ifdef __MINGW64__
+    #include <ncurses/ncurses.h>
+    #include <nstddef.h>
+    #include <sys/stat.h>
+#else
+    #include <ncurses.h>
+#endif
+
 #include <stdio.h>                  // Linking standard C functions
 #include <dirent.h>
 #include <unistd.h>
@@ -155,14 +162,23 @@ void IOpenDSSPseudoGUIManager::onKeyPressed(char k, ExtWindowCtrl* pExtWnd) {
         }
     } else if((int)k == 10) { // ENTER key
         ListBoxCtrl* mFileListBox = ((ListBoxCtrl*)gFileManWnd->hCtrls[0]);
+        char fname[255];
         dirent* ent = gFileMan->getFile(
             mFileListBox->getSelectionIndex()
         );
-        char fname[255];
         sprintf(fname, "%s/%s", gFileMan->getCurrentPath(), ent->d_name);
-        if(ent->d_type == 4) { // if it's directory
-            gFileMan->readDir(fname);
-        }
+        #ifdef __MINGW64__
+            struct stat s;
+            stat(fname, &s);
+            if (s.st_mode & S_IFDIR) {
+                gFileMan->readDir(fname);
+            }
+        #else
+            if(ent->d_type == 4) { // if it's directory
+                gFileMan->readDir(fname);
+            }
+        #endif
+
     }
 
     if(k != 'q') {

@@ -1,6 +1,5 @@
 #include "fileman.h"
 #include <cstring>
-#include <curses.h>
 
 FileManager::FileManager(IFileManager *interface) {
     gInterface = interface;

@@ -4,7 +4,12 @@
 #include "extwnd.h"
 #include "../utils/uictrl.h"
 #include "../utils/extstr.h"
-#include <ncurses.h>
+
+#ifdef __MINGW64__
+    #include <ncurses/ncurses.h>
+#else
+    #include <ncurses.h>
+#endif
 
 struct ListItem {
     char title[128];

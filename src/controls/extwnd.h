@@ -1,7 +1,12 @@
 #ifndef OPENDSS_CONTROLS_EXTWND_H
 #define OPENDSS_CONTROLS_EXTWND_H
 
-#include <ncurses.h>
+#ifdef __MINGW64__
+    #include <ncurses/ncurses.h>
+#else
+    #include <ncurses.h>
+#endif
+
 #include "../utils/uictrl.h"
 #include <stdio.h>
 #include <stdlib.h>

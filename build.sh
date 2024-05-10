@@ -8,11 +8,11 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     echo "Your OS: GNU/Linux"
     echo
     FFMPEG_FLAGS+="--enable-libtls"
-    if [ -x "apt" ]; then                                      # <-- for Ubuntu/Debian/derivatives
+    if [ -z apt ]; then                                      # <-- for Ubuntu/Debian/derivatives
         su -c "apt install -y libtls-dev libncurses-dev"
-    elif [ -x "yum" ]; then                                    # <-- for Fedora/CentOS/AltLinux/derivatives
+    elif [ -z yum ]; then                                    # <-- for Fedora/CentOS/AltLinux/derivatives
         su -c "yum install libressl-devel ncurses-devel"
-    elif [ -x "pacman" ]; then                                 # <-- for Arch/Artix/Manjaro/derivatives
+    elif [ -z pacman ]; then                                 # <-- for Arch/Artix/Manjaro/derivatives
         su -c "pacman -S libressl ncurses"
     else
         echo "ERROR: Your package manager is not supported"
@@ -23,7 +23,7 @@ elif [ $OSTYPE == "cygwin" ]; then
     echo "Your OS: Cygwin/Windows"
     echo
     FFMPEG_FLAGS+="--enable-gnutls"
-    if [ -x apt-cyg ]; then
+    if [ -z apt-cyg ]; then
         apt-cyg install gnutls-devel libncursesw-devel
     else
         echo "ERROR: 'apt-cyg' not found"
@@ -33,13 +33,12 @@ elif [ $OSTYPE == "cygwin" ]; then
         "in the Cygwin installer"
         echo "* Download 'apt-cyg' package manager from" \
         "https://github.com/transcode-open/apt-cyg"
-        echo
         exit 1
     fi
 elif [[ $OSTYPE == "msys" ]]; then
     echo "Your OS: MSYS2/Windows"
     echo
-    FFMPEG_FLAGS+="--enable-gnutls"
+    FFMPEG_FLAGS+=" --enable-gnutls "
     pacman -S mingw-w64-{i686,x86_64}-gnutls mingw-w64-{i686,x86_64}-ncurses
 else
     echo "ERROR: Your OS is not supported"

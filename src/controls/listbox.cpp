@@ -1,6 +1,5 @@
 #include "listbox.h"
 #include <cstring>
-#include <curses.h>
 
 ListBoxCtrl::ListBoxCtrl(ExtWindowCtrl* pParent, int pItemCount) {
     gParent = pParent;

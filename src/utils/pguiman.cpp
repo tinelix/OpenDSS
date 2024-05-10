@@ -1,5 +1,4 @@
 #include "pguiman.h"
-#include <curses.h>
 #include <locale.h>
 
 char key;

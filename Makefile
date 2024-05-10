@@ -18,7 +18,7 @@ FFH_DIRS	= -I./out/ffmpeg/include
 FFL_DIRS	= -L./out/ffmpeg/lib
 ID3_SRC=libs/libid3/src
 
-LIBS		= $(FFH_DIRS) $(FFL_DIRS)
+LIBS			= $(FFH_DIRS) $(FFL_DIRS)
 EXT_INCLUDES	= -I./src
 POSTLIBS	= -lncursesw $(EXT_INCLUDES) -lstdc++
 
