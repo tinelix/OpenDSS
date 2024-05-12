@@ -23,7 +23,7 @@ EXT_INCLUDES	= -I./src
 POSTLIBS	= -lncursesw $(EXT_INCLUDES) -lstdc++
 
 # Source codes
-SOURCES=$(SRC_DIR)/*.cpp $(SRC_DIR)/utils/*.cpp $(SRC_DIR)/controls/*.cpp $(ID3_SRC)/id3.cpp
+SOURCES=$(SRC_DIR)/*.cpp $(SRC_DIR)/utils/*.cpp $(SRC_DIR)/controls/*.cpp $(ID3_SRC)/*.cpp
 OUT_FILE=$(OUT_DIR)/opendss
 
 # Clean files function

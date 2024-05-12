@@ -101,7 +101,7 @@ void readTagsFromFile(char* path, int y) {
         mvwprintw(
                 gFileManWnd->hWnd,
                 y,
-                MAX_FILENAME_LENGTH + 14,
+                MAX_FILENAME_LENGTH + 19,
                 "%s - %s",
                 data->artist, data->title
         );
@@ -139,7 +139,7 @@ void IOpenDSSFileManager::onDirectoryRead(dirent** ents) {
             mvwprintw(
                 gFileManWnd->hWnd,
                 i + mFileListBox->hY,
-                MAX_FILENAME_LENGTH,
+                MAX_FILENAME_LENGTH + 6,
                 "0:00:00.000"
             );
             readTagsFromFile(full_fname, i + mFileListBox->hY);

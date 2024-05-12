@@ -7,12 +7,12 @@ FFMPEG_FLAGS=""
 if [[ $OSTYPE == "linux-gnu" ]]; then
     echo "Your OS: GNU/Linux"
     echo
-    FFMPEG_FLAGS+="--enable-libtls"
-    if [ -z apt ]; then                                      # <-- for Ubuntu/Debian/derivatives
+    FFMPEG_FLAGS+=" --enable-libtls "
+    if [ -x "$(command -v apt)" ]; then                                      # <-- for Ubuntu/Debian/derivatives
         su -c "apt install -y libtls-dev libncurses-dev"
-    elif [ -z yum ]; then                                    # <-- for Fedora/CentOS/AltLinux/derivatives
+    elif [ -x "$(command -v yum)" ]; then                                    # <-- for Fedora/CentOS/AltLinux/derivatives
         su -c "yum install libressl-devel ncurses-devel"
-    elif [ -z pacman ]; then                                 # <-- for Arch/Artix/Manjaro/derivatives
+    elif [ -x "$(command -v pacman)" ]; then                                 # <-- for Arch/Artix/Manjaro/derivatives
         su -c "pacman -S libressl ncurses"
     else
         echo "ERROR: Your package manager is not supported"
@@ -22,8 +22,8 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
 elif [ $OSTYPE == "cygwin" ]; then
     echo "Your OS: Cygwin/Windows"
     echo
-    FFMPEG_FLAGS+="--enable-gnutls"
-    if [ -z apt-cyg ]; then
+    FFMPEG_FLAGS+=" --enable-gnutls "
+    if [ -x "$(command -v apt-cyg)"]; then
         apt-cyg install gnutls-devel libncursesw-devel
     else
         echo "ERROR: 'apt-cyg' not found"
@@ -48,7 +48,7 @@ fi
 
 cd libs/ffmpeg
 
-FFMPEG_FLAGS+="--prefix=../out/ffmpeg \
+FFMPEG_FLAGS+="--prefix=../../out/ffmpeg \
     --enable-version3 \
     --disable-nonfree \
     --enable-avcodec \

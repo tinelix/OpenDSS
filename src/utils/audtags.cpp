@@ -14,7 +14,7 @@ struct AudioTags* AudioTager::readTags(char* path) {
     ID3_Tags* id3_tags = new ID3_Tags();
 
     // Read data from the tag
-    id3->id3_read(path, id3_tags);
+    id3->id3_read(path, id3_tags, ID3_V2);
 
     sprintf(tags->artist, "%s", id3_tags->artist);
     sprintf(tags->title, "%s", id3_tags->title);

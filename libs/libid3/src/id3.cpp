@@ -1,4 +1,5 @@
 /*  Copyright (c) 2006-2014, Philip Busch <vzxwco@gmail.com>
+ *  Copyright (c) 2024, Dmitry Tretyakov <tinelix@mail.ru>
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -23,29 +24,27 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <cstdio>
 #include <cstring>
 #include <assert.h>
+#include "hexarr.h"
 #include "id3.h"
 
-int ID3::id3_read(const char *path, ID3_Tags *id3)
+int ID3::id3_read(const char *path, ID3_Tags *id3, int id3ver)
 {
-	char tmp[TAG_LENGTH];
+	char* tmp;
 
-	if(id3_read_tag(path, tmp) < 0)
-	        return(-1);
-
-	if(id3_check_tag(tmp) < 0)
-	        return(-1);
-
-	if(id3_extract_info(tmp, id3) < 0)
+	if(id3_read_tag(path, tmp, id3, id3ver) < 0)
 	        return(-1);
 
 	id3_normalize_info(id3);
 
+	free(tmp);
+
 	return(0);
 }
 
-int ID3::id3_write(const char *path, ID3_Tags *id3)
+int ID3::id3_write(const char *path, ID3_Tags *id3, int id3ver)
 {
 	ID3_Tags tmp;
 	FILE *fp;
@@ -53,15 +52,15 @@ int ID3::id3_write(const char *path, ID3_Tags *id3)
 	if((fp = fopen(path, "r+")) == NULL)
 	        return(-1);
 
-	if(id3_read(path, &tmp) == 0) {
-		if(fseek(fp, -1 * TAG_LENGTH, SEEK_END) == -1)
+	if(id3_read(path, &tmp, id3ver) == 0) {
+		if(fseek(fp, -1 * gTagLength, SEEK_END) == -1)
 		        return(-1);
 	} else {
 		if(fseek(fp, 0, SEEK_END) == -1)
 		        return(-1);
 	}
 
-        id3_write_tag(fp, id3);
+	id3_write_tag(fp, id3);
 
 	fclose(fp);
 
@@ -85,23 +84,52 @@ void ID3::id3_print(ID3_Tags *id3)
 	printf("Track..: %d\n", id3->track);
 }
 
-int ID3::id3_read_tag(const char *path, char *tag)
+int ID3::id3_read_tag(const char *path, char *tag, ID3_Tags *id3, int id3ver)
 {
+	unsigned char header[10];
 	FILE *fp;
 	int i;
 
-
 	if((fp = fopen(path, "r")) == NULL)
-	        return(-1);
+		return(-1);
 
-	if(fseek(fp, -1 * TAG_LENGTH, SEEK_END) == -1)
-	        return(-1);
+	if(id3ver == ID3_V1) { // ID3v1, ID3v2 or ID3v3?
+		if(fseek(fp, -1 * ID3_V1_TAG_LENGTH, SEEK_END) == -1)
+			return(-1);
 
-	for(i = 0; i < TAG_LENGTH; i++) {
+		gTagLength = ID3_V1_TAG_LENGTH;
+	} else {
+		if(fseek(fp, 0, SEEK_SET) == -1)
+			return(-1);
+	}
+
+	for(i = 0; i < 10; i++) {
+		header[i] = fgetc(fp);
+	}
+
+	if(id3ver == ID3_V2) {
+		gTagLength = HexCharArray::toDec(header, 4, 6);
+	}
+
+	tag = new char[gTagLength];
+
+	if(id3ver == ID3_V2) {
+		if(fseek(fp, 12, SEEK_SET) == -1)
+			return(-1);
+	}
+
+	for(i = 0; i < gTagLength; i++) {
 		tag[i] = fgetc(fp);
 	}
 
 	fclose(fp);
+
+	if(id3_check_header(header, id3ver) < 0) {
+		return(-1);
+	}
+
+	if(id3_extract_info(tag, id3, id3ver) < 0)
+		return(-1);
 
 	return(0);
 }
@@ -112,11 +140,11 @@ int ID3::id3_write_tag(FILE *fp, ID3_Tags *id3)
 	assert(id3 != NULL);
 
 	fprintf(fp, "TAG");
-	ID3::write_with_padding(fp, id3->title, SIZE_INFO);
-	ID3::write_with_padding(fp, id3->artist, SIZE_INFO);
-	ID3::write_with_padding(fp, id3->album, SIZE_INFO);
+	ID3::write_with_padding(fp, id3->title, ID3_V1_SIZE_INFO);
+	ID3::write_with_padding(fp, id3->artist, ID3_V1_SIZE_INFO);
+	ID3::write_with_padding(fp, id3->album, ID3_V1_SIZE_INFO);
 	ID3::write_with_padding(fp, id3->year, SIZE_YEAR);
-	ID3::write_with_padding(fp, id3->comment, SIZE_INFO);
+	ID3::write_with_padding(fp, id3->comment, ID3_V1_SIZE_INFO);
 
 	if(id3->track != 0) {
 		fseek(fp, -1, SEEK_CUR);
@@ -128,36 +156,83 @@ int ID3::id3_write_tag(FILE *fp, ID3_Tags *id3)
 	return(0);
 }
 
-int ID3::id3_check_tag(const char *tag)
+int ID3::id3_check_header(unsigned char *header, int id3ver)
 {
-	assert(tag != NULL);
+	assert(header != NULL);
 
-	if((tag[0] != 'T') || (tag[1] != 'A') || (tag[2] != 'G'))
+	if(id3ver == ID3_V1) { // ID3v1, ID3v2 or ID3v3?
+		if((header[0] != 'T') || (header[1] != 'A') || (header[2] != 'G'))
 	        return(-1);
+		gTagLength = ID3_V1_TAG_LENGTH;
+	} else {
+		if((header[0] != 'I') || (header[1] != 'D') || (header[2] != '3'))
+	        return(-1);
+
+		// Getting ID3 version
+		gID3ver[0] = header[3];
+		gID3ver[1] = header[4];
+
+		gTagLength = HexCharArray::toDec(header, 4, 6);
+	}
 
 	return(0);
 }
 
 
-int ID3::id3_extract_info(const char *tag, ID3_Tags *id3)
+int ID3::id3_extract_info(char *tag, ID3_Tags *id3, int id3ver)
 {
 	assert(tag != NULL);
 	assert(id3 != NULL);
 
-	memcpy(id3->title,   tag + OFFSET_TITLE,   SIZE_INFO);
-	memcpy(id3->artist,  tag + OFFSET_ARTIST,  SIZE_INFO);
-	memcpy(id3->album,   tag + OFFSET_ALBUM,   SIZE_INFO);
-	memcpy(id3->year,    tag + OFFSET_YEAR,    SIZE_YEAR);
-	memcpy(id3->comment, tag + OFFSET_COMMENT, SIZE_INFO);
+	if(id3ver == ID3_V1) {
+		memcpy(id3->title,   tag + ID3_V1_OFFSET_TITLE,   ID3_V1_SIZE_INFO);
+		memcpy(id3->artist,  tag + ID3_V1_OFFSET_ARTIST,  ID3_V1_SIZE_INFO);
+		memcpy(id3->album,   tag + ID3_V1_OFFSET_ALBUM,   ID3_V1_SIZE_INFO);
+		memcpy(id3->year,    tag + ID3_V1_OFFSET_YEAR,    SIZE_YEAR);
+		memcpy(id3->comment, tag + ID3_V1_OFFSET_COMMENT, ID3_V1_SIZE_INFO);
 
-	id3->track = (tag[OFFSET_TRACK] == '\0')?0:tag[OFFSET_TRACK];
-	id3->genre = tag[OFFSET_GENRE];
+		id3->track = (tag[ID3_V1_OFFSET_TRACK] == '\0')?0:tag[ID3_V1_OFFSET_TRACK];
+		id3->genre = tag[ID3_V1_OFFSET_GENRE];
 
-	id3->title[30]   = '\0';
-	id3->artist[30]  = '\0';
-	id3->album[30]   = '\0';
-	id3->year[4]     = '\0';
-	id3->comment[30] = '\0';
+		id3->title[30]   = '\0';
+		id3->artist[30]  = '\0';
+		id3->album[30]   = '\0';
+		id3->year[4]     = '\0';
+		id3->comment[30] = '\0';
+	} else {
+
+		memcpy(id3->year,    tag + ID3_V2_OFFSET_YEAR,    SIZE_YEAR);
+
+		id3->track = (tag[ID3_V2_OFFSET_TRACK] == '\0')?0:tag[ID3_V2_OFFSET_TRACK];
+		id3->genre = tag[ID3_V2_OFFSET_GENRE];
+
+		int tagOffset = ID3_V2_OFFSET_TITLE;
+		int tagArtistOffset = ID3_V2_OFFSET_TITLE;
+		int tagAlbumOffset = ID3_V2_OFFSET_TITLE;
+		int tagCommentOffset = ID3_V2_OFFSET_TITLE;
+		int tagTrackOffset = ID3_V2_OFFSET_TITLE;
+
+		memcpy(id3->title, tag + ID3_V2_OFFSET_TITLE, ID3_V2_SIZE_INFO);
+
+		for(int i; i < ID3_V2_SIZE_INFO; i++) {
+
+			if(id3->title[i] == 'T' && id3->title[i + 1] == 'P'
+				&& id3->title[i + 2] == 'E' && id3->title[i + 3] == '1') {
+					id3->title[i] = '\0';
+				tagArtistOffset += strlen(id3->title) + 11;
+				tagOffset = tagArtistOffset;
+				memcpy(id3->artist, tag + tagOffset, ID3_V2_SIZE_INFO);
+			}
+
+			if(tag[i] == 'T' && tag[i + 1] == 'A'
+				&& tag[i + 2] == 'L' && tag[i + 3] == 'B') {
+				tagAlbumOffset += i + 2;
+				id3->artist[i - tagOffset] = '\0';
+				tagOffset = tagAlbumOffset;
+				memcpy(id3->album, tag + tagOffset, ID3_V2_SIZE_INFO);
+			}
+		}
+	}
 
 	return(0);
 }
@@ -215,3 +290,20 @@ void ID3::write_with_padding(FILE *fp, const char *str, size_t len)
 		fprintf(fp, "%c", '\0');
 	}
 }
+
+// int main()
+// {
+// 	ID3* id3 = new ID3();
+// 	struct ID3_Tags tmp;
+//
+// 	char path[256];
+//
+// 	printf("Type a MP3 file path: ");
+// 	scanf("%255[^\n]", path);
+// 	printf("\r\n");
+//
+// 	id3->id3_read(path, &tmp, ID3_V2);
+// 	id3->id3_print(&tmp);
+//
+// 	return(0);
+// }
