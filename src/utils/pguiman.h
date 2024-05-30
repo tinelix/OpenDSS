@@ -12,21 +12,27 @@
 #include <string.h>
 #include "../interfaces/pguiman.h"
 #include "../controls/extwnd.h"
+#include <locale.h>
 
-#define COLOR_GRAY 242
-#define COLOR_DEEP_BLACK 16
+#define COLOR_LIGHT_WHITE  255
+#define COLOR_GRAY         240
+#define COLOR_DARK_GRAY    235
+#define COLOR_DARK_GREEN    28
+#define COLOR_DEEP_BLACK    16
+#define COLOR_LIGHT_RED     82
+#define COLOR_LIGHT_GREEN   47
 
 class PseudoGUIManager {
     public:
-        int gActiveWidth, gActiveHeight;
         PseudoGUIManager(IPseudoGUIManager *interface);
         ~PseudoGUIManager();
         void showTopVersionInfo();
         void listenKeyboard();
         void listenKeyboard(ExtWindowCtrl *pExtWnd);
-        ExtWindowCtrl* createWindow(char* title, int width, int height, bool alignCenter);
+        ExtWindowCtrl* createWindow(char* id, char* title, int width, int height, bool alignCenter);
         void clearWindow(ExtWindowCtrl* pExtWnd);
         void drawText(ExtWindowCtrl *wnd, char* text, int x, int y);
+        int gActiveWidth, gActiveHeight;
     private:
         IPseudoGUIManager   *gInterface;
         ExtWindowCtrl       *gWnd;

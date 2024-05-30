@@ -1,13 +1,14 @@
 #include "pguiman.h"
-#include <locale.h>
 
 char key;
 
 /* Initializes ncurses screen. */
 
 PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *interface) {
-    setlocale(LC_ALL, "");
-    initscr();
+    setlocale(LC_ALL, "");                      /* <-- set locale for correct non-ASCII characters
+                                                       displaying */
+    initscr();                                  /* <-- temporally clearing command prompt and initializes
+                                                       empty screen of ncurses */
     keypad(stdscr, true);                       // <-- enables arrow pressed keys handling
 
     noecho();                                   /* <-- disables escaping of characters typed on the
@@ -19,25 +20,36 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *interface) {
     if(has_colors()) {
         start_color();
 
-        init_color(COLOR_BLUE, 184, 142, 12);  //  <-- create RGB value for COLOR_BLUE variable
-        init_pair(1, COLOR_WHITE, COLOR_BLUE);
-
-        init_color(COLOR_GRAY, 150, 150, 150);  //  <-- create RGB value for COLOR_GRAY variable
-        init_pair(2, COLOR_WHITE, COLOR_GRAY);
-
+        init_color(COLOR_LIGHT_WHITE, 768, 768, 768);
+        init_color(COLOR_BLUE, 0, 142, 768);  //  <-- create RGB value for COLOR_BLUE variable
+        init_pair(1, COLOR_LIGHT_WHITE, COLOR_BLUE);
+        init_color(COLOR_GRAY, 384, 384, 384);  //  <-- create RGB value for COLOR_GRAY variable
+        init_pair(2, COLOR_LIGHT_WHITE, COLOR_GRAY);
         init_color(COLOR_DEEP_BLACK, 0, 0, 0);  //  <-- create RGB value for COLOR_DEEP_BLACK variable
-        init_pair(3, COLOR_WHITE, COLOR_DEEP_BLACK);
+        init_pair(3, COLOR_LIGHT_WHITE, COLOR_DEEP_BLACK);
+        init_color(COLOR_RED, 255, 0, 0);  //  <-- create RGB value for COLOR_RED variable
+        init_pair(4, COLOR_LIGHT_WHITE, COLOR_RED);
+        init_color(COLOR_DARK_GREEN, 0, 255, 0);  //  <-- create RGB value for COLOR_GREEN variable
+        init_pair(5, COLOR_LIGHT_WHITE, COLOR_DARK_GREEN);
+        init_pair(6, COLOR_LIGHT_GREEN, COLOR_GRAY);
+        init_pair(7, COLOR_LIGHT_GREEN, COLOR_DEEP_BLACK);
+        init_color(COLOR_LIGHT_RED, 768, 120, 120);
+        init_pair(8, COLOR_LIGHT_RED, COLOR_DEEP_BLACK);
+        init_color(COLOR_DARK_GRAY, 255, 255, 255);
+        init_pair(9, COLOR_DARK_GRAY, COLOR_GRAY);
+        init_pair(10, COLOR_DARK_GRAY, COLOR_DEEP_BLACK);
     }
 
     bkgd(COLOR_PAIR(3));
 
     gInterface = interface;
+
+    getmaxyx(stdscr, gActiveHeight, gActiveWidth);
 }
 
 /* Shows version info and copyright in console top area. */
 
 void PseudoGUIManager::showTopVersionInfo() {
-    getmaxyx(stdscr, gActiveHeight, gActiveWidth);
 
     char verInfoStr[] = "Tinelix OpenDSS v. 0.0.1. Copyright (C) 2024 Dmitry Tretyakov\n";
 
@@ -69,9 +81,9 @@ void PseudoGUIManager::listenKeyboard() {
     gInterface->onKeyPressed(key);
 }
 
-void PseudoGUIManager::listenKeyboard(ExtWindowCtrl *pExtWnd) {
-    key = wgetch(pExtWnd->hWnd);
-    gInterface->onKeyPressed(key, pExtWnd);
+void PseudoGUIManager::listenKeyboard(ExtWindowCtrl* hWndCtrl) {
+    key = wgetch(hWndCtrl->hWnd);
+    gInterface->onKeyPressed(key, hWndCtrl);
 }
 
 /* Draws text in window. */
@@ -81,59 +93,68 @@ void PseudoGUIManager::drawText(ExtWindowCtrl *pExtWnd, char* text, int x, int y
         return;
 
     move(y, 0);
-    wclrtoeol(pExtWnd->hWnd);                   // <-- clearing line (including window vetical borders)
-    mvwprintw(pExtWnd->hWnd, y, x, "%s", text); // <-- overwrite line
+    wclrtoeol(pExtWnd->hWnd);
+    mvwprintw(pExtWnd->hWnd, y, x, "%s", text);
 
-    box(pExtWnd->hWnd, 0, 0);                   // <-- draw window borders
-    mvwprintw(                                  // <-- draw window text in top border area
+    box(pExtWnd->hWnd, 0, 0);
+    mvwprintw(
         pExtWnd->hWnd,
-        0, (pExtWnd->hWidth - strlen(pExtWnd->hTitle)) / 2,
+        0, (pExtWnd->hWidth - strlen(pExtWnd->hTitle) - 4) / 2,
         "\u2524 %s \u251c", pExtWnd->hTitle
     );
-
-    /*           WINDOW*
-     * wrefresh( window ) <-- updates the contents of the window for display
-     */
 
     wrefresh(pExtWnd->hWnd);
 }
 
 /* Create window area with titlebar. */
 
-ExtWindowCtrl* PseudoGUIManager::createWindow(char* title, int width, int height, bool alignCenter) {
-    ExtWindowCtrl *pExtWnd = new ExtWindowCtrl();
+ExtWindowCtrl* PseudoGUIManager::createWindow(char* id, char* title, int width, int height, bool alignCenter) {
+    ExtWindowCtrl *pExtWnd = new ExtWindowCtrl(id);
 
     /*                       int     int   int int
      * WINDOW* wnd = newwin(height, width,  y , x ) <-- creates new window inside console screen
      */
 
+    int realWidth = 12;
+    int realHeight = 12;
+
+    getmaxyx(stdscr, gActiveHeight, gActiveWidth);
+
     if(alignCenter) {
         if(width > gActiveWidth) {
-            width = gActiveWidth - 6;
+            realWidth = gActiveWidth - 6;
         } else if(width <= 0) {
-            width = gActiveWidth + width;
+            realWidth = gActiveWidth + width;
+        } else {
+            realWidth = width;
         }
 
         if(height > gActiveHeight) {
-            height = gActiveHeight - 6;
+            realHeight = gActiveHeight - 6;
         } else if (height <= 0){
-            height = gActiveHeight + height - 1;
+            realHeight = gActiveHeight + height - 1;
+        } else {
+            realHeight = height;
         }
 
-        pExtWnd->hWnd = newwin(height, width, ((gActiveHeight - height) / 2) + 1, (gActiveWidth - width) / 2);
+        pExtWnd->hWnd = newwin(realHeight, realWidth,
+                               ((gActiveHeight - realHeight) / 2) + 1,
+                               (gActiveWidth - realWidth) / 2);
     } else {
-        pExtWnd->hWnd = newwin(height, width, 1, 0);
+        realWidth = width;
+        realHeight = height;
+        pExtWnd->hWnd = newwin(realHeight, realWidth, 1, 0);
     }
 
     sprintf(pExtWnd->hTitle, "%s", title);      // <-- store window text in ExtWindow object
 
-    pExtWnd->hWidth = width;
-    pExtWnd->hHeight = height;
+    pExtWnd->hWidth = realWidth;
+    pExtWnd->hHeight = realHeight;
 
     box(pExtWnd->hWnd, 0, 0);                   // <-- draw window borders
     mvwprintw(                                  // <-- draw window text in top border area
         pExtWnd->hWnd,
-        0, (width - strlen(pExtWnd->hTitle)) / 2,
+        0, (pExtWnd->hWidth - strlen(pExtWnd->hTitle) - 4) / 2,
         "\u2524 %s \u251c", pExtWnd->hTitle
     );
 
@@ -147,10 +168,11 @@ ExtWindowCtrl* PseudoGUIManager::createWindow(char* title, int width, int height
 
 void PseudoGUIManager::clearWindow(ExtWindowCtrl* pExtWnd) {
     wclear(pExtWnd->hWnd);
+
     box(pExtWnd->hWnd, 0, 0);                   // <-- draw window borders
     mvwprintw(                                  // <-- draw window text in top border area
         pExtWnd->hWnd,
-        0, (pExtWnd->hWidth - strlen(pExtWnd->hTitle)) / 2,
+        0, (pExtWnd->hWidth - strlen(pExtWnd->hTitle) - 4) / 2,
         "\u2524 %s \u251c", pExtWnd->hTitle
     );
     wrefresh(pExtWnd->hWnd);
@@ -162,4 +184,5 @@ void PseudoGUIManager::clearWindow(ExtWindowCtrl* pExtWnd) {
 
 PseudoGUIManager::~PseudoGUIManager() {
     endwin();
+    delscreen((SCREEN*)stdscr);
 }

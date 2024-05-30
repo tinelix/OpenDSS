@@ -1,3 +1,6 @@
-[submodule "libs/ffmpeg"]
-	path = libs/ffmpeg
-	url = https://github.com/ffmpeg/ffmpeg
+[submodule "libs/minimp3"]
+	path = libs/minimp3
+	url = https://github.com/lieff/minimp3
+[submodule "libs/miniaudio"]
+	path = libs/miniaudio
+	url = https://github.com/mackron/miniaudio

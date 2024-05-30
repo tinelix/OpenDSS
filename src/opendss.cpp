@@ -1,7 +1,7 @@
+#include "windows/player.h"
+#include <cstring>
 #ifdef __MINGW64__
     #include <ncurses/ncurses.h>
-    #include <nstddef.h>
-    #include <sys/stat.h>
 #else
     #include <ncurses.h>
 #endif
@@ -10,60 +10,55 @@
 #include <dirent.h>
 #include <unistd.h>
 
-// Linking FFmpeg headers
-#include <libavcodec/avcodec.h>
-#include <libavformat/avformat.h>
-#include <libswscale/swscale.h>
-
 #include "utils/audtags.h"
 #include "utils/fileman.h"
 #include "utils/pguiman.h"
 #include "utils/extstr.h"
 
+#include "windows/fileman.h"
+#include "windows/player.h"
+
 #include "controls/extwnd.h"
 #include "controls/listbox.h"
+#include "controls/msgbox.h"
 
 #include "interfaces/fileman.h"
 #include "interfaces/pguiman.h"
 
-#define MAX_FILENAME_LENGTH 32
-
-class IOpenDSSFileManager : IFileManager {
+class IOPENDSSFileManager : IFileManager {
     public:
         void onError(int cmdId, int errorCode);
         void onResult(int cmdId, int resultCode);
         void onDirectoryRead(dirent** ents);
 };
 
-IOpenDSSFileManager         *gFileManInterface;
+IOPENDSSFileManager          *gFileManInterface;
 
-class IOpenDSSPseudoGUIManager : IPseudoGUIManager {
+class IOPENDSSPseudoGUIManager : IPseudoGUIManager {
     public:
         void onKeyPressed(char k) {};
         void onKeyPressed(char k, ExtWindowCtrl *pExtWnd);
 };
 
-IOpenDSSPseudoGUIManager    *gPsGUIManInterface;
+IOPENDSSPseudoGUIManager     *gPsGUIManInterface;
 
-PseudoGUIManager            *gPsGuiMan;
-FileManager                 *gFileMan;
-ExtWindowCtrl               *gFileManWnd;
-//AudioTager                  *gAudioTager;
+PseudoGUIManager                *gPsGuiMan;
+FileManager                     *gFileMan;
+
+FileManagerWnd                  *gFileManWnd;
 
 /* Creates File Manager window and shows directory listing. */
 
 void openFileManager() {
-    char wndTitle[] = "File Manager";
-    gFileManWnd = gPsGuiMan->createWindow(wndTitle, -2, -2, true);
-    sprintf(gFileManWnd->id, "fm_wnd");
+    gFileManWnd = new FileManagerWnd(gFileMan, (IFileManager*)gFileManInterface);
     gFileMan->readCurrentDir();
 }
 
 /* Application main function */
 
 int main() {
-    gPsGUIManInterface = new IOpenDSSPseudoGUIManager();
-    gFileManInterface = new IOpenDSSFileManager();
+    gPsGUIManInterface = new IOPENDSSPseudoGUIManager();
+    gFileManInterface = new IOPENDSSFileManager();
 
     gFileMan = new FileManager((IFileManager*)gFileManInterface);
     gPsGuiMan = new PseudoGUIManager((IPseudoGUIManager*)gPsGUIManInterface);
@@ -72,119 +67,60 @@ int main() {
 
     openFileManager();
 
-    gPsGuiMan->listenKeyboard(gFileManWnd);
     delete gPsGuiMan;
     return 0;
 }
 
+void openAudioFile(char* pFileName) {
+    AudioPlayerWnd* playerWnd = new AudioPlayerWnd(pFileName);
+}
+
 /* Handles File Manager errors. */
 
-void IOpenDSSFileManager::onError(int cmdId, int errorCode) {
-    char errorStr[255];
-    sprintf(errorStr, "%s - Oops! Error code: %d", gFileMan->getCurrentPath(), errorCode);
-    gPsGuiMan->drawText(gFileManWnd, errorStr, 2, 2);
+void IOPENDSSFileManager::onError(int cmdId, int errorCode) {
+    if(cmdId == 0) {
+        char msgTitle[] = "Error";
+        char msgText[] = "Cannot open this directory!";
+        MessageBox* pMsgBox = new MessageBox(msgTitle, msgText, 4);
+        gPsGuiMan->listenKeyboard((ExtWindowCtrl*)pMsgBox);
+        ((ExtWindowCtrl*)pMsgBox)->freeWnd();
+        gFileManWnd->redraw();
+        gPsGuiMan->listenKeyboard((ExtWindowCtrl*) gFileManWnd);
+    }
 }
 
 /* Handles File Manager successed responses. */
 
-void IOpenDSSFileManager::onResult(int cmdId, int resultCode) {
-    if(cmdId == 0) {
-        gPsGuiMan->clearWindow(gFileManWnd);
-        gPsGuiMan->drawText(gFileManWnd, gFileMan->getCurrentPath(), 2, 2);
-    }
-}
-
-void readTagsFromFile(char* path, int y) {
-    AudioTager *pTagger = new AudioTager();
-    AudioTags *data = pTagger->readTags(path);
-    if(data) {
-        mvwprintw(
-                gFileManWnd->hWnd,
-                y,
-                MAX_FILENAME_LENGTH + 19,
-                "%s - %s",
-                data->artist, data->title
-        );
+void IOPENDSSFileManager::onResult(int cmdId, int resultCode) {
+    gFileManWnd->onFileManResult(cmdId, resultCode);
+    if(cmdId == 1) {
+        openAudioFile(gFileManWnd->getSelectedFileName());
     }
 }
 
 /* Handles File Manager directory list. */
 
-void IOpenDSSFileManager::onDirectoryRead(dirent** ents) {
-    ListBoxCtrl *mFileListBox;
-    if(!gFileManWnd->hCtrls[0]) {
-        mFileListBox = new ListBoxCtrl(gFileManWnd, gFileMan->getFilesCount());
-        mFileListBox->setSelectionIndex(0);
-        mFileListBox->hY = 4;
-        mFileListBox->hX = 2;
-        mFileListBox->hHeight = gFileManWnd->hHeight - 6;
-
-        gFileManWnd->addControl((UIControl*)mFileListBox);
-    } else {
-        mFileListBox = ((ListBoxCtrl*) gFileManWnd->hCtrls[0]);
-        mFileListBox->recreate(gFileMan->getFilesCount());
-    }
-
-    for(int i = 0; i < gFileMan->getFilesCount(); i++) {
-        ListItem* item = new ListItem();
-        sprintf(item->title, "%s", ents[i]->d_name);
-        if(strlen(item->title) > MAX_FILENAME_LENGTH) {
-            ExtString::strcut(item->title, MAX_FILENAME_LENGTH - 3, -1);
-            sprintf(item->title + MAX_FILENAME_LENGTH - 3, "...");
-        }
-        if(i <= mFileListBox->hHeight
-            && ExtString::strendq(ents[i]->d_name, ".mp3"))  {
-            char full_fname[600];
-            sprintf(full_fname, "%s/%s", gFileMan->getCurrentPath(), ents[i]->d_name);
-            mvwprintw(
-                gFileManWnd->hWnd,
-                i + mFileListBox->hY,
-                MAX_FILENAME_LENGTH + 6,
-                "0:00:00.000"
-            );
-            readTagsFromFile(full_fname, i + mFileListBox->hY);
-        }
-        mFileListBox->addListItem(i, item);
-    }
-
-    wrefresh(gFileManWnd->hWnd);
+void IOPENDSSFileManager::onDirectoryRead(dirent** ents) {
+    gFileManWnd->onDirectoryRead(ents);
 }
 
 /* Handles keyboard pressed keys. */
 
-void IOpenDSSPseudoGUIManager::onKeyPressed(char k, ExtWindowCtrl* pExtWnd) {
+void IOPENDSSPseudoGUIManager::onKeyPressed(char k, ExtWindowCtrl* pExtWnd) {
     if((int)k == 2 || (int)k == 3) {
         ListBoxCtrl* mFileListBox = ((ListBoxCtrl*)gFileManWnd->hCtrls[0]);
-        if(strcmp(pExtWnd->id, "fm_wnd") == 0) {
+        if(strcmp(pExtWnd->id, "fileManWnd") == 0) {
             if(gFileManWnd->getControlsSize() > 0) {
                 mFileListBox->onKeyPressed(k);
             }
         }
     } else if((int)k == 10) { // ENTER key
-        ListBoxCtrl* mFileListBox = ((ListBoxCtrl*)gFileManWnd->hCtrls[0]);
-        char fname[255];
-        dirent* ent = gFileMan->getFile(
-            mFileListBox->getSelectionIndex()
-        );
-        sprintf(fname, "%s/%s", gFileMan->getCurrentPath(), ent->d_name);
-        #ifdef __MINGW64__
-            struct stat s;
-            stat(fname, &s);
-            if (s.st_mode & S_IFDIR) {
-                gFileMan->readDir(fname);
+        if(strcmp(pExtWnd->id, "fileManWnd") == 0
+            || strcmp(pExtWnd->id, "articlesListWnd") == 0) {
+            if (k == 'q') {
+                delete gFileManWnd;
             }
-        #else
-            if(ent->d_type == 4) { // if it's directory
-                gFileMan->readDir(fname);
-            }
-        #endif
-
-    }
-
-    if(k != 'q') {
-        gPsGuiMan->listenKeyboard(gFileManWnd);
-    } else {
-        delete gFileManWnd;
+        }
     }
 }
 

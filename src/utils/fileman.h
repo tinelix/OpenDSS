@@ -12,18 +12,21 @@ class FileManager {
     public:
         FileManager(IFileManager *interface);
         ~FileManager();
+        void countSlashes(char* pDirPath);
         void readCurrentDir();
         void readDir(char* pDirPath);
         dirent* getFile(int index);
         long getFilesCount();
+        char* getRealPath(char* pDirPath);
         char* getCurrentPath();
 
     private:
         IFileManager *gInterface;
-        char         gCurrentPath[255];
+        char         gCurrentPath[384];
         int          gSelectionIndex;
         dirent       **gEnts;
         long         gFilesCount;
+        int          gPrevSlash;
 };
 
 #endif

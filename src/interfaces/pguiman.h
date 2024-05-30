@@ -1,7 +1,6 @@
 #ifndef OPENDSS_INTERFACES_PGUIMAN_H
 #define OPENDSS_INTERFACES_PGUIMAN_H
 
-#include "../utils/pguiman.h"
 #include "../controls/extwnd.h"
 
 class IPseudoGUIManager {

@@ -1,19 +1,16 @@
 #!/bin/bash
 
-echo "Building OpenDSS..."
-
-FFMPEG_FLAGS=""
+echo "Building Tinelix OpenDSS..."
 
 if [[ $OSTYPE == "linux-gnu" ]]; then
     echo "Your OS: GNU/Linux"
     echo
-    FFMPEG_FLAGS+=" --enable-libtls "
-    if [ -x "$(command -v apt)" ]; then                                      # <-- for Ubuntu/Debian/derivatives
-        su -c "apt install -y libtls-dev libncurses-dev"
-    elif [ -x "$(command -v yum)" ]; then                                    # <-- for Fedora/CentOS/AltLinux/derivatives
-        su -c "yum install libressl-devel ncurses-devel"
-    elif [ -x "$(command -v pacman)" ]; then                                 # <-- for Arch/Artix/Manjaro/derivatives
-        su -c "pacman -S libressl ncurses"
+    if [ -x "$(command -v apt)" ]; then         # <-- for Ubuntu/Debian/derivatives
+        su -c "apt install -y libncurses-dev"
+    elif [ -x "$(command -v yum)" ]; then       # <-- for Fedora/CentOS/AltLinux/derivatives
+        su -c "yum install ncurses-devel"
+    elif [ -x "$(command -v pacman)" ]; then    # <-- for Arch/Artix/Manjaro/derivatives
+        su -c "pacman -S ncurses"
     else
         echo "ERROR: Your package manager is not supported"
         echo
@@ -22,9 +19,8 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
 elif [ $OSTYPE == "cygwin" ]; then
     echo "Your OS: Cygwin/Windows"
     echo
-    FFMPEG_FLAGS+=" --enable-gnutls "
-    if [ -x "$(command -v apt-cyg)"]; then
-        apt-cyg install gnutls-devel libncursesw-devel
+    if [ -x "$(command -v apt-cyg)" ]; then
+        apt-cyg install libncursesw-devel
     else
         echo "ERROR: 'apt-cyg' not found"
         echo
@@ -33,18 +29,20 @@ elif [ $OSTYPE == "cygwin" ]; then
         "in the Cygwin installer"
         echo "* Download 'apt-cyg' package manager from" \
         "https://github.com/transcode-open/apt-cyg"
+        echo "* Enter 'make' if all required packages have already been" \
+        "installed."
         exit 1
     fi
 elif [[ $OSTYPE == "msys" ]]; then
     echo "Your OS: MSYS2/Windows"
     echo
-    FFMPEG_FLAGS+=" --enable-gnutls "
-    pacman -S mingw-w64-{i686,x86_64}-gnutls mingw-w64-{i686,x86_64}-ncurses
+    pacman -S mingw-w64-{i686,x86_64}-ncurses
 else
     echo "ERROR: Your OS is not supported"
     echo
     exit 1
 fi
+
 
 cd libs/ffmpeg
 
@@ -54,6 +52,7 @@ FFMPEG_FLAGS+="--prefix=../../out/ffmpeg \
     --enable-avcodec \
     --enable-avformat \
     --enable-avutil \
+    --enable-network \
     --disable-programs \
     --disable-ffmpeg \
     --disable-ffplay \

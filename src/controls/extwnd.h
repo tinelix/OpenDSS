@@ -7,20 +7,31 @@
     #include <ncurses.h>
 #endif
 
-#include "../utils/uictrl.h"
+#include "uictrl.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 class ExtWindowCtrl {
-public:
-    ExtWindowCtrl();
-    ~ExtWindowCtrl();
-    char hTitle[255], id[60];
-    int hWidth, hHeight;
-    WINDOW* hWnd;
-    UIControl** hCtrls;
-    void addControl(UIControl* pCtrl);
-    int getControlsSize();
+    public:
+        ExtWindowCtrl();
+        ExtWindowCtrl(char* pId);
+        ~ExtWindowCtrl();
+        char hTitle[255], id[60];
+        int hWidth, hHeight;
+        WINDOW* hWnd;
+        UIControl** hCtrls;
+        ExtWindowCtrl** hChildWnds;
+        void addControl(UIControl* pCtrl);
+        void addChildWindow(char* id, char* title, int width, int height, int x, int y);
+        int getControlsSize();
+        int getChildWindowsSize();
+        void redraw();
+        void clear();
+        void freeWnd();
+    private:
+        int gCtrlSize;
+        int gChildWndsSize;
 };
 
 #endif

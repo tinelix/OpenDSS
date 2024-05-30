@@ -3,7 +3,6 @@
 
 FileManager::FileManager(IFileManager *interface) {
     gInterface = interface;
-    gSelectionIndex = -1;
     gEnts = (dirent**)malloc(640 * sizeof(dirent));
 }
 
@@ -14,7 +13,7 @@ FileManager::~FileManager() {
 /* Reads working directory and shows listing */
 
 void FileManager::readCurrentDir() {
-    char cwd[255];
+    char cwd[384];
     if(getcwd(cwd, sizeof(cwd)) != NULL) {
         readDir(cwd);
     } else
@@ -24,10 +23,12 @@ void FileManager::readCurrentDir() {
 void FileManager::readDir(char* pDirPath) {
     int object_index = 0;
     DIR *dir;
+
     struct dirent *ent;
+
     if (pDirPath) {
         if ((dir = opendir(pDirPath)) != NULL) {    // if this directory exist
-            sprintf(gCurrentPath, "%s", pDirPath);
+            sprintf(gCurrentPath, "%s", getRealPath(pDirPath));
             object_index = 0;
             gInterface->onResult(0, 1);
             /* Print all the files and directories within directory */
@@ -59,6 +60,38 @@ dirent* FileManager::getFile(int index) {
 
 long FileManager::getFilesCount() {
     return gFilesCount;
+}
+
+char* FileManager::getRealPath(char* pDirPath) {
+    int lastPathSlash = 0;
+    int pathSlashesCount = -1;
+
+    int pathSlashes[192];
+
+    int pathLen = strlen(pDirPath);
+
+    for(int i = 0; i < pathLen; i++) {
+        if(pDirPath[i] == '/') {
+            pathSlashes[pathSlashesCount++] = i;
+        }
+    }
+
+    if(pathSlashesCount > 1) {
+        if(
+            pDirPath[pathLen - 3] == '/' && pDirPath[pathLen - 2] == '.'
+            && pDirPath[pathLen - 1] == '.'
+        ) {
+            lastPathSlash = pathSlashes[pathSlashesCount - 2];
+            pDirPath[lastPathSlash] = '\0';
+        }
+    } else if (pathSlashesCount == 1) {
+        if(
+            pDirPath[pathLen - 3] == '/' && pDirPath[pathLen - 2] == '.'
+            && pDirPath[pathLen - 1] == '.'
+        )
+            pDirPath[lastPathSlash] = '\0';
+    }
+    return pDirPath;
 }
 
 char* FileManager::getCurrentPath() {
