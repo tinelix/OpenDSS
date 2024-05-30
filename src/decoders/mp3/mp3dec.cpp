@@ -44,7 +44,7 @@ int MP3Decoder::decode() {
 
     gSamples = mp3dec_ex_read(&gMP3ExDec, buffer, gMP3ExDec.samples);
 
-    //output((unsigned char*)buffer);
+    output((unsigned char*)buffer);
 
     if(gSamples != gMP3ExDec.samples && gMP3ExDec.last_error) {
         return -1;
