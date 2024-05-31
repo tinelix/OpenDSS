@@ -34,4 +34,12 @@ struct StreamInfo {
     int codec, sampleRate, bitrate, channels, lengthSec;
 };
 
+struct StreamTimestamp {
+    int position, duration;
+};
+
+struct AudioSpectrum {
+    int left, right;
+};
+
 #endif // OPENDSS_DECODERS_STREAM_H

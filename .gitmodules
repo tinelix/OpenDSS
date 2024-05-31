@@ -1,3 +1,9 @@
 [submodule "libs/minimp3"]
 	path = libs/minimp3
 	url = https://github.com/lieff/minimp3
+[submodule "libs/raudio"]
+	path = libs/raudio
+	url = https://github.com/raysan5/raudio
+[submodule "libs/miniaudio"]
+	path = libs/miniaudio
+	url = https://github.com/mackron/miniaudio

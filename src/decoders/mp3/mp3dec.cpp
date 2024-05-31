@@ -22,6 +22,13 @@ MP3Decoder::~MP3Decoder() {
 
 }
 
+static void *audioDecoderThread(void *arg) {
+    AudioDecThreadParams *params = (AudioDecThreadParams*) arg;
+
+    params->audioDec->initOutput();
+    params->audioDec->output(params->fileName);
+}
+
 int MP3Decoder::open(char* pFileName) {
     gFileName = pFileName;
     if(mp3dec_load(&gMP3Dec, pFileName, &gMP3Info, NULL, NULL)) {
@@ -44,7 +51,12 @@ int MP3Decoder::decode() {
 
     gSamples = mp3dec_ex_read(&gMP3ExDec, buffer, gMP3ExDec.samples);
 
-    output((unsigned char*)buffer);
+    pthread_t audioDecThread;
+    AudioDecThreadParams* params = new AudioDecThreadParams();
+    params->audioDec = this;
+    params->fileName = gFileName;
+    params->buffer = (short*)buffer;
+    audioDecoderThread((void*)params);
 
     if(gSamples != gMP3ExDec.samples && gMP3ExDec.last_error) {
         return -1;

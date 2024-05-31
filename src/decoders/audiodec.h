@@ -5,7 +5,18 @@
 #define DECODER_INTERNAL_ERROR  -2
 
 #include "stream.h"
+#include "../interfaces/audiodec.h"
+#include "math.h"
+#include <time.h>
 
+typedef struct
+{
+    float left_phase;
+    float right_phase;
+    short* buffer;
+    int bufferSampleCount;
+}
+paUserData;
 
 class AudioDecoder {
     public:
@@ -17,13 +28,22 @@ class AudioDecoder {
         virtual int getFrameWidth() = 0;
         virtual int getErrorNumber() = 0;
         virtual StreamInfo* getStreamInfo();
-    protected:
+        void setInterface(IAudioDecoder* pInterface);
+        int initOutput();
+        void output(short* buffer);
+        void output(char* pFileName);
+        int getPlaybackPosition();
         char* gFileName;
+    protected:
         unsigned char* gBuffer;
         int gFramesCount, gFrameRate, gSamples;
         bool gOpen;
-        int initOutput();
-        void output(unsigned char* buffer);
+};
+
+struct AudioDecThreadParams {
+    AudioDecoder* audioDec;
+    char*         fileName;
+    short*         buffer;
 };
 
 #endif

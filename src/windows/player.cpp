@@ -1,6 +1,11 @@
 #include "player.h"
-#include <cstdio>
-#include <curses.h>
+
+class IOpenDSSAudioDecoder : IAudioDecoder {
+    public:
+        void onStreamClock(AudioSpectrum *spectrum, StreamTimestamp *streamTs);
+        void onPlaybackStateChanged(int state);
+        void setWindow(ExtWindowCtrl* pExtWnd);
+};
 
 AudioPlayerWnd::AudioPlayerWnd(char* fname) {
 
@@ -100,7 +105,11 @@ void AudioPlayerWnd::openAudioFile() {
     ExtWindowCtrl* playlistWnd = hChildWnds[1];
     ExtWindowCtrl* statsWnd = hChildWnds[2];
 
+    IOpenDSSAudioDecoder* decInterface = new IOpenDSSAudioDecoder();
+    decInterface->setWindow(this);
+
     gAudioDec = (AudioDecoder*) new MP3Decoder();
+    gAudioDec->setInterface((IAudioDecoder*)decInterface);
 
     mvwprintw(
         playerCtrlWnd->hWnd,
@@ -235,17 +244,25 @@ void AudioPlayerWnd::playAudioFile() {
 }
 
 void AudioPlayerWnd::onKeyPressed(char k) {
-    ExtWindowCtrl* playlistWnd = hChildWnds[0];
-    ExtWindowCtrl* playerCtrlWnd = hChildWnds[1];
+    ExtWindowCtrl* playerCtrlWnd = hChildWnds[0];
+    ExtWindowCtrl* playlistWnd = hChildWnds[1];
 
     scrollok(playlistWnd->hWnd, TRUE);
 
     // ListBoxCtrl* categoriesListBox = ((ListBoxCtrl*) categoriesWnd->hCtrls[0]);
     // categoriesListBox->onKeyPressed(k);
+    int seconds         = gAudioDec->getPlaybackPosition();
+    int minutes         = 0;
 
     if(k != 'q') {
         if(k == (int)10) {
-
+            mvwprintw(
+                playerCtrlWnd->hWnd,
+                4, 2,
+                "%02d:%02d",
+                minutes, seconds % 60
+            );
+        wrefresh(playerCtrlWnd->hWnd);
         }
         k = wgetch(playlistWnd->hWnd);
         onKeyPressed(k);
@@ -310,11 +327,15 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
     ExtWindowCtrl* statsWnd = hChildWnds[2];
     int maxBlocksSize = (statsWnd->hWidth - 6);
 
-    if(left / 100 > 1 || right / 100 > 1) {
-        return;
+    if(left / 100 > 1) {
+        left = 100;
     }
 
-    double onePerc = (double)maxBlocksSize / 100;
+    if(right / 100 > 1) {
+        right = 100;
+    }
+
+    double onePerc = (double)(maxBlocksSize - 10) / 100;
 
     mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 3, 2, "L");
     for(int i = 0; i < maxBlocksSize; i++) {
@@ -340,4 +361,16 @@ AudioPlayerWnd::~AudioPlayerWnd() {
     delwin(hWnd);
 }
 
+void IOpenDSSAudioDecoder::onStreamClock(
+    AudioSpectrum *spectrum, StreamTimestamp *streamTs
+) {
+    ((AudioPlayerWnd*)hExtWnd)->drawVisualizer(spectrum->left, spectrum->right);
+}
 
+void IOpenDSSAudioDecoder::onPlaybackStateChanged(int state) {
+
+}
+
+void IOpenDSSAudioDecoder::setWindow(ExtWindowCtrl* pExtWnd) {
+    hExtWnd = pExtWnd;
+}

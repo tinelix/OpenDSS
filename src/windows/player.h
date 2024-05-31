@@ -15,6 +15,8 @@
 #include "../controls/extwnd.h"
 #include "../controls/listbox.h"
 
+#include "../interfaces/audiodec.h"
+
 #include "../utils/audtags.h"
 #include "../utils/extstr.h"
 
@@ -26,12 +28,12 @@ class AudioPlayerWnd : ExtWindowCtrl {
         AudioPlayerWnd(char* fname);
         ~AudioPlayerWnd();
         void onKeyPressed(char k);
+        void drawVisualizer(int left, int right);
     private:
         void prepare();
         void openAudioFile();
         void playAudioFile();
         void loadAudioTags();
-        void drawVisualizer(int left, int right);
         char* getCodecName(int pCodecId);
         int gActiveWidth, gActiveHeight;
         char gFileName[384];

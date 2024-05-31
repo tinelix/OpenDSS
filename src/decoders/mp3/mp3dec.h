@@ -3,6 +3,9 @@
 
 #include "../audiodec.h"
 #include "../stream.h"
+#include <stdio.h>
+#include <math.h>
+#include <pthread.h>
 
 class MP3Decoder : AudioDecoder {
 public:

@@ -18,16 +18,20 @@ OUT_DIR			= out
 EXT_INCLUDES		= -I./$(SRC_DIR) \
 			  -I./$(OUT_DIR)/ffmpeg/include \
 			  -I./$(LIBS_DIR)/minimp3 \
-			  -I./$(LIBS_DIR)/miniaudio
+			  -I./$(LIBS_DIR)/raudio/src
 ID3_SRC			= $(LIBS_DIR)/libid3/src
 
-POSTLIBS		= -lncursesw $(EXT_INCLUDES) $(EXT_LIBS) -lstdc++ -lm -lpthread
+POSTLIBS		= -lncursesw $(EXT_INCLUDES) $(EXT_LIBS) -lstdc++ -lm -lpthread -ldl \
+			  -DSUPPORT_MODULE_RAUDIO -DRAUDIO_STANDALONE -DSUPPORT_FILEFORMAT_WAV \
+			  -DSUPPORT_FILEFORMAT_OGG -DSUPPORT_FILEFORMAT_MP3 -DSUPPORT_FILEFORMAT_FLAC
 
 # Source codes
 SOURCES			= $(SRC_DIR)/*.cpp $(SRC_DIR)/utils/*.cpp \
 			  $(SRC_DIR)/windows/*.cpp $(SRC_DIR)/controls/*.cpp \
 			  $(SRC_DIR)/decoders/*.cpp \
 			  $(SRC_DIR)/decoders/mp3/*.cpp \
+			  $(SRC_DIR)/interfaces/*.cpp \
+			  $(LIBS_DIR)/raudio/src/*.c \
 			  $(ID3_SRC)/*.cpp
 
 OUT_FILE=$(OUT_DIR)/opendss
