@@ -191,6 +191,12 @@ void ListBoxCtrl::onKeyPressed(char k) {
         );
 
         expand(index, k == (int)5);
+    } else if(k == (int)82){
+        if(gPageNumber * hHeight < getItemsCount())
+            goToPage(gPageNumber + 1);
+    } else if(k == (int)83) {
+        if(gPageNumber > 0)
+            goToPage(gPageNumber - 1);
     }
 }
 
