@@ -19,7 +19,7 @@
 
 FileManager::FileManager(IFileManager *interface) {
     gInterface = interface;
-    gEnts = (dirent**)malloc(640 * sizeof(dirent));
+    gEnts = (dirent**)malloc(512 * sizeof(dirent));
 }
 
 FileManager::~FileManager() {
@@ -49,7 +49,7 @@ void FileManager::readDir(char* pDirPath) {
             gInterface->onResult(0, 1);
             /* Print all the files and directories within directory */
             while ((ent = readdir (dir)) != NULL) {
-                if(object_index >= 640) {
+                if(object_index >= 512) {
                     break;
                 } else if(strcmp(ent->d_name, ".") == 0) {
                     /* Excludes '.' from the list, since opening this
@@ -61,7 +61,7 @@ void FileManager::readDir(char* pDirPath) {
             }
             gFilesCount = object_index;
             gInterface->onDirectoryRead(gEnts);
-            closedir (dir);
+            closedir(dir);
         } else {
             gInterface->onError(0, 2);
         }
