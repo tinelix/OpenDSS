@@ -16,6 +16,8 @@
 
 #include "player.h"
 
+#define MAX_FILE_LENGTH 80
+
 class IOpenDSSAudioDecoder : IAudioDecoder {
     public:
         void onStreamClock(AudioSpectrum *spectrum, StreamTimestamp *streamTs);
@@ -27,7 +29,13 @@ class IOpenDSSAudioDecoder : IAudioDecoder {
 AudioPlayerWnd::AudioPlayerWnd(char* fname) {
 
     sprintf(id, "msgBoxWnd");
-    sprintf(hTitle, "%s", fname);
+    char* shortest_fname = new char[384];
+    sprintf(shortest_fname, "%s", fname);
+    if(strlen(shortest_fname) > MAX_FILE_LENGTH) {
+        ExtString::strcut(shortest_fname, MAX_FILE_LENGTH - 3, -1);
+        strcat(shortest_fname, "...");
+    }
+    sprintf(hTitle, "%s", shortest_fname);
     sprintf(gFileName, "%s", fname);
 
     getmaxyx(stdscr, gActiveHeight, gActiveWidth);
@@ -44,7 +52,7 @@ AudioPlayerWnd::AudioPlayerWnd(char* fname) {
     box(hWnd, 0, 0);                            // <-- draw window borders
     mvwprintw(                                  // <-- draw window text in top border area
         hWnd,
-        0, (gActiveWidth - wcslen((wchar_t*)hTitle) - 8) / 2.5,
+        0, (gActiveWidth - strlen(hTitle) - 4) / 2.5,
         "\u2524 %s \u251c", hTitle
     );
 

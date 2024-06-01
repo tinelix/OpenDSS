@@ -200,7 +200,6 @@ int ID3::id3_extract_info(char *tag, ID3_Tags *id3, int id3ver)
 		id3->year[4]     = '\0';
 		id3->comment[30] = '\0';
 	} else {
-
 		memcpy(id3->year,    tag + ID3_V2_OFFSET_YEAR,    SIZE_YEAR);
 
 		id3->track = (tag[ID3_V2_OFFSET_TRACK] == '\0')?0:tag[ID3_V2_OFFSET_TRACK];
@@ -227,8 +226,22 @@ int ID3::id3_extract_info(char *tag, ID3_Tags *id3, int id3ver)
 			if(tag[i] == 'T' && tag[i + 1] == 'A'
 				&& tag[i + 2] == 'L' && tag[i + 3] == 'B') {
 				tagAlbumOffset += i + 2;
-				id3->artist[i - tagOffset] = '\0';
+				if(tagOffset == tagArtistOffset) {
+					id3->artist[i - tagOffset] = '\0';
+				}
 				tagOffset = tagAlbumOffset;
+				memcpy(id3->album, tag + tagOffset, ID3_V2_SIZE_INFO);
+			}
+
+			if(tag[i] == 'C' && tag[i + 1] == 'O'
+				&& tag[i + 2] == 'M' && tag[i + 3] == 'M') {
+				tagCommentOffset += i + 2;
+				if(tagOffset == tagAlbumOffset) {
+					id3->album[i - tagOffset] = '\0';
+				} else if(tagOffset == tagArtistOffset) {
+					id3->artist[i - tagOffset] = '\0';
+				}
+				tagOffset = tagCommentOffset;
 				memcpy(id3->album, tag + tagOffset, ID3_V2_SIZE_INFO);
 			}
 		}
