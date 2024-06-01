@@ -55,6 +55,9 @@ DEL_FILE      	= rm -rf
 build: $(SOURCE)
 	$(CC) $(CC_FLAGS) $(LIBS) $(SOURCES) -o $(OUT_FILE) $(POSTLIBS)
 
+libre-build: $(SOURCE)
+	$(CC) $(CC_FLAGS) $(LIBS) $(SOURCES) -o $(OUT_FILE) $(POSTLIBS) -DLICENSE_GPLV3
+
 standalone:
 	mkdir -p ./out/libs
 	$(CC) $(SA_CC_FLAGS) $(LIBS) $(SOURCES) -o $(OUT_FILE) $(SA_POSTLIBS)

@@ -23,7 +23,6 @@ class IOpenDSSAudioDecoder : IAudioDecoder {
         void setWindow(ExtWindowCtrl* pExtWnd);
 };
 
-int minutes         = 0;
 
 AudioPlayerWnd::AudioPlayerWnd(char* fname) {
 
@@ -371,9 +370,7 @@ void AudioPlayerWnd::updatePosition(StreamTimestamp *streamTs) {
 
     int maxBlocksSize = (playerCtrlWnd->hWidth - 4);
 
-    if(seconds % 60 == 0 && seconds > 0) {
-        minutes++;
-    }
+    int minutes = seconds / 60;
 
     mvwprintw(
         playerCtrlWnd->hWnd,
