@@ -23,7 +23,7 @@
 #endif
 
 #include <stdio.h>                  // Linking standard C functions
-#include <dirent.h>
+#include <tinydir.h>
 #include <unistd.h>
 
 #include "utils/audtags.h"
@@ -41,22 +41,22 @@
 #include "interfaces/fileman.h"
 #include "interfaces/pguiman.h"
 
-class IOPENDSSFileManager : IFileManager {
+class IOpenDSSFileManager : IFileManager {
     public:
         void onError(int cmdId, int errorCode);
         void onResult(int cmdId, int resultCode);
-        void onDirectoryRead(dirent** ents);
+        void onDirectoryRead(tinydir_file* files);
 };
 
-IOPENDSSFileManager          *gFileManInterface;
+IOpenDSSFileManager          *gFileManInterface;
 
-class IOPENDSSPseudoGUIManager : IPseudoGUIManager {
+class IOpenDSSPseudoGUIManager : IPseudoGUIManager {
     public:
         void onKeyPressed(char k) {};
         void onKeyPressed(char k, ExtWindowCtrl *pExtWnd);
 };
 
-IOPENDSSPseudoGUIManager     *gPsGUIManInterface;
+IOpenDSSPseudoGUIManager     *gPsGUIManInterface;
 
 PseudoGUIManager                *gPsGuiMan;
 FileManager                     *gFileMan;
@@ -73,8 +73,8 @@ void openFileManager() {
 /* Application main function */
 
 int main() {
-    gPsGUIManInterface = new IOPENDSSPseudoGUIManager();
-    gFileManInterface = new IOPENDSSFileManager();
+    gPsGUIManInterface = new IOpenDSSPseudoGUIManager();
+    gFileManInterface = new IOpenDSSFileManager();
 
     gFileMan = new FileManager((IFileManager*)gFileManInterface);
     gPsGuiMan = new PseudoGUIManager((IPseudoGUIManager*)gPsGUIManInterface);
@@ -93,7 +93,7 @@ void openAudioFile(char* pFileName) {
 
 /* Handles File Manager errors. */
 
-void IOPENDSSFileManager::onError(int cmdId, int errorCode) {
+void IOpenDSSFileManager::onError(int cmdId, int errorCode) {
     if(cmdId == 0) {
         char msgTitle[] = "Error";
         char msgText[] = "Cannot open this directory!";
@@ -107,7 +107,7 @@ void IOPENDSSFileManager::onError(int cmdId, int errorCode) {
 
 /* Handles File Manager successed responses. */
 
-void IOPENDSSFileManager::onResult(int cmdId, int resultCode) {
+void IOpenDSSFileManager::onResult(int cmdId, int resultCode) {
     gFileManWnd->onFileManResult(cmdId, resultCode);
     if(cmdId == 1) {
         openAudioFile(gFileManWnd->getSelectedFileName());
@@ -116,13 +116,13 @@ void IOPENDSSFileManager::onResult(int cmdId, int resultCode) {
 
 /* Handles File Manager directory list. */
 
-void IOPENDSSFileManager::onDirectoryRead(dirent** ents) {
-    gFileManWnd->onDirectoryRead(ents);
+void IOpenDSSFileManager::onDirectoryRead(tinydir_file* files) {
+    gFileManWnd->onDirectoryRead(files);
 }
 
 /* Handles keyboard pressed keys. */
 
-void IOPENDSSPseudoGUIManager::onKeyPressed(char k, ExtWindowCtrl* pExtWnd) {
+void IOpenDSSPseudoGUIManager::onKeyPressed(char k, ExtWindowCtrl* pExtWnd) {
     if((int)k == 2 || (int)k == 3) {
         ListBoxCtrl* mFileListBox = ((ListBoxCtrl*)gFileManWnd->hCtrls[0]);
         if(strcmp(pExtWnd->id, "fileManWnd") == 0) {

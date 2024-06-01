@@ -17,7 +17,7 @@
 #ifndef OPENDSS_INTERFACES_FILEMAN_H
 #define OPENDSS_INTERFACES_FILEMAN_H
 
-#include <dirent.h>
+#include <tinydir.h>
 
 class IFileManager {
     public:
@@ -25,7 +25,7 @@ class IFileManager {
         virtual ~IFileManager() {};
         virtual void onError(int cmdId, int errorCode) = 0;
         virtual void onResult(int cmdId, int resultCode) = 0;
-        virtual void onDirectoryRead(dirent** ents) = 0;
+        virtual void onDirectoryRead(tinydir_file* files) = 0;
 };
 
 #endif

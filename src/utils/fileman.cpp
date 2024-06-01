@@ -15,15 +15,16 @@
  */
 
 #include "fileman.h"
-#include <cstring>
+
+#define MAX_FILES_COUNT 1536
 
 FileManager::FileManager(IFileManager *interface) {
     gInterface = interface;
-    gEnts = (dirent**)malloc(512 * sizeof(dirent));
+    gFiles = (tinydir_file*)malloc(MAX_FILES_COUNT * sizeof(tinydir_file));
 }
 
 FileManager::~FileManager() {
-    free(gEnts);
+    free(gFiles);
 }
 
 /* Reads working directory and shows listing */
@@ -38,40 +39,34 @@ void FileManager::readCurrentDir() {
 
 void FileManager::readDir(char* pDirPath) {
     int object_index = 0;
-    DIR *dir;
+    tinydir_dir dir;
 
-    struct dirent *ent;
+    if (tinydir_open_sorted(&dir, pDirPath) == -1) {
+		gInterface->onError(0, -1);
+        return;
+	}
 
-    if (pDirPath) {
-        if ((dir = opendir(pDirPath)) != NULL) {    // if this directory exist
-            sprintf(gCurrentPath, "%s", getRealPath(pDirPath));
-            object_index = 0;
-            gInterface->onResult(0, 1);
-            /* Print all the files and directories within directory */
-            while ((ent = readdir (dir)) != NULL) {
-                if(object_index >= 512) {
-                    break;
-                } else if(strcmp(ent->d_name, ".") == 0) {
-                    /* Excludes '.' from the list, since opening this
-                       object returns the same directory. */
-                    continue;
-                }
-                gEnts[object_index] = ent;
-                object_index++;
-            }
-            gFilesCount = object_index;
-            gInterface->onDirectoryRead(gEnts);
-            closedir(dir);
-        } else {
-            gInterface->onError(0, 2);
+	sprintf(gCurrentPath, "%s", dir.path);
+
+    for(int i = 1; i < dir.n_files; i++) {
+        if(object_index >= MAX_FILES_COUNT) {
+            break;
         }
-    } else {
-        gInterface->onError(0, 1);
+        tinydir_file file;
+        if(tinydir_readfile_n(&dir, &file, i) == -1) {
+            continue;
+        }
+        gFiles[object_index] = file;
+        object_index++;
     }
+
+    gFilesCount = object_index;
+    gInterface->onDirectoryRead(gFiles);
+    tinydir_close(&dir);
 }
 
-dirent* FileManager::getFile(int index) {
-    return gEnts[index];
+tinydir_file FileManager::getFile(int index) {
+    return gFiles[index];
 }
 
 long FileManager::getFilesCount() {

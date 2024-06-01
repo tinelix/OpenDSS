@@ -24,7 +24,7 @@
 #else
     #include <ncurses.h>
 #endif
-#include <dirent.h>
+#include <tinydir.h>
 #include <wchar.h>
 
 #ifdef __MINGW64__
@@ -48,7 +48,7 @@ class FileManagerWnd : public ExtWindowCtrl {
         FileManagerWnd(FileManager *pFileMan, IFileManager *pInterface);
         char* getSelectedFileName();
         void onKeyPressed(char k);
-        void onDirectoryRead(dirent **ents);
+        void onDirectoryRead(tinydir_file* files);
         void onFileManResult(int cmdId, int resultCode);
         void onFileManError(int cmdId, int errorCode);
         bool disableListening;

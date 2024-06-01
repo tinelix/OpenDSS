@@ -7,3 +7,6 @@
 [submodule "libs/miniaudio"]
 	path = libs/miniaudio
 	url = https://github.com/mackron/miniaudio
+[submodule "libs/tinydir"]
+	path = libs/tinydir
+	url = https://github.com/cxong/tinydir
