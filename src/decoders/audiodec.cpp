@@ -1,3 +1,19 @@
+/*  Tinelix OpenDSS - open sourced clone of Digital Sound System player
+ *  -------------------------------------------------------------------------------------------
+ *  Copyright © 2024 Dmitry Tretyakov (aka. Tinelix)
+ *
+ *  This program is free software: you can redistribute it and/or modify it under the terms of
+ *  the GNU General Public License 3 (or any later version) and/or Apache License 2
+ *  See the following files in repository directory for the precise terms and conditions of
+ *  either license:
+ *
+ *     LICENSE.APACHE
+ *     LICENSE.GPLv3
+ *
+ *  Please see each file in the implementation for copyright and licensing information,
+ *  (in the opening comment of each file).
+ */
+
 #include "audiodec.h"
 #include "stream.h"
 
@@ -54,7 +70,11 @@ void AudioDecoder::output(short* buffer) {
 }
 
 int AudioDecoder::getPlaybackPosition() {
-    return 0;
+    return GetMusicTimePlayed(gMusic);
+}
+
+int AudioDecoder::getPlaybackDuration() {
+    return GetMusicTimeLength(gMusic);
 }
 
 StreamInfo* AudioDecoder::getStreamInfo() {
@@ -137,11 +157,11 @@ static void audioCallback(
     if(gMusic.stream.channels >= 2)
         gSpectrum->right = multiChRMS[1] * 100;
 
-
     free(multiChRMS);
 
-    if(visualizerCalcCount % 4 == 0)
+    if(visualizerCalcCount % 4 == 0) {
         gInterface->onStreamClock(gSpectrum, gStreamTs);
+    }
 
     visualizerCalcCount++;
 }

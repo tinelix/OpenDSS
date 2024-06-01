@@ -14,18 +14,29 @@
  *  (in the opening comment of each file).
  */
 
-#ifndef OPENDSS_INTERFACES_FILEMAN_H
-#define OPENDSS_INTERFACES_FILEMAN_H
+#ifndef OPENDSS_VERSION_H
+#define OPENDSS_VERSION_H
 
-#include <dirent.h>
+#define OPENDSS_VERSION "0.0.1"
 
-class IFileManager {
+#ifdef LICENSE_GPLV3
+    #define OPENDSS_SUFFIX "libre"
+#endif
+
+#include <cstdio>
+
+class OpenDSSVersion {
     public:
-        IFileManager() {};
-        virtual ~IFileManager() {};
-        virtual void onError(int cmdId, int errorCode) = 0;
-        virtual void onResult(int cmdId, int resultCode) = 0;
-        virtual void onDirectoryRead(dirent** ents) = 0;
+        static char* getVersion() {
+            char* version = new char[24];
+            #ifdef OPENDSS_SUFFIX
+                sprintf(version, "%s-%s", OPENDSS_VERSION, OPENDSS_SUFFIX);
+            #else
+                sprintf(version, "%s", OPENDSS_VERSION);
+            #endif
+
+            return version;
+        }
 };
 
 #endif

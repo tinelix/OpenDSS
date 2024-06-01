@@ -1,3 +1,19 @@
+/*  Tinelix OpenDSS - open sourced clone of Digital Sound System player
+ *  -------------------------------------------------------------------------------------------
+ *  Copyright © 2024 Dmitry Tretyakov (aka. Tinelix)
+ *
+ *  This program is free software: you can redistribute it and/or modify it under the terms of
+ *  the GNU General Public License 3 (or any later version) and/or Apache License 2
+ *  See the following files in repository directory for the precise terms and conditions of
+ *  either license:
+ *
+ *     LICENSE.APACHE
+ *     LICENSE.GPLv3
+ *
+ *  Please see each file in the implementation for copyright and licensing information,
+ *  (in the opening comment of each file).
+ */
+
 #include "pguiman.h"
 
 char key;
@@ -51,7 +67,8 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *interface) {
 
 void PseudoGUIManager::showTopVersionInfo() {
 
-    char verInfoStr[] = "Tinelix OpenDSS v. 0.0.1. Copyright (C) 2024 Dmitry Tretyakov\n";
+    char* verStr = OpenDSSVersion::getVersion();
+    const char* verInfoStr = "Tinelix OpenDSS v. %s | Copyright (C) 2024 Dmitry Tretyakov";
 
     /*      int int
      * move( y , x )                                                <-- moves cursor
@@ -67,8 +84,8 @@ void PseudoGUIManager::showTopVersionInfo() {
      *                                                                         argument #0
      */
 
-    move(0, (gActiveWidth - strlen(verInfoStr)) / 2);
-    printw("%s", verInfoStr);
+    move(0, (gActiveWidth - strlen(verInfoStr) - strlen(verStr) + 2) / 2);
+    printw(verInfoStr, verStr);
     mvchgat(0, 0, -1, A_NORMAL, 1, NULL);  // sets the background color for a specific line
 
     refresh();

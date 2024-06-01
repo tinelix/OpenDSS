@@ -1,3 +1,19 @@
+/*  Tinelix OpenDSS - open sourced clone of Digital Sound System player
+ *  -------------------------------------------------------------------------------------------
+ *  Copyright © 2024 Dmitry Tretyakov (aka. Tinelix)
+ *
+ *  This program is free software: you can redistribute it and/or modify it under the terms of
+ *  the GNU General Public License 3 (or any later version) and/or Apache License 2
+ *  See the following files in repository directory for the precise terms and conditions of
+ *  either license:
+ *
+ *     LICENSE.APACHE
+ *     LICENSE.GPLv3
+ *
+ *  Please see each file in the implementation for copyright and licensing information,
+ *  (in the opening comment of each file).
+ */
+
 #include "player.h"
 
 class IOpenDSSAudioDecoder : IAudioDecoder {
@@ -6,6 +22,8 @@ class IOpenDSSAudioDecoder : IAudioDecoder {
         void onPlaybackStateChanged(int state);
         void setWindow(ExtWindowCtrl* pExtWnd);
 };
+
+int minutes         = 0;
 
 AudioPlayerWnd::AudioPlayerWnd(char* fname) {
 
@@ -251,19 +269,8 @@ void AudioPlayerWnd::onKeyPressed(char k) {
 
     // ListBoxCtrl* categoriesListBox = ((ListBoxCtrl*) categoriesWnd->hCtrls[0]);
     // categoriesListBox->onKeyPressed(k);
-    int seconds         = gAudioDec->getPlaybackPosition();
-    int minutes         = 0;
 
     if(k != 'q') {
-        if(k == (int)10) {
-            mvwprintw(
-                playerCtrlWnd->hWnd,
-                4, 2,
-                "%02d:%02d",
-                minutes, seconds % 60
-            );
-        wrefresh(playerCtrlWnd->hWnd);
-        }
         k = wgetch(playlistWnd->hWnd);
         onKeyPressed(k);
     } else {
@@ -356,6 +363,39 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
     wrefresh(statsWnd->hWnd);
 }
 
+void AudioPlayerWnd::updatePosition(StreamTimestamp *streamTs) {
+    int seconds         = streamTs->position;
+    int duration        = streamTs->duration;
+
+    ExtWindowCtrl* playerCtrlWnd = hChildWnds[0];
+
+    int maxBlocksSize = (playerCtrlWnd->hWidth - 4);
+
+    if(seconds % 60 == 0 && seconds > 0) {
+        minutes++;
+    }
+
+    mvwprintw(
+        playerCtrlWnd->hWnd,
+        4, 2,
+        "%02d:%02d",
+        minutes, seconds % 60
+    );
+
+    float onePerc = (float)maxBlocksSize / 100;
+    int percents = ((float)seconds / duration) * maxBlocksSize;
+
+    for(int i = 0; i < maxBlocksSize; i++) {
+        if(i == percents) {
+            mvwprintw(playerCtrlWnd->hWnd, 5, i + 2, "\u25A0");
+        } else {
+            mvwprintw(playerCtrlWnd->hWnd, 5, i + 2, "\u2500");
+        }
+    }
+
+    wrefresh(playerCtrlWnd->hWnd);
+}
+
 AudioPlayerWnd::~AudioPlayerWnd() {
     wclear(hWnd);
     delwin(hWnd);
@@ -364,6 +404,9 @@ AudioPlayerWnd::~AudioPlayerWnd() {
 void IOpenDSSAudioDecoder::onStreamClock(
     AudioSpectrum *spectrum, StreamTimestamp *streamTs
 ) {
+    streamTs->position = ((AudioPlayerWnd*)hExtWnd)->gAudioDec->getPlaybackPosition();
+    streamTs->duration = ((AudioPlayerWnd*)hExtWnd)->gAudioDec->getPlaybackDuration();
+    ((AudioPlayerWnd*)hExtWnd)->updatePosition(streamTs);
     ((AudioPlayerWnd*)hExtWnd)->drawVisualizer(spectrum->left, spectrum->right);
 }
 
