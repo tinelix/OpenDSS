@@ -2,7 +2,7 @@
 CC=gcc
 
 ifeq ($(OS),Windows_NT)
-	CC		= g++
+	CC		= gcc
 endif
 
 CC_FLAGS		= -g -std=c++98 -Wall -Wl,-O1 -pipe -O2 -flto=2 \
@@ -51,8 +51,13 @@ SA_JCPP_ARCH_FILE	= $(OUT_DIR)/jsoncpp.a
 SA_POSTLIBS		= -lncursesw $(EXT_INCLUDES) -ltinfo -lstdc++
 
 ifeq ($(OS),Windows_NT)
+	POSTLIBS	= -lncursesw $(EXT_INCLUDES) $(EXT_LIBS) -lstdc++ -lm -lpthread \
+			  -DSUPPORT_MODULE_RAUDIO -DRAUDIO_STANDALONE -DSUPPORT_FILEFORMAT_WAV \
+			  -DSUPPORT_FILEFORMAT_OGG -DSUPPORT_FILEFORMAT_MP3 -DSUPPORT_FILEFORMAT_FLAC
 	SA_CC_FLAGS 	= -g -std=c++98 -Wall
-	SA_POSTLIBS 	= -lncursesw $(EXT_INCLUDES) -I/mingw64/include/ncurses -static -DNCURSES_STATIC
+	SA_POSTLIBS 	= -lncursesw -lstdc++ $(EXT_INCLUDES) -I/mingw64/include/ncurses -static -DNCURSES_STATIC \
+			  -DSUPPORT_MODULE_RAUDIO -DRAUDIO_STANDALONE -DSUPPORT_FILEFORMAT_WAV \
+			  -DSUPPORT_FILEFORMAT_OGG -DSUPPORT_FILEFORMAT_MP3 -DSUPPORT_FILEFORMAT_FLAC
 endif
 
 # Clean files function
