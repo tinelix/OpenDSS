@@ -20,7 +20,7 @@ char key;
 
 /* Initializes ncurses screen. */
 
-PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *interface) {
+PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *pInterface) {
     setlocale(LC_ALL, "");                      /* <-- set locale for correct non-ASCII characters
                                                        displaying */
     initscr();                                  /* <-- temporally clearing command prompt and initializes
@@ -58,7 +58,7 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *interface) {
 
     bkgd(COLOR_PAIR(3));
 
-    gInterface = interface;
+    gInterface = pInterface;
 
     getmaxyx(stdscr, gActiveHeight, gActiveWidth);
 }

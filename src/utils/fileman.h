@@ -27,7 +27,7 @@
 
 class FileManager {
     public:
-        FileManager(IFileManager *interface);
+        FileManager(IFileManager *pInterface);
         ~FileManager();
         void countSlashes(char* pDirPath);
         void readCurrentDir();

@@ -15,7 +15,6 @@
  */
 
 #include "fileman.h"
-#include <curses.h>
 
 #define MAX_FILENAME_LENGTH 32
 
@@ -77,7 +76,7 @@ void FileManagerWnd::onKeyPressed(char k) {
             gFileMan->readDir(fname);
         } else if(ExtString::strendq(fname, ".mp3")) {
             char msgTitle[] = "Opening file";
-            MessageBox* pMsgBox = new MessageBox(msgTitle, fname, 5);
+            MessageBoxU* pMsgBox = new MessageBoxU(msgTitle, fname, 5);
             ((ExtWindowCtrl*)pMsgBox)->freeWnd();
             redraw();
             gSelectedFileName = fname;

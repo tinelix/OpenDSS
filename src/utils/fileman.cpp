@@ -18,8 +18,8 @@
 
 #define MAX_FILES_COUNT 1536
 
-FileManager::FileManager(IFileManager *interface) {
-    gInterface = interface;
+FileManager::FileManager(IFileManager *pInterface) {
+    gInterface = pInterface;
     gFiles = (tinydir_file*)malloc(MAX_FILES_COUNT * sizeof(tinydir_file));
 }
 

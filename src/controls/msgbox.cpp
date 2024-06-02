@@ -16,7 +16,7 @@
 
 #include "msgbox.h"
 
-MessageBox::MessageBox(char *pWndTitle, char *pMsgText) {
+MessageBoxU::MessageBoxU(char *pWndTitle, char *pMsgText) {
     sprintf(id, "msgBoxWnd");
     sprintf(hTitle, "%s", pWndTitle);
     sprintf(hMsgText, "%s", pMsgText);
@@ -50,7 +50,7 @@ MessageBox::MessageBox(char *pWndTitle, char *pMsgText) {
     wrefresh(hWnd);
 }
 
-MessageBox::MessageBox(char *pWndTitle, char *pMsgText, int pBgColor) {
+MessageBoxU::MessageBoxU(char *pWndTitle, char *pMsgText, int pBgColor) {
     sprintf(id, "msgBoxWnd");
     sprintf(hTitle, "%s", pWndTitle);
     sprintf(hMsgText, "%s", pMsgText);
@@ -82,6 +82,6 @@ MessageBox::MessageBox(char *pWndTitle, char *pMsgText, int pBgColor) {
     wrefresh(hWnd);
 }
 
-void MessageBox::drawMessageText() {
+void MessageBoxU::drawMessageText() {
 
 }

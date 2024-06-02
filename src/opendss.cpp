@@ -97,7 +97,7 @@ void IOpenDSSFileManager::onError(int cmdId, int errorCode) {
     if(cmdId == 0) {
         char msgTitle[] = "Error";
         char msgText[] = "Cannot open this directory!";
-        MessageBox* pMsgBox = new MessageBox(msgTitle, msgText, 4);
+        MessageBoxU* pMsgBox = new MessageBoxU(msgTitle, msgText, 4);
         gPsGuiMan->listenKeyboard((ExtWindowCtrl*)pMsgBox);
         ((ExtWindowCtrl*)pMsgBox)->freeWnd();
         gFileManWnd->redraw();

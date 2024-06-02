@@ -41,7 +41,7 @@
 
 class PseudoGUIManager {
     public:
-        PseudoGUIManager(IPseudoGUIManager *interface);
+        PseudoGUIManager(IPseudoGUIManager *pInterface);
         ~PseudoGUIManager();
         void showTopVersionInfo();
         void listenKeyboard();

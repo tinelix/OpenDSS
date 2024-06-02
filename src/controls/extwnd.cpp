@@ -15,7 +15,6 @@
  */
 
 #include "extwnd.h"
-#include <curses.h>
 
 ExtWindowCtrl::ExtWindowCtrl() {
     hWidth = 8;

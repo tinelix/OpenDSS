@@ -25,11 +25,11 @@
     #include <ncurses.h>
 #endif
 
-class MessageBox : ExtWindowCtrl {
+class MessageBoxU : ExtWindowCtrl {
     public:
-        MessageBox(char *pWndTitle, char *pMsgText);
-        MessageBox(char *pWndTitle, char *pMsgText, int pBgColor);
-        ~MessageBox();
+        MessageBoxU(char *pWndTitle, char *pMsgText);
+        MessageBoxU(char *pWndTitle, char *pMsgText, int pBgColor);
+        ~MessageBoxU();
         void free();
     private:
         void drawMessageText();
