@@ -21,17 +21,16 @@
 #include <cstdio>
 #include <raudio.h>
 
-bool isPlaying;
-
-static void audioCallback(
-    void *bufferData, unsigned int frames
-);
-
+bool isPlaying, initializedDevice;
 StreamTimestamp* gStreamTs;
 AudioSpectrum* gSpectrum;
 IAudioDecoder* gInterface;
 Music gMusic;
 int visualizerCalcCount;
+
+static void audioCallback(
+    void *bufferData, unsigned int frames
+);
 
 int AudioDecoder::open(char* pFileName) {
     gFileName = pFileName;
@@ -50,16 +49,18 @@ int AudioDecoder::close() {
 }
 
 int AudioDecoder::initOutput() {
-
-    InitAudioDevice();
+    if(!initializedDevice) {
+        InitAudioDevice();
+        initializedDevice = true;
+    }
 
     return 0;
 }
 
 void AudioDecoder::output(char* pFileName) {
     StreamInfo* streamInfo = getStreamInfo();
-    SetMasterVolume(1.0);
     gMusic = LoadMusicStream(pFileName);
+    SetMasterVolume(1.0);
     PlayMusicStream(gMusic);
     AttachAudioStreamProcessor(gMusic.stream, audioCallback);
     isPlaying = true;
@@ -99,17 +100,15 @@ static short int** splitAudioBuffer(
 ) {
     int channelSize = length / channels;
     int bufferIndex = 0;
-    int bytesPerSample = sampleSize / 8;
+    int bytesPerSample = (sampleSize / channels) / 8;
 
     short int** multiChannelBuffer = (short int**)malloc(length * sizeof(short int));
-    for(int ch = 0; ch < channels; ch++) {
-        multiChannelBuffer[ch] = (short int*)malloc(channelSize * sizeof(short int));
-    }
 
-    for(int i = 0; i < channelSize; i += bytesPerSample) {
-        for(int ch = 0; ch < channels; ch++) {
-            for(int s = 0; s < bytesPerSample; s++) {
-                multiChannelBuffer[ch][i + s]=buffer[bufferIndex];
+    for(int ch = 0; ch < channels; ch++) {
+        multiChannelBuffer[ch] = (short int*)malloc((sampleSize / channels) * sizeof(short int));
+        for(int s = 0; s < channelSize; s += bytesPerSample) {
+            for (int i = 0; i < bytesPerSample; i++) {
+                multiChannelBuffer[ch][s + i] = buffer[bufferIndex];
                 bufferIndex++;
             }
         }
@@ -149,9 +148,12 @@ void AudioDecoder::stop() {
 }
 
 void AudioDecoder::freeStream() {
-    DetachAudioStreamProcessor(gMusic.stream, audioCallback);
-    UnloadMusicStream(gMusic);
-    CloseAudioDevice();
+    if(initializedDevice == true) {
+        DetachAudioStreamProcessor(gMusic.stream, audioCallback);
+        UnloadMusicStream(gMusic);
+        CloseAudioDevice();
+        initializedDevice = false;
+    }
 }
 
 static void audioCallback(
@@ -172,6 +174,7 @@ static void audioCallback(
         gMusic.stream.channels
     );
 
+
     for(int i = 0; i < gMusic.stream.channels; i++) {
         double rms = getRMS(multiChBuffer[i], bufferSize / gMusic.stream.channels);
         multiChRMS[i] = rms;
@@ -183,9 +186,17 @@ static void audioCallback(
     if(gMusic.stream.channels >= 2)
         gSpectrum->right = multiChRMS[1] * 100;
 
+    if(gSpectrum->left > 100) {
+        gSpectrum->left = 100;
+    }
+
+    if(gSpectrum->right > 100) {
+        gSpectrum->right = 100;
+    }
+
     free(multiChRMS);
 
-    if(visualizerCalcCount % 4 == 0) {
+    if(visualizerCalcCount % 2 == 0) {
         gInterface->onStreamClock(gSpectrum, gStreamTs);
     }
 

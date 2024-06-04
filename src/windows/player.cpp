@@ -66,6 +66,9 @@ AudioPlayerWnd::AudioPlayerWnd(char* fname, ExtWindowCtrl* pParent) {
 
     wrefresh(hWnd);
 
+    set_escdelay(2);
+    wtimeout(hWnd, 1);
+
     prepare();
     disableListening = false;
 }
@@ -243,6 +246,8 @@ void AudioPlayerWnd::playAudioFile() {
     ExtWindowCtrl* playlistWnd = hChildWnds[1];
     ExtWindowCtrl* statsWnd = hChildWnds[2];
 
+    disableListening = false;
+
     int maxBlocksSize = (playerCtrlWnd->hWidth - 4);
 
     for(int i = 0; i < maxBlocksSize; i++) {
@@ -309,7 +314,7 @@ void AudioPlayerWnd::onKeyPressed(char k, char prev_k) {
         char k2 = wgetch(hWnd);
         if(k2 == -1) {
             disableListening = true;
-            freeWnd();
+
             gAudioDec->stop();
             gAudioDec->freeStream();
         }
@@ -377,16 +382,6 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
     ExtWindowCtrl* statsWnd = hChildWnds[2];
     int maxBlocksSize = (statsWnd->hWidth - 6);
 
-    if(left / 100 > 1) {
-        left = 100;
-    }
-
-    if(right / 100 > 1) {
-        right = 100;
-    }
-
-    double onePerc = (double)(maxBlocksSize - 10) / 100;
-
     mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 3, 2, "L");
     for(int i = 0; i < maxBlocksSize; i++) {
         mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 3, i + 4, "\u25A0");
@@ -397,11 +392,13 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
         mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 2, i + 4, "\u25A0");
     }
 
+    // ColorPair 9 = COLOR_DARK_GRAY
+
     mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 3, 4, maxBlocksSize, A_BOLD, 9, NULL);
-    mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 3, 4, (left * onePerc), A_BOLD, 6, NULL);
+    mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 3, 4, (double)((double)left / 100) * maxBlocksSize, A_BOLD, 6, NULL);
 
     mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, maxBlocksSize, A_BOLD, 9, NULL);
-    mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, (right * onePerc), A_BOLD, 6, NULL);
+    mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, (double)((double)right / 100) * maxBlocksSize, A_BOLD, 6, NULL);
 
     wrefresh(statsWnd->hWnd);
 }
@@ -423,7 +420,6 @@ void AudioPlayerWnd::updatePosition(StreamTimestamp *streamTs) {
         minutes, seconds % 60
     );
 
-    float onePerc = (float)maxBlocksSize / 100;
     int percents = ((float)seconds / duration) * maxBlocksSize;
 
     for(int i = 0; i < maxBlocksSize; i++) {
@@ -465,8 +461,6 @@ void IOpenDSSAudioDecoder::onStreamClock(
     streamTs->duration = ((AudioPlayerWnd*)hExtWnd)->gAudioDec->getPlaybackDuration();
     ((AudioPlayerWnd*)hExtWnd)->updatePosition(streamTs);
     ((AudioPlayerWnd*)hExtWnd)->drawVisualizer(spectrum->left, spectrum->right);
-    set_escdelay(2);
-    wtimeout(hExtWnd->hWnd, 1);
     char k = wgetch(hExtWnd->hWnd);
     if(!disableListening) {
         if(k != prev_key)

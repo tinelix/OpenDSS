@@ -62,6 +62,7 @@ PseudoGUIManager                *gPsGuiMan;
 FileManager                     *gFileMan;
 
 FileManagerWnd                  *gFileManWnd;
+AudioPlayerWnd                  *gPlayerWnd;
 
 /* Creates File Manager window and shows directory listing. */
 
@@ -88,7 +89,7 @@ int main() {
 }
 
 void openAudioFile(char* pFileName) {
-    AudioPlayerWnd* playerWnd = new AudioPlayerWnd(pFileName, gFileManWnd);
+    gPlayerWnd = new AudioPlayerWnd(pFileName, gFileManWnd);
 }
 
 /* Handles File Manager errors. */
