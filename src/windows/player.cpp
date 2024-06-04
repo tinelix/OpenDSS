@@ -15,6 +15,11 @@
  */
 
 #include "player.h"
+#include <curses.h>
+
+int duplicateKeys = 0;
+char prev_key;
+bool disableListening;
 
 #define MAX_FILE_LENGTH 80
 
@@ -26,7 +31,8 @@ class IOpenDSSAudioDecoder : IAudioDecoder {
 };
 
 
-AudioPlayerWnd::AudioPlayerWnd(char* fname) {
+AudioPlayerWnd::AudioPlayerWnd(char* fname, ExtWindowCtrl* pParent) {
+    gParent = pParent;
 
     sprintf(id, "msgBoxWnd");
     char* shortest_fname = new char[384];
@@ -61,6 +67,7 @@ AudioPlayerWnd::AudioPlayerWnd(char* fname) {
     wrefresh(hWnd);
 
     prepare();
+    disableListening = false;
 }
 
 void AudioPlayerWnd::prepare() {
@@ -263,12 +270,34 @@ void AudioPlayerWnd::playAudioFile() {
     }
 
     wrefresh(playerCtrlWnd->hWnd);
-
-    char k = wgetch(playlistWnd->hWnd);
-    onKeyPressed(k);
 }
 
 void AudioPlayerWnd::onKeyPressed(char k) {
+    ExtWindowCtrl* playerCtrlWnd = hChildWnds[0];
+    ExtWindowCtrl* playlistWnd = hChildWnds[1];
+    ExtWindowCtrl* statsWnd = hChildWnds[2];
+
+    scrollok(playlistWnd->hWnd, TRUE);
+
+    set_escdelay(2);
+    wtimeout(hWnd, 1);
+
+    // ListBoxCtrl* categoriesListBox = ((ListBoxCtrl*) categoriesWnd->hCtrls[0]);
+    // categoriesListBox->onKeyPressed(k);
+    if(k == (int)27) {
+        char k2 = getch();
+        if(k2 == -1) {
+            freeWnd();
+        }
+    } else if(k >= 0 && k != 'q') {
+        mvwprintw(hWnd, 1, 2, "Key: %d", k);
+        wrefresh(hWnd);
+    } else {
+        duplicateKeys++;
+    }
+}
+
+void AudioPlayerWnd::onKeyPressed(char k, char prev_k) {
     ExtWindowCtrl* playerCtrlWnd = hChildWnds[0];
     ExtWindowCtrl* playlistWnd = hChildWnds[1];
 
@@ -276,12 +305,19 @@ void AudioPlayerWnd::onKeyPressed(char k) {
 
     // ListBoxCtrl* categoriesListBox = ((ListBoxCtrl*) categoriesWnd->hCtrls[0]);
     // categoriesListBox->onKeyPressed(k);
-
-    if(k != 'q') {
-        k = wgetch(playlistWnd->hWnd);
-        onKeyPressed(k);
+    if(k == (int)27) {
+        char k2 = wgetch(hWnd);
+        if(k2 == -1) {
+            disableListening = true;
+            freeWnd();
+            gAudioDec->stop();
+            gAudioDec->freeStream();
+        }
+    } else if(k >= 0 && k != 'q') {
+        mvwprintw(hWnd, 1, 2, "Key: %d", k);
+        wrefresh(hWnd);
     } else {
-
+        duplicateKeys++;
     }
 }
 
@@ -401,9 +437,25 @@ void AudioPlayerWnd::updatePosition(StreamTimestamp *streamTs) {
     wrefresh(playerCtrlWnd->hWnd);
 }
 
-AudioPlayerWnd::~AudioPlayerWnd() {
-    wclear(hWnd);
+void AudioPlayerWnd::freeWnd() {
+    ExtWindowCtrl* playerCtrlWnd = hChildWnds[0];
+    ExtWindowCtrl* playlistWnd = hChildWnds[1];
+    ExtWindowCtrl* statsWnd = hChildWnds[2];
+
+    delwin(playerCtrlWnd->hWnd);
+    delwin(playlistWnd->hWnd);
+    delwin(statsWnd->hWnd);
     delwin(hWnd);
+    refresh();
+    touchwin(gParent->hWnd);
+    wrefresh(gParent->hWnd);
+    gParent->listen(true);
+    char k = wgetch(gParent->hWnd);
+    gParent->onKeyPressed(k);
+}
+
+AudioPlayerWnd::~AudioPlayerWnd() {
+    freeWnd();
 }
 
 void IOpenDSSAudioDecoder::onStreamClock(
@@ -413,6 +465,14 @@ void IOpenDSSAudioDecoder::onStreamClock(
     streamTs->duration = ((AudioPlayerWnd*)hExtWnd)->gAudioDec->getPlaybackDuration();
     ((AudioPlayerWnd*)hExtWnd)->updatePosition(streamTs);
     ((AudioPlayerWnd*)hExtWnd)->drawVisualizer(spectrum->left, spectrum->right);
+    set_escdelay(2);
+    wtimeout(hExtWnd->hWnd, 1);
+    char k = wgetch(hExtWnd->hWnd);
+    if(!disableListening) {
+        if(k != prev_key)
+            ((AudioPlayerWnd*)hExtWnd)->onKeyPressed(k, prev_key);
+        prev_key = k;
+    }
 }
 
 void IOpenDSSAudioDecoder::onPlaybackStateChanged(int state) {

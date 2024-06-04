@@ -21,6 +21,8 @@
 #include <cstdio>
 #include <raudio.h>
 
+bool isPlaying;
+
 static void audioCallback(
     void *bufferData, unsigned int frames
 );
@@ -60,7 +62,8 @@ void AudioDecoder::output(char* pFileName) {
     gMusic = LoadMusicStream(pFileName);
     PlayMusicStream(gMusic);
     AttachAudioStreamProcessor(gMusic.stream, audioCallback);
-    while(true) {
+    isPlaying = true;
+    while(isPlaying) {
        UpdateMusicStream(gMusic);
     }
 }
@@ -126,6 +129,29 @@ double getRMS(short int *buffer, int length)
          sumSquared += s * s;
     }
     return sqrt(2) * sqrt(sumSquared/length);
+}
+
+void AudioDecoder::pause() {
+    isPlaying = !isPlaying;
+    if(!isPlaying)
+        PauseMusicStream(gMusic);
+    else {
+        ResumeMusicStream(gMusic);
+        while(isPlaying) {
+            UpdateMusicStream(gMusic);
+        }
+    }
+}
+
+void AudioDecoder::stop() {
+    isPlaying = false;
+    StopMusicStream(gMusic);
+}
+
+void AudioDecoder::freeStream() {
+    DetachAudioStreamProcessor(gMusic.stream, audioCallback);
+    UnloadMusicStream(gMusic);
+    CloseAudioDevice();
 }
 
 static void audioCallback(

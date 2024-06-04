@@ -41,11 +41,13 @@
 
 class AudioPlayerWnd : ExtWindowCtrl {
     public:
-        AudioPlayerWnd(char* fname);
+        AudioPlayerWnd(char* fname, ExtWindowCtrl* pParent);
         ~AudioPlayerWnd();
         void onKeyPressed(char k);
+        void onKeyPressed(char k, char prev_k);
         void drawVisualizer(int left, int right);
         void updatePosition(StreamTimestamp *streamTs);
+        void freeWnd();
         AudioDecoder* gAudioDec;
     private:
         void prepare();

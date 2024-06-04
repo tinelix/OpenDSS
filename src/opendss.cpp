@@ -88,7 +88,7 @@ int main() {
 }
 
 void openAudioFile(char* pFileName) {
-    AudioPlayerWnd* playerWnd = new AudioPlayerWnd(pFileName);
+    AudioPlayerWnd* playerWnd = new AudioPlayerWnd(pFileName, gFileManWnd);
 }
 
 /* Handles File Manager errors. */

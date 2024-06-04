@@ -50,6 +50,9 @@ class AudioDecoder {
         void output(char* pFileName);
         int getPlaybackPosition();
         int getPlaybackDuration();
+        void pause();
+        void stop();
+        void freeStream();
         char* gFileName;
     protected:
         unsigned char* gBuffer;

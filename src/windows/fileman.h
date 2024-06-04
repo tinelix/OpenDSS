@@ -51,6 +51,7 @@ class FileManagerWnd : public ExtWindowCtrl {
         void onDirectoryRead(tinydir_file* files);
         void onFileManResult(int cmdId, int resultCode);
         void onFileManError(int cmdId, int errorCode);
+        void listen(bool value);
         bool disableListening;
     private:
         FileManager     *gFileMan;

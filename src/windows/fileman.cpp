@@ -18,6 +18,8 @@
 
 #define MAX_FILENAME_LENGTH 32
 
+ListBoxCtrl *mFileListBox;
+
 FileManagerWnd::FileManagerWnd(FileManager *pFileMan, IFileManager *pInterface) {
     sprintf(hTitle, "File Manager");
     sprintf(id, "fileManWnd");
@@ -57,7 +59,6 @@ char* FileManagerWnd::getSelectedFileName() {
 }
 
 void FileManagerWnd::onKeyPressed(char k) {
-
     if(k == 'q') {
         disableListening = false;
         return;
@@ -94,25 +95,25 @@ void FileManagerWnd::onKeyPressed(char k) {
 }
 
 void FileManagerWnd::onDirectoryRead(tinydir_file* files) {
-    ListBoxCtrl *mFileListBox;
-
-    for(int i = 0; i < hWidth - 4; i++) {
-        mvwaddch(hWnd, 2, i + 2, ' ');
-    }
 
     mvwprintw(hWnd, 2, 2, "%s", gFileMan->getCurrentPath());
-    if(!hCtrls[0]) {
+    if(mFileListBox == NULL) {
         mFileListBox = new ListBoxCtrl(this, gFileMan->getFilesCount(), true);
-        mFileListBox->setSelectionIndex(0);
-        mFileListBox->hY = 4;
-        mFileListBox->hX = 2;
-        mFileListBox->hHeight = hHeight - 6;
-        mFileListBox->hWidth = hWidth - 4;
-
-        addControl((UIControl*)mFileListBox);
     } else {
-        mFileListBox = ((ListBoxCtrl*) hCtrls[0]);
         mFileListBox->recreate(gFileMan->getFilesCount());
+    }
+    mFileListBox->setSelectionIndex(0);
+    mFileListBox->hY = 4;
+    mFileListBox->hX = 2;
+    mFileListBox->hHeight = hHeight - 6;
+    mFileListBox->hWidth = hWidth - 4;
+
+    addControl((UIControl*)mFileListBox, 0);
+
+    for(int y = 0; y < mFileListBox->hHeight; y++) {
+        for(int x = 0; x < mFileListBox->hWidth; x++) {
+            mvwaddch(hWnd, mFileListBox->hY + y, mFileListBox->hX + x, ' ');
+        }
     }
 
     for(int i = 0; i < gFileMan->getFilesCount(); i++) {
@@ -157,4 +158,8 @@ void FileManagerWnd::onFileManResult(int cmdId, int resultCode) {
 
 void FileManagerWnd::onFileManError(int cmdId, int errorCode) {
 
+}
+
+void FileManagerWnd::listen(bool value) {
+    disableListening = !value;
 }

@@ -54,6 +54,7 @@ void ListBoxCtrl::addListItem(int index, ListItem* item) {
 
     gListItems[index] = item;
 
+
     char shortestTitle[128];
 
     sprintf(shortestTitle, "%s", item->title);
@@ -142,42 +143,42 @@ void ListBoxCtrl::goToPage(int pPageNumb) {
 }
 
 void ListBoxCtrl::onKeyPressed(char k) {
+    int virtIndex = getVirtualSelectionIndex();
     if((int)k == 2 || (int)k == 3) {
-        int index = getVirtualSelectionIndex();
 
         if((int)k == 3) { // top arrow key
-            if(index > 0) {
-                index--;
+            if(virtIndex > 0) {
+                virtIndex--;
             }
-            if(index <= 0 && gPageNumber > 0) {
+            if(virtIndex <= 0 && gPageNumber > 0) {
                 goToPage(gPageNumber - 1);
-                index = hHeight;
+                virtIndex = hHeight;
             }
         } else if((int)k == 2) { // bottom arrow key
             if(gItemCount - 1 > getSelectionIndex()) {
-                index++;
+                virtIndex++;
             }
-            if(index >= hHeight) {
-                index = 0;
-                if(index <= 0) {
+            if(virtIndex >= hHeight) {
+                virtIndex = 0;
+                if(virtIndex <= 0) {
                     goToPage(gPageNumber + 1);
                 }
             }
         }
 
         int list_index = getVirtualSelectionIndex() + hY;
-        if(index >= 0 && index < getItemsCount()) {
+        if(virtIndex >= 0 && virtIndex < getItemsCount()) {
             drawListPointer(
                 hX, list_index,false
             );
         }
 
-        if(index <= getItemsCount() - 1) {
-            gSelectionIndex = index;
+        if(virtIndex <= getItemsCount() - 1) {
+            gSelectionIndex = virtIndex;
             list_index = getVirtualSelectionIndex() + hY;
         }
 
-        if(index < getItemsCount()) {
+        if(virtIndex < getItemsCount()) {
             drawListPointer(
                 hX, list_index, true
             );
@@ -192,11 +193,20 @@ void ListBoxCtrl::onKeyPressed(char k) {
 
         expand(index, k == (int)5);
     } else if(k == (int)82){
-        if(gPageNumber * hHeight < getItemsCount())
+        if(gPageNumber * hHeight < getItemsCount()) {
             goToPage(gPageNumber + 1);
+            drawListPointer(
+                hX, hY + virtIndex, '^', k == (int)5
+            );
+        }
     } else if(k == (int)83) {
-        if(gPageNumber > 0)
+        if(gPageNumber > 0) {
             goToPage(gPageNumber - 1);
+            drawListPointer(
+                hX, hY + virtIndex, '^', k == (int)5
+            );
+        }
+
     }
 }
 

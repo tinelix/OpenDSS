@@ -244,6 +244,8 @@ int ID3::id3_extract_info(char *tag, ID3_Tags *id3, int id3ver)
 				tagOffset = tagCommentOffset;
 				memcpy(id3->album, tag + tagOffset, ID3_V2_SIZE_INFO);
 			}
+
+
 		}
 	}
 

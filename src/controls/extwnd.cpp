@@ -35,6 +35,17 @@ ExtWindowCtrl::ExtWindowCtrl(char* pId) {
     hChildWnds = (ExtWindowCtrl**)malloc(sizeof(ExtWindowCtrl) * 16);
 }
 
+ExtWindowCtrl::ExtWindowCtrl(char* pId, ExtWindowCtrl* pParent) {
+    sprintf(id, "%s", pId);
+    hWidth = 8;
+    hHeight = 8;
+    gCtrlSize = 0;
+    gChildWndsSize = 0;
+    hCtrls = (UIControl**)malloc(sizeof(UIControl) * 255);
+    hChildWnds = (ExtWindowCtrl**)malloc(sizeof(ExtWindowCtrl) * 16);
+    gParent = pParent;
+}
+
 ExtWindowCtrl::~ExtWindowCtrl() {
     free(hCtrls);
     free(hChildWnds);
@@ -45,9 +56,15 @@ void ExtWindowCtrl::addControl(UIControl* pCtrl) {
     gCtrlSize++;
 }
 
+void ExtWindowCtrl::addControl(UIControl* pCtrl, int index) {
+    hCtrls[gCtrlSize] = pCtrl;
+    if(gCtrlSize >= index)
+        gCtrlSize++;
+}
+
 void ExtWindowCtrl::addChildWindow(char* id, char* title, int width, int height, int x, int y) {
 
-    ExtWindowCtrl *pExtWnd = new ExtWindowCtrl(id);
+    ExtWindowCtrl *pExtWnd = new ExtWindowCtrl(id, this);
 
     int realWidth = 5;
     int realHeight = 5;
@@ -118,5 +135,17 @@ void ExtWindowCtrl::freeWnd() {
     wrefresh(hWnd);
     delwin(hWnd);
     refresh();
+}
+
+void ExtWindowCtrl::listen(bool value) {
+
+}
+
+void ExtWindowCtrl::onKeyPressed(char k) {
+
+}
+
+void ExtWindowCtrl::onKeyPressed(char k, char prev_key) {
+
 }
 

@@ -16,11 +16,12 @@
 
 #include "fileman.h"
 
-#define MAX_FILES_COUNT 1536
+#define MAX_FILES_COUNT 2048
 
 FileManager::FileManager(IFileManager *pInterface) {
     gInterface = pInterface;
     gFiles = (tinydir_file*)malloc(MAX_FILES_COUNT * sizeof(tinydir_file));
+    gFilesCount = 0;
 }
 
 FileManager::~FileManager() {

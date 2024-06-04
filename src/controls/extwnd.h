@@ -32,19 +32,25 @@ class ExtWindowCtrl {
     public:
         ExtWindowCtrl();
         ExtWindowCtrl(char* pId);
+        ExtWindowCtrl(char* pId, ExtWindowCtrl* pParent);
         ~ExtWindowCtrl();
         char hTitle[255], id[60];
         int hWidth, hHeight;
         WINDOW* hWnd;
         UIControl** hCtrls;
         ExtWindowCtrl** hChildWnds;
+        ExtWindowCtrl* gParent;
         void addControl(UIControl* pCtrl);
+        void addControl(UIControl* pCtrl, int index);
         void addChildWindow(char* id, char* title, int width, int height, int x, int y);
         int getControlsSize();
         int getChildWindowsSize();
         void redraw();
         void clear();
-        void freeWnd();
+        virtual void freeWnd();
+        virtual void listen(bool value);
+        virtual void onKeyPressed(char k);
+        virtual void onKeyPressed(char k, char prev_k);
     private:
         int gCtrlSize;
         int gChildWndsSize;
