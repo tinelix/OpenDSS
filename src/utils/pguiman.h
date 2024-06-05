@@ -31,13 +31,14 @@
 #include <locale.h>
 #include "../version.h"
 
-#define COLOR_LIGHT_WHITE  255
-#define COLOR_GRAY         240
-#define COLOR_DARK_GRAY    235
-#define COLOR_DARK_GREEN    28
-#define COLOR_DEEP_BLACK    16
-#define COLOR_LIGHT_RED     82
-#define COLOR_LIGHT_GREEN   47
+#define COLOR_LIGHT_WHITE       255
+#define COLOR_GRAY              240
+#define COLOR_DARK_GRAY         235
+#define COLOR_DARK_GREEN         28
+#define COLOR_DEEP_BLACK         16
+#define COLOR_LIGHT_RED          82
+#define COLOR_LIGHT_GREEN        47
+#define COLOR_BLUE_SKY           68
 
 class PseudoGUIManager {
     public:

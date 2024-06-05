@@ -51,6 +51,7 @@ int AudioDecoder::close() {
 int AudioDecoder::initOutput() {
     if(!initializedDevice) {
         InitAudioDevice();
+        SetAudioStreamBufferSizeDefault(512);
         initializedDevice = true;
     }
 
@@ -182,9 +183,9 @@ static void audioCallback(
 
     free(multiChBuffer);
 
-    gSpectrum->left = multiChRMS[0] * 100;
+    gSpectrum->left = multiChRMS[0] * 80;
     if(gMusic.stream.channels >= 2)
-        gSpectrum->right = multiChRMS[1] * 100;
+        gSpectrum->right = multiChRMS[1] * 80;
 
     if(gSpectrum->left > 100) {
         gSpectrum->left = 100;
@@ -196,7 +197,7 @@ static void audioCallback(
 
     free(multiChRMS);
 
-    if(visualizerCalcCount % 2 == 0) {
+    if(visualizerCalcCount % 4 == 0) {
         gInterface->onStreamClock(gSpectrum, gStreamTs);
     }
 

@@ -37,8 +37,8 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager *pInterface) {
         start_color();
 
         init_color(COLOR_LIGHT_WHITE, 768, 768, 768);
-        init_color(COLOR_BLUE, 0, 142, 768);  //  <-- create RGB value for COLOR_BLUE variable
-        init_pair(1, COLOR_LIGHT_WHITE, COLOR_BLUE);
+        init_color(COLOR_BLUE_SKY, 0, 142, 768);  //  <-- create RGB value for COLOR_BLUE_SKY variable
+        init_pair(1, COLOR_LIGHT_WHITE, COLOR_BLUE_SKY);
         init_color(COLOR_GRAY, 384, 384, 384);  //  <-- create RGB value for COLOR_GRAY variable
         init_pair(2, COLOR_LIGHT_WHITE, COLOR_GRAY);
         init_color(COLOR_DEEP_BLACK, 0, 0, 0);  //  <-- create RGB value for COLOR_DEEP_BLACK variable
