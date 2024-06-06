@@ -19,11 +19,7 @@
 
 #include "extwnd.h"
 #include "../utils/pguiman.h"
-#ifdef __MINGW64__
-    #include <ncurses/ncurses.h>
-#else
-    #include <ncurses.h>
-#endif
+#include <curses.h>
 
 class MessageBoxU : ExtWindowCtrl {
     public:

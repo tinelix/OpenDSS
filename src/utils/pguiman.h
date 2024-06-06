@@ -17,11 +17,7 @@
 #ifndef OPENDSS_UTILS_PGUIMAN_H
 #define OPENDSS_UTILS_PGUIMAN_H
 
-#ifdef __MINGW64__
-    #include <ncurses/ncurses.h>
-#else
-    #include <ncurses.h>
-#endif
+#include <curses.h>
 
 #include <stdio.h>
 #include <stdlib.h>

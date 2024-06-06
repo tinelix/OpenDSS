@@ -19,11 +19,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef __MINGW64__
-    #include <ncurses/ncurses.h>
-#else
-    #include <ncurses.h>
-#endif
+#include <curses.h>
 #include <tinydir.h>
 #include <wchar.h>
 
