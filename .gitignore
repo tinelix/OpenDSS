@@ -1,3 +1,7 @@
-out/
+*.exe
+*.dll
+*.obj
 *.so
-*.o
+*.res
+*.rc
+out/*
