@@ -32,7 +32,7 @@ FileManager::~FileManager() {
 
 void FileManager::readCurrentDir() {
     char cwd[384];
-    if(getcwd(cwd, sizeof(cwd)) != NULL) {
+    if(_getcwd(cwd, sizeof(cwd)) != NULL) {
         readDir(cwd);
     } else
         gInterface->onError(0, 1);
@@ -42,7 +42,7 @@ void FileManager::readDir(char* pDirPath) {
     int object_index = 0;
     tinydir_dir dir;
 
-    if (tinydir_open_sorted(&dir, pDirPath) == -1) {
+    if (tinydir_open_sorted(&dir, (TCHAR*)pDirPath) == -1) {
 		gInterface->onError(0, -1);
         return;
 	}

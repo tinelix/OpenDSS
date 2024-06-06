@@ -18,7 +18,6 @@
 #define OPENDSS_UTILS_FILEMAN_H
 
 #include <tinydir.h>
-#include <unistd.h>
 #include <interfaces/fileman.h>
 #include <controls/listbox.h>
 #include <stdio.h>

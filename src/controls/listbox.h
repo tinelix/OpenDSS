@@ -23,11 +23,7 @@
 #include <cstring>
 #include <cstdio>
 
-#ifdef __MINGW64__
-    #include <ncurses/ncurses.h>
-#else
-    #include <ncurses.h>
-#endif
+#include <curses.h>
 
 struct ListItem {
     char title[384];
