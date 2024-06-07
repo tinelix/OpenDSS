@@ -124,7 +124,7 @@ void FileManagerWnd::onDirectoryRead(tinydir_file* files) {
             sprintf(item->title + MAX_FILENAME_LENGTH - 3, "...");
         }
         if(i <= mFileListBox->hHeight
-            && ExtString::strendq(files[i].name, ".mp3"))  {
+            && ExtString::strendq((char*)files[i].name, ".mp3"))  {
             char full_fname[600];
             sprintf(full_fname, "%s/%s", gFileMan->getCurrentPath(), files[i].name);
             AudioTager *pTagger = new AudioTager();

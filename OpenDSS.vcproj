@@ -40,12 +40,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)\libs\pdcurses&quot;;&quot;$(ProjectDir)\libs\stdint&quot;;&quot;$(ProjectDir)\libs\tinydir&quot;;&quot;$(ProjectDir)\libs\libid3\src&quot;;&quot;$(ProjectDir)\libs\minimp3&quot;;&quot;$(ProjectDir)\libs\raudio\src&quot;;&quot;$(ProjectDir)\src&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)\libs\pdcurses&quot;;&quot;$(ProjectDir)\libs\stdint&quot;;&quot;$(ProjectDir)\libs\tinydir&quot;;&quot;$(ProjectDir)\libs\libid3\src&quot;;&quot;$(ProjectDir)\libs\dr_libs&quot;;&quot;$(ProjectDir)\libs\raudio\src&quot;;&quot;$(ProjectDir)\src&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;RAUDIO_STANDALONE;SUPPORT_MODULE_RAUDIO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
+				ObjectFile="$(ProjectDir)\out\"
+				ProgramDataBaseFileName="$(ProjectDir)\out\vc80.pdb"
+				XMLDocumentationFileName="$(ProjectDir)\out\"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
@@ -62,8 +65,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="pdcurses.lib"
+				OutputFile="$(ProjectDir)\out\bin\$(ProjectName).exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(ProjectDir)\out\pdcurses&quot;"
+				AdditionalLibraryDirectories="&quot;$(ProjectDir)\out\libs\pdcurses&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -177,6 +181,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\src\opendss.cpp"
+				>
+			</File>
 			<Filter
 				Name="Decoders"
 				>
@@ -257,6 +265,48 @@
 				<File
 					RelativePath=".\src\utils\pguiman.cpp"
 					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Libraries"
+				>
+				<Filter
+					Name="libid3"
+					>
+					<File
+						RelativePath="..\..\VS2005\Projects\opendss\libs\libid3\src\hexarr.cpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\VS2005\Projects\opendss\libs\libid3\src\id3.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Interfaces"
+				>
+				<File
+					RelativePath="..\..\VS2005\Projects\opendss\src\interfaces\audiodec.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							ObjectFile="$(IntDir)\$(InputName)1.obj"
+							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>
@@ -340,6 +390,22 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="Interfaces"
+				>
+				<File
+					RelativePath="..\..\VS2005\Projects\opendss\src\interfaces\audiodec.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\VS2005\Projects\opendss\src\interfaces\fileman.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\VS2005\Projects\opendss\src\interfaces\pguiman.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

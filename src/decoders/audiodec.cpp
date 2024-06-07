@@ -19,13 +19,13 @@
 
 #include <cstddef>
 #include <cstdio>
-#include <raudio.h>
+//#include <raudio.h>
 
 bool isPlaying, initializedDevice;
 StreamTimestamp* gStreamTs;
 AudioSpectrum* gSpectrum;
 IAudioDecoder* gInterface;
-Music gMusic;
+/*Music gMusic;*/
 int visualizerCalcCount;
 
 static void audioCallback(
@@ -50,16 +50,16 @@ int AudioDecoder::close() {
 
 int AudioDecoder::initOutput() {
     if(!initializedDevice) {
-        InitAudioDevice();
+        /*InitAudioDevice();
         SetAudioStreamBufferSizeDefault(512);
-        initializedDevice = true;
+        initializedDevice = true;*/
     }
 
     return 0;
 }
 
 void AudioDecoder::output(char* pFileName) {
-    StreamInfo* streamInfo = getStreamInfo();
+    /*StreamInfo* streamInfo = getStreamInfo();
     gMusic = LoadMusicStream(pFileName);
     SetMasterVolume(1.0);
     PlayMusicStream(gMusic);
@@ -67,7 +67,7 @@ void AudioDecoder::output(char* pFileName) {
     isPlaying = true;
     while(isPlaying) {
        UpdateMusicStream(gMusic);
-    }
+    }*/
 }
 
 void AudioDecoder::output(short* buffer) {
@@ -75,11 +75,11 @@ void AudioDecoder::output(short* buffer) {
 }
 
 int AudioDecoder::getPlaybackPosition() {
-    return GetMusicTimePlayed(gMusic);
+    return /*GetMusicTimePlayed(gMusic)*/ 0;
 }
 
 int AudioDecoder::getPlaybackDuration() {
-    return GetMusicTimeLength(gMusic);
+    return /*GetMusicTimeLength(gMusic)*/ 0;
 }
 
 StreamInfo* AudioDecoder::getStreamInfo() {
@@ -128,39 +128,39 @@ double getRMS(short int *buffer, int length)
          double s = buffer[i] * scaleShortToDouble;
          sumSquared += s * s;
     }
-    return sqrt(2) * sqrt(sumSquared/length);
+    return sqrt((double)2) * sqrt(sumSquared/length);
 }
 
 void AudioDecoder::pause() {
     isPlaying = !isPlaying;
-    if(!isPlaying)
+    /*if(!isPlaying)
         PauseMusicStream(gMusic);
     else {
         ResumeMusicStream(gMusic);
         while(isPlaying) {
             UpdateMusicStream(gMusic);
         }
-    }
+    }*/
 }
 
 void AudioDecoder::stop() {
     isPlaying = false;
-    StopMusicStream(gMusic);
+    //StopMusicStream(gMusic);
 }
 
 void AudioDecoder::freeStream() {
     if(initializedDevice == true) {
-        DetachAudioStreamProcessor(gMusic.stream, audioCallback);
+        /*DetachAudioStreamProcessor(gMusic.stream, audioCallback);
         UnloadMusicStream(gMusic);
         CloseAudioDevice();
-        initializedDevice = false;
+        initializedDevice = false;*/
     }
 }
 
 static void audioCallback(
     void *bufferData, unsigned int frames
 ) {
-    int lRMS, rRMS;
+    /*int lRMS, rRMS;
 
     gStreamTs = new StreamTimestamp();
     gSpectrum = new AudioSpectrum();
@@ -201,5 +201,5 @@ static void audioCallback(
         gInterface->onStreamClock(gSpectrum, gStreamTs);
     }
 
-    visualizerCalcCount++;
+    visualizerCalcCount++;*/
 }

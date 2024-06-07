@@ -66,7 +66,7 @@ AudioPlayerWnd::AudioPlayerWnd(char* fname, ExtWindowCtrl* pParent) {
 
     wrefresh(hWnd);
 
-    set_escdelay(2);
+    //set_escdelay(2);
     wtimeout(hWnd, 1);
 
     prepare();
@@ -284,7 +284,7 @@ void AudioPlayerWnd::onKeyPressed(char k) {
 
     scrollok(playlistWnd->hWnd, TRUE);
 
-    set_escdelay(2);
+    //set_escdelay(2);
     wtimeout(hWnd, 1);
 
     // ListBoxCtrl* categoriesListBox = ((ListBoxCtrl*) categoriesWnd->hCtrls[0]);

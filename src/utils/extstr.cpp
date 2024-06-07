@@ -53,7 +53,7 @@ char* ExtString::strwrap(char *out, int width) {
     int len, n, w, wordlen=0, linepos=0, outlen=0;
 
     for(len = 0; str[len]; len++) {
-        char word[len];
+        char* word = new char[len];
 
         for(n = 0; n <= len; n++) {
             if(str[n] == ' ' || str[n] == '\n' || n == len) {

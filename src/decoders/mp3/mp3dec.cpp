@@ -18,13 +18,11 @@
 
 // MiniMP3 Decoder usage (cannot be placed in an headers file)
 
-#define MINIMP3_IMPLEMENTATION
-#include <minimp3.h>
-#include <minimp3_ex.h>
+#define DR_MP3_IMPLEMENTATION
+#include <dr_mp3.h>
 
-mp3dec_t gMP3Dec;
-mp3dec_ex_t gMP3ExDec;
-mp3dec_file_info_t gMP3Info;
+drmp3 gMP3;
+drmp3dec_frame_info gMP3info;
 
 // Main functions
 
@@ -47,11 +45,7 @@ static void *audioDecoderThread(void *arg) {
 
 int MP3Decoder::open(char* pFileName) {
     gFileName = pFileName;
-    if(mp3dec_load(&gMP3Dec, pFileName, &gMP3Info, NULL, NULL)) {
-        return DECODER_INTERNAL_ERROR;
-    }
-    free(gMP3Info.buffer);
-    if(mp3dec_ex_open(&gMP3ExDec, pFileName, MP3D_SEEK_TO_SAMPLE)) {
+    if(!drmp3_init_file(&gMP3, pFileName, NULL)) {
         return DECODER_INTERNAL_ERROR;
     }
     gOpen = true;
@@ -62,19 +56,27 @@ int MP3Decoder::decode() {
     if(!gOpen) {
         return -1;
     }
-    mp3d_sample_t *buffer = (mp3d_sample_t*)
-                            malloc(gMP3ExDec.samples * sizeof(mp3d_sample_t));
 
-    gSamples = mp3dec_ex_read(&gMP3ExDec, buffer, gMP3ExDec.samples);
+	drmp3_uint8 *enc_buffer = (drmp3_uint8*)
+		malloc(gMP3.dataSize * sizeof(drmp3_uint8));
+    drmp3_uint8 *buffer = (drmp3_uint8*)
+		malloc(2048 * sizeof(drmp3_uint8));
 
-    pthread_t audioDecThread;
+    gSamples = gMP3.dataSize;
+	
+	
+
+	int result = drmp3dec_decode_frame(
+		&gMP3.decoder, enc_buffer, 1152, buffer, &gMP3info
+	);
+
+    /*pthread_t audioDecThread;
     AudioDecThreadParams* params = new AudioDecThreadParams();
     params->audioDec = this;
     params->fileName = gFileName;
-    params->buffer = (short*)buffer;
-    audioDecoderThread((void*)params);
+    audioDecoderThread((void*)params);*/
 
-    if(gSamples != gMP3ExDec.samples && gMP3ExDec.last_error) {
+	if(gSamples != gMP3.dataSize) {
         return -1;
     } else {
         return 0;
@@ -85,15 +87,15 @@ int MP3Decoder::getFramesCount() {
     if(!gOpen) {
         return -1;
     }
-    return (gMP3ExDec.samples / gMP3ExDec.info.channels);
+	return (gMP3.dataSize / gMP3info.channels);
 }
 
 int MP3Decoder::getFrameRate() {
-    return gMP3ExDec.info.hz / getFrameWidth();
+    return gMP3info.hz / getFrameWidth();
 }
 
 int MP3Decoder::getFrameWidth() {
-    return gMP3ExDec.info.hz >= 32000 ? 1152 : 576;
+    return gMP3info.hz >= 32000 ? 1152 : 576;
 }
 
 StreamInfo* MP3Decoder::getStreamInfo() {
@@ -106,16 +108,16 @@ StreamInfo* MP3Decoder::getStreamInfo() {
         streamInfo->lengthSec = 0;
         return streamInfo;
     }
-    streamInfo->codec = gMP3ExDec.info.hz >= 32000 ?
+    streamInfo->codec = gMP3info.hz >= 32000 ?
                         STREAMINFO_CODEC_MPEG1_L3 : STREAMINFO_CODEC_MPEG2_L3;
-    streamInfo->sampleRate = gMP3ExDec.info.hz;
-    streamInfo->bitrate = gMP3ExDec.info.bitrate_kbps;
-    streamInfo->channels = gMP3ExDec.info.channels;
-    streamInfo->lengthSec = ((double)gMP3ExDec.samples / gMP3ExDec.info.hz / gMP3ExDec.info.channels);
+	streamInfo->sampleRate = gMP3info.hz;
+	streamInfo->bitrate = gMP3info.bitrate_kbps;
+	streamInfo->channels = gMP3info.channels;
+	streamInfo->lengthSec = ((double)gMP3.dataSize / gMP3info.hz / gMP3info.channels);
     return streamInfo;
 }
 
 int MP3Decoder::getErrorNumber() {
-    return gMP3ExDec.last_error ? gMP3ExDec.last_error : 0;
+    return 0;
 }
 

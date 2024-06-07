@@ -14,17 +14,11 @@
  *  (in the opening comment of each file).
  */
 
-#include "windows/player.h"
 #include <cstring>
-#ifdef __MINGW64__
-    #include <ncurses/ncurses.h>
-#else
-    #include <ncurses.h>
-#endif
+#include <curses.h>
 
 #include <stdio.h>                  // Linking standard C functions
 #include <tinydir.h>
-#include <unistd.h>
 
 #include "utils/audtags.h"
 #include "utils/fileman.h"
