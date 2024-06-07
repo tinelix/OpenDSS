@@ -5,3 +5,5 @@
 *.res
 *.rc
 out/*
+Debug/*
+Release/*
