@@ -1,3 +1,0 @@
-D:\Users\tretdm\Documents\Git\opendss\x64\Debug\OpenDSS.vcxproj.CopyComplete
-D:\Users\tretdm\Documents\Git\opendss\x64\Debug\OpenDSS.exe
-D:\Users\tretdm\Documents\Git\opendss\x64\Debug\pdcurses.dll
