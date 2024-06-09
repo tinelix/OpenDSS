@@ -2,3 +2,7 @@ out/
 *.so
 *.o
 .vs
+*.obj
+*.exe
+*.dll
+*.pdb
