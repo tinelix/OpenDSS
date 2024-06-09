@@ -30,9 +30,9 @@ public:
         char* version = new char[24];
         #ifdef _MSVC
             #ifdef OPENDSS_SUFFIX
-                sprintf_s(version, strlen(version), "%s-%s", OPENDSS_VERSION, OPENDSS_SUFFIX);
+                sprintf_s(version, 24, "%s-%s", OPENDSS_VERSION, OPENDSS_SUFFIX);
             #else
-                sprintf_s(version, strlen(version), "%s", OPENDSS_VERSION);
+                sprintf_s(version, 24, "%s", OPENDSS_VERSION);
             #endif
         #else
             #ifdef OPENDSS_SUFFIX
