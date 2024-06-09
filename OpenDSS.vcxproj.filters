@@ -51,14 +51,14 @@
     <ClCompile Include="src\windows\filemanw.cpp">
       <Filter>Исходные файлы\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils\extstr.cpp">
+      <Filter>Исходные файлы\Utilities</Filter>
+    </ClCompile>
     <ClCompile Include="src\controls\listbox.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\UI Controls</Filter>
     </ClCompile>
     <ClCompile Include="src\controls\msgbox.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\extstr.cpp">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Исходные файлы\UI Controls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,14 +86,14 @@
     <ClInclude Include="src\windows\filemanw.h">
       <Filter>Файлы заголовков\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\utils\extstr.h">
+      <Filter>Файлы заголовков\Utilities</Filter>
+    </ClInclude>
     <ClInclude Include="src\controls\listbox.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\UI Controls</Filter>
     </ClInclude>
     <ClInclude Include="src\controls\msgbox.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\extstr.h">
-      <Filter>Файлы заголовков</Filter>
+      <Filter>Файлы заголовков\UI Controls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

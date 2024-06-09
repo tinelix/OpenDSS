@@ -24,6 +24,8 @@
 
 #ifdef _MSVC
     #include <direct.h>
+#else
+    #include <unistd.h>
 #endif
 
 class FileManager {

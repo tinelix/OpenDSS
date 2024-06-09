@@ -97,7 +97,7 @@ void ExtWindowCtrl::addChildWindow(char* id, char* title, int width, int height,
     #ifdef _MSVC
         sprintf_s(pExtWnd->hTitle, "%s", title);      // <-- store window text in ExtWindow object
     #else
-        sprintf(pExtWnd->hTitle, strlen(title), "%s", title);      // <-- store window text in ExtWindow object
+        sprintf(pExtWnd->hTitle, "%s", title);      // <-- store window text in ExtWindow object
     #endif
 
     pExtWnd->hWidth = realWidth;

@@ -1,0 +1,43 @@
+﻿  extstr.cpp
+D:\Users\tretdm\Documents\Git\opendss\src\utils\extstr.cpp(12,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  msgbox.cpp
+D:\Users\tretdm\Documents\Git\opendss\src\controls\msgbox.cpp(30,34): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Users\tretdm\Documents\Git\opendss\src\controls\msgbox.cpp(47,9): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\msgbox.cpp(47,9): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\msgbox.cpp(48,5): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Users\tretdm\Documents\Git\opendss\src\controls\msgbox.cpp(70,34): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Users\tretdm\Documents\Git\opendss\src\controls\msgbox.cpp(85,9): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\msgbox.cpp(85,9): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\msgbox.cpp(86,5): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  listbox.cpp
+D:\Users\tretdm\Documents\Git\opendss\src\controls\listbox.cpp(98,64): warning C4474: "sprintf_s" : для строки формата передано слишком много аргументов
+D:\Users\tretdm\Documents\Git\opendss\src\controls\listbox.cpp(98,64): message : заполнители и их параметры ожидают переменное число аргументов в количестве 2, но было предоставлено 3
+D:\Users\tretdm\Documents\Git\opendss\src\controls\listbox.cpp(109,9): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Users\tretdm\Documents\Git\opendss\src\controls\listbox.cpp(306,57): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\listbox.cpp(306,57): warning C4566: символ, представленный универсальным именем символа "\u2500", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\listbox.cpp(309,57): warning C4566: символ, представленный универсальным именем символа "\u2514", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\listbox.cpp(309,57): warning C4566: символ, представленный универсальным именем символа "\u2500", невозможно представить в текущей кодовой странице (1251)
+  fileman.cpp
+D:\Users\tretdm\Documents\Git\opendss\src\utils\fileman.cpp(96,35): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  extwnd.cpp
+D:\Users\tretdm\Documents\Git\opendss\src\controls\extwnd.cpp(111,9): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\extwnd.cpp(111,9): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\extwnd.cpp(112,5): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Users\tretdm\Documents\Git\opendss\src\controls\extwnd.cpp(143,9): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\extwnd.cpp(143,9): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\controls\extwnd.cpp(144,5): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  opendss.cpp
+D:\Windows Kits\10\Include\10.0.19041.0\um\wincontypes.h(103,1): warning C4005: MOUSE_MOVED: изменение макроопределения
+D:\Users\tretdm\Documents\Git\vcpkg\installed\x64-windows\include\curses.h(190): message : см. предыдущее определение "MOUSE_MOVED"
+  pguiman.cpp
+D:\Users\tretdm\Documents\Git\opendss\src\utils\pguiman.cpp(87,73): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  filemanw.cpp
+D:\Windows Kits\10\Include\10.0.19041.0\um\wincontypes.h(103,1): warning C4005: MOUSE_MOVED: изменение макроопределения
+D:\Users\tretdm\Documents\Git\vcpkg\installed\x64-windows\include\curses.h(190): message : см. предыдущее определение "MOUSE_MOVED"
+D:\Users\tretdm\Documents\Git\opendss\src\windows\filemanw.cpp(52,9): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\windows\filemanw.cpp(52,9): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Git\opendss\src\windows\filemanw.cpp(51,54): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  Создание кода...
+  OpenDSS.vcxproj -> D:\Users\tretdm\Documents\Git\opendss\x64\Debug\OpenDSS.exe
+  "pwsh.exe" не является внутренней или внешней
+  командой, исполняемой программой или пакетным файлом.
