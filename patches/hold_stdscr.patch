@@ -1,0 +1,45 @@
+diff --git a/src/utils/pguiman.cpp b/src/utils/pguiman.cpp
+index 18247d9..c5683ad 100644
+--- a/src/utils/pguiman.cpp
++++ b/src/utils/pguiman.cpp
+@@ -23,9 +23,9 @@ char key;
+ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager* pInterface) {
+     setlocale(LC_ALL, "");                      /* <-- set locale for correct non-ASCII characters
+                                                        displaying */
+-    initscr();                                  /* <-- temporally clearing command prompt and initializes
++    screen = initscr();                         /* <-- temporally clearing command prompt and initializes
+                                                        empty screen of ncurses */
+-    keypad(stdscr, true);                       // <-- enables arrow pressed keys handling
++    keypad(screen, true);                       // <-- enables arrow pressed keys handling
+ 
+     noecho();                                   /* <-- disables escaping of characters typed on the
+                                                        keyboard                                     */
+@@ -60,7 +60,7 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager* pInterface) {
+ 
+     gInterface = pInterface;
+ 
+-    getmaxyx(stdscr, gActiveHeight, gActiveWidth);
++    getmaxyx(screen, gActiveHeight, gActiveWidth);
+ }
+ 
+ /* Shows version info and copyright in console top area. */
+@@ -109,5 +109,5 @@ void PseudoGUIManager::listenKeyboard(ExtWindowCtrl* hWndCtrl) {
+ 
+ PseudoGUIManager::~PseudoGUIManager() {
+     endwin();
+-    delscreen((SCREEN*)stdscr);
++    delscreen((SCREEN*)screen);
+ }
+\ No newline at end of file
+diff --git a/src/utils/pguiman.h b/src/utils/pguiman.h
+index 6ae468a..081d44a 100644
+--- a/src/utils/pguiman.h
++++ b/src/utils/pguiman.h
+@@ -62,6 +62,7 @@ class PseudoGUIManager
+ 		void listenKeyboard(ExtWindowCtrl* pExtWnd);
+ 	private:
+ 		IPseudoGUIManager* gInterface;
++		WINDOW				*screen;
+ 		//ExtWindowCtrl* gWnd;
+ 		char                gWndTitle[255];
+ 		int					gActiveWidth;
