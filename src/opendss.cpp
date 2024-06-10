@@ -18,8 +18,6 @@
 					   project using Microsoft Visual Studio. */
 	#ifdef _PDCURSES
 		#include <curses.h>
-	#elif _MINGW64
-		#include <ncurses/ncurses.h>
 	#else
 		#include <ncurses.h>
 	#endif
@@ -98,11 +96,11 @@ void IOpenDSSFileManager::onError(int cmdId, int errorCode) {
         char msgTitle[] = "Error";
         char msgText[480];
         #ifdef _MSVC
-        sprintf_s(
-            msgText, 256,
-            "Cannot open this directory! Path: %s",
-            gFileMan->getCurrentPath()
-        );
+            sprintf_s(
+                msgText, 256,
+                "Cannot open this directory! Path: %s",
+                gFileMan->getCurrentPath()
+            );
         #else
             sprintf(
                 msgText, 

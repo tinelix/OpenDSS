@@ -20,8 +20,6 @@
                        project using Microsoft Visual Studio. */
     #ifdef _PDCURSES
         #include <curses.h>
-    #elif _MINGW64
-        #include <ncurses/ncurses.h>
     #else
         #include <ncurses.h>
     #endif
