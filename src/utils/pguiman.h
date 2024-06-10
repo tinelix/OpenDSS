@@ -42,15 +42,27 @@
 #include <interfaces/pguiman.h>
 #include <controls/extwnd.h>
 
-#define COLOR_LIGHT_WHITE       255
-#define COLOR_GRAY              240
-#define COLOR_DARK_GRAY         235
-#define COLOR_DARK_GREEN         28
-#define COLOR_DEEP_BLACK         16
-#define COLOR_LIGHT_RED          82
-#define COLOR_LIGHT_GREEN        47
-#define COLOR_BLUE_SKY           68
+// Default colors
 
+#define COLOR_LIGHT_WHITE			255
+#define COLOR_GRAY					240
+#define COLOR_DARK_GRAY				235
+#define COLOR_DARK_GREEN			 28
+#define COLOR_DEEP_BLACK			 16
+#define COLOR_LIGHT_RED				 82
+#define COLOR_LIGHT_GREEN			 47
+#define COLOR_BLUE_SKY				 68
+
+// Colors for console with limited color palettes
+
+#define COLOR_LIGHT_WHITE_4BIT		  6
+#define COLOR_GRAY_4BIT				  7
+#define COLOR_DARK_GRAY_4BIT		  8
+#define COLOR_DEEP_BLACK_4BIT		 16
+#define COLOR_LIGHT_RED_4BIT		  1
+#define COLOR_LIGHT_GREEN_4BIT		  2
+#define COLOR_BLUE_SKY_4BIT		      3
+#define COLOR_LIGHT_CYAN_4BIT		  11
 
 class PseudoGUIManager
 {
