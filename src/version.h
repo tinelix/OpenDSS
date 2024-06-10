@@ -24,6 +24,16 @@
 
 #include <stdio.h>
 
+#ifdef _WIN32
+    #include <windows.h>
+    #include <ntstatus.h>
+
+    typedef LONG NTSTATUS, * PNTSTATUS;
+    #define STATUS_SUCCESS (0x00000000)
+
+    typedef NTSTATUS(WINAPI* RtlGetVersionPtr)(PRTL_OSVERSIONINFOW);
+#endif
+
 class OpenDSSVersion {
 public:
     static char* getVersion() {
@@ -44,4 +54,31 @@ public:
 
         return version;
     }
+
+    #ifdef _WIN32
+        static int* getWindowsVersion() { // Correct getting Windows OS version
+            int* version = new int[3];
+
+            version[0] = -1;
+            version[1] = -1;
+            version[2] = -1;
+
+            HMODULE hMod = ::GetModuleHandleW(L"ntdll.dll");
+
+            if (hMod) {
+                RtlGetVersionPtr fxPtr = (RtlGetVersionPtr)GetProcAddress(hMod, "RtlGetVersion");
+                if (fxPtr != NULL) {
+                    RTL_OSVERSIONINFOW rovi = { 0 };
+                    rovi.dwOSVersionInfoSize = sizeof(rovi);
+                    if (STATUS_SUCCESS == fxPtr(&rovi)) {
+                        version[0] = rovi.dwMajorVersion;
+                        version[1] = rovi.dwMinorVersion;
+                        version[2] = rovi.dwBuildNumber;
+                    }
+                }
+            }
+            
+            return version;
+        }
+    #endif
 };

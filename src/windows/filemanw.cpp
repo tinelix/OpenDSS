@@ -77,9 +77,17 @@ void FileManagerWnd::onKeyPressed(char k) {
     );
 
     #ifdef _MSVC
-        sprintf_s(fname, 384, "%s/%s", gFileMan->getCurrentPath(), file.name);
+        sprintf_s(
+            fname, 384, "%s/%s", 
+            gFileMan->getRealPath(gFileMan->getCurrentPath()), 
+            file.name
+        );
     #else
-        sprintf(fname, "%s/%s", gFileMan->getCurrentPath(), file.name);
+        sprintf(
+            fname, "%s/%s", 
+            gFileMan->getRealPath(gFileMan->getCurrentPath()), 
+            file.name
+        );
     #endif
 
    if (k == (int)10) {
@@ -95,8 +103,7 @@ void FileManagerWnd::onKeyPressed(char k) {
             disableListening = true;
             gInterface->onResult(1, 0);
         }
-    }
-    else {
+    } else {
         mFileListBox->onKeyPressed(k);
     }
 
@@ -107,7 +114,11 @@ void FileManagerWnd::onKeyPressed(char k) {
 }
 
 void FileManagerWnd::onDirectoryRead(tinydir_file* files) {
-    mvwprintw(hWnd, 2, 2, "%s", gFileMan->getCurrentPath());
+    for (int x = 2; x <= hWidth - 2; x++) {
+        mvwaddch(hWnd, 2, x, ' ');
+    }
+
+    mvwprintw(hWnd, 2, 2, "%s", gFileMan->getRealPath(gFileMan->getCurrentPath()));
     if (mFileListBox == NULL) {
         mFileListBox = new ListBoxCtrl(this, gFileMan->getFilesCount(), true);
     }
@@ -147,9 +158,17 @@ void FileManagerWnd::onDirectoryRead(tinydir_file* files) {
             && ExtString::strendq((char*)files[i].name, ".mp3")) {
             char full_fname[600];
             #ifdef _MSVC
-                sprintf_s(full_fname, 384, "%s/%s", gFileMan->getCurrentPath(), files[i].name);
+                sprintf_s(
+                    full_fname, 384, "%s/%s", 
+                    gFileMan->getRealPath(gFileMan->getCurrentPath()), 
+                    files[i].name
+                );
             #else
-                sprintf(full_fname, "%s/%s", gFileMan->getCurrentPath(), files[i].name);
+                sprintf(
+                    full_fname, "%s/%s", 
+                    gFileMan->getRealPath(gFileMan->getCurrentPath()), 
+                    files[i].name
+                );
             #endif
             /*AudioTager* pTagger = new AudioTager();
             AudioTags* data = pTagger->readTags(full_fname);
@@ -176,7 +195,11 @@ void FileManagerWnd::onDirectoryRead(tinydir_file* files) {
 void FileManagerWnd::onFileManResult(int cmdId, int resultCode) {
     if (cmdId == 0) {
         clear();
-        mvwprintw(hWnd, 2, 2, "%s", gFileMan->getCurrentPath());
+        mvwprintw(hWnd, 2, 2, "%s", 
+            gFileMan->getRealPath(
+                gFileMan->getCurrentPath()
+            )
+        );
     }
 }
 
