@@ -111,7 +111,9 @@ void IOpenDSSFileManager::onError(int cmdId, int errorCode) {
                 gFileMan->getCurrentPath()
             );
         #endif
-        MessageBoxU* pMsgBox = new MessageBoxU(msgTitle, msgText, 4);
+        MessageBoxU* pMsgBox = new MessageBoxU(
+            msgTitle, msgText, 4, gPsGuiMan->getScreen()
+        );
         gPsGuiMan->listenKeyboard((ExtWindowCtrl*)pMsgBox);
         ((ExtWindowCtrl*)pMsgBox)->freeWnd();
         gFileManWnd->redraw();

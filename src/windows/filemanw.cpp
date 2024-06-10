@@ -33,10 +33,11 @@ FileManagerWnd::FileManagerWnd(
 
     gFileMan = pFileMan;
     gInterface = pInterface;
+    hScreen = screen;
 
     int gActiveWidth, gActiveHeight;
 
-    getmaxyx(screen, gActiveHeight, gActiveWidth);
+    getmaxyx(hScreen, gActiveHeight, gActiveWidth);
 
     hWidth = gActiveWidth - 2;
     hHeight = gActiveHeight - 3;
@@ -98,7 +99,9 @@ void FileManagerWnd::onKeyPressed(char k) {
         }
         else if (ExtString::strendq(fname, ".mp3")) {
             char msgTitle[] = "Opening file";
-            MessageBoxU* pMsgBox = new MessageBoxU(msgTitle, fname, 5);
+            MessageBoxU* pMsgBox = new MessageBoxU(
+                msgTitle, fname, 5, hScreen
+            );
             ((ExtWindowCtrl*)pMsgBox)->freeWnd();
             redraw();
             gSelectedFileName = fname;
