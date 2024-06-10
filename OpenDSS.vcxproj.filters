@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\Utilities">
+      <UniqueIdentifier>{3ebdaa7a-0efc-4205-ab21-e24559a81422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Utilities">
+      <UniqueIdentifier>{059793bb-b5e2-40f5-baf1-4c8e40ca35f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\UI Controls">
+      <UniqueIdentifier>{0f2fe31d-625d-4da6-8c8a-08b933ae3fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\UI Controls">
+      <UniqueIdentifier>{b62cbc43-818c-4239-b8ad-62e919483ce9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Interfaces">
+      <UniqueIdentifier>{01137715-f396-4b26-8baf-378705bb6341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Windows">
+      <UniqueIdentifier>{3cb824d8-0d3e-499a-b0d8-0d58b086e427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Windows">
+      <UniqueIdentifier>{480d54f1-9d4a-4e8e-929a-10089419c145}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\opendss.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\pguiman.cpp">
+      <Filter>Исходные файлы\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controls\extwnd.cpp">
+      <Filter>Исходные файлы\UI Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\fileman.cpp">
+      <Filter>Исходные файлы\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\filemanw.cpp">
+      <Filter>Исходные файлы\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\extstr.cpp">
+      <Filter>Исходные файлы\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controls\listbox.cpp">
+      <Filter>Исходные файлы\UI Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controls\msgbox.cpp">
+      <Filter>Исходные файлы\UI Controls</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\version.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\pguiman.h">
+      <Filter>Файлы заголовков\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controls\extwnd.h">
+      <Filter>Файлы заголовков\UI Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interfaces\pguiman.h">
+      <Filter>Файлы заголовков\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controls\uictrl.h">
+      <Filter>Файлы заголовков\UI Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interfaces\fileman.h">
+      <Filter>Файлы заголовков\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\fileman.h">
+      <Filter>Файлы заголовков\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\filemanw.h">
+      <Filter>Файлы заголовков\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\extstr.h">
+      <Filter>Файлы заголовков\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controls\listbox.h">
+      <Filter>Файлы заголовков\UI Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controls\msgbox.h">
+      <Filter>Файлы заголовков\UI Controls</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
