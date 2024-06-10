@@ -44,12 +44,16 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager* pInterface) {
 
             if (winver[0] <= 10 && winver[2] <= 19041) { // if Windows lower than 10 2004
                 init_pair(1, COLOR_CYAN, COLOR_BLACK);
+                init_color(COLOR_CYAN, 768, 768, 768);
                 init_pair(2, COLOR_WHITE, COLOR_BLACK);
+                init_color(COLOR_WHITE, 768, 768, 768);
                 init_pair(3, COLOR_WHITE, COLOR_BLACK);
                 init_pair(4, COLOR_WHITE, COLOR_RED);
                 init_pair(5, COLOR_WHITE, COLOR_GREEN);
+                init_color(COLOR_GREEN, 768, 768, 768);
                 init_pair(6, COLOR_GREEN, COLOR_BLACK);
                 init_pair(7, COLOR_GREEN, COLOR_BLACK);
+                init_color(COLOR_RED, 768, 768, 768);
                 init_pair(8, COLOR_RED, COLOR_BLACK);
             } else {
         #endif
@@ -107,15 +111,7 @@ void PseudoGUIManager::showTopVersionInfo() {
     move(0, (gActiveWidth - strlen(verInfoStr) - strlen(verStr) + 2) / 2);
     printw(verInfoStr, verStr);
 
-    #ifdef _WIN32
-        if (winver[0] <= 10 && winver[2] <= 19041) { // if Windows lower than 10 2004
-            mvchgat(0, 0, -1, A_BOLD, 1, NULL);  // sets the background color for a specific line
-        } else {
-    #endif
-            mvchgat(0, 0, -1, A_NORMAL, 1, NULL);  // sets the background color for a specific line
-    #ifdef _WIN32
-        }
-    #endif
+    mvchgat(0, 0, -1, A_NORMAL, 1, NULL);  // sets the background color for a specific line
 
     refresh();
 }
@@ -132,13 +128,13 @@ void PseudoGUIManager::listenKeyboard(ExtWindowCtrl* hWndCtrl) {
     gInterface->onKeyPressed(key, hWndCtrl);
 }
 
-/* Freeing ncurses:
- * 'delete [object];' calling '[ClassName]::~[ClassName]()' function.
- */
-
 WINDOW* PseudoGUIManager::getScreen() {
     return screen;
 }
+
+/* Freeing ncurses:
+ * 'delete [object];' calling '[ClassName]::~[ClassName]()' function.
+ */
 
 PseudoGUIManager::~PseudoGUIManager() {
     endwin();
