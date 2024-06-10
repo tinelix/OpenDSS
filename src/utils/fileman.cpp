@@ -97,7 +97,8 @@ char* FileManager::getRealPath(char* pDirPath) {
 
     for (int i = 0; i < pathLen; i++) {
         if (pDirPath[i] == '/') {
-            pathSlashes[pathSlashesCount++] = i;
+            pathSlashesCount++;
+            pathSlashes[pathSlashesCount] = i;
         }
     }
 
