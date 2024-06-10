@@ -39,48 +39,50 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager* pInterface) {
 
     if (has_colors()) {
         start_color();
-        #ifdef _WIN32
-            winver = OpenDSSVersion::getWindowsVersion();
+    #ifdef _WIN32
+        winver = OpenDSSVersion::getWindowsVersion();
 
-            if (winver[0] <= 10 && winver[2] <= 19041) { // if Windows lower than 10 2004
-                init_color(COLOR_CYAN, 768, 768, 768);
-                init_pair(1, COLOR_CYAN, COLOR_BLACK);
-                init_color(COLOR_WHITE, 768, 768, 768);
-                init_pair(2, COLOR_WHITE, COLOR_BLACK);
-                init_pair(3, COLOR_WHITE, COLOR_BLACK);
-                init_pair(4, COLOR_WHITE, COLOR_RED);
-                init_pair(5, COLOR_WHITE, COLOR_GREEN);
-                init_color(COLOR_GREEN, 768, 768, 768);
-                init_pair(6, COLOR_GREEN, COLOR_BLACK);
-                init_pair(7, COLOR_GREEN, COLOR_BLACK);
-                init_color(COLOR_RED, 768, 768, 768);
-                init_pair(8, COLOR_RED, COLOR_BLACK);
-            } else {
-        #endif
-                init_color(COLOR_LIGHT_WHITE, 768, 768, 768);
-                init_color(COLOR_BLUE_SKY, 0, 142, 768);  //  <-- create RGB value for COLOR_BLUE_SKY variable
-                init_pair(1, COLOR_LIGHT_WHITE, COLOR_BLUE_SKY);
-                init_color(COLOR_GRAY, 384, 384, 384);  //  <-- create RGB value for COLOR_GRAY variable
-                init_pair(2, COLOR_LIGHT_WHITE, COLOR_GRAY);
-                init_color(COLOR_DEEP_BLACK, 0, 0, 0);  //  <-- create RGB value for COLOR_DEEP_BLACK variable
-                init_pair(3, COLOR_LIGHT_WHITE, COLOR_DEEP_BLACK);
-                init_color(COLOR_RED, 255, 0, 0);  //  <-- create RGB value for COLOR_RED variable
-                init_pair(4, COLOR_LIGHT_WHITE, COLOR_RED);
-                init_color(COLOR_DARK_GREEN, 0, 255, 0);  //  <-- create RGB value for COLOR_GREEN variable
-                init_pair(5, COLOR_LIGHT_WHITE, COLOR_DARK_GREEN);
-                init_pair(6, COLOR_LIGHT_GREEN, COLOR_GRAY);
-                init_pair(7, COLOR_LIGHT_GREEN, COLOR_DEEP_BLACK);
-                init_color(COLOR_LIGHT_RED, 768, 120, 120);
-                init_pair(8, COLOR_LIGHT_RED, COLOR_DEEP_BLACK);
-                init_color(COLOR_DARK_GRAY, 255, 255, 255);
-                init_pair(9, COLOR_DARK_GRAY, COLOR_GRAY);
-                init_pair(10, COLOR_DARK_GRAY, COLOR_DEEP_BLACK);
-        #ifdef _WIN32
-            }
-        #endif
+        if (winver[0] <= 10 && winver[2] <= 19041) { // if Windows lower than 10 2004
+            init_pair(1, COLOR_LIGHT_CYAN_4BIT, COLOR_BLACK);
+            init_pair(3, COLOR_WHITE, COLOR_DARK_GRAY_4BIT);
+            init_pair(4, COLOR_WHITE, COLOR_RED);
+            init_pair(5, COLOR_WHITE, COLOR_GREEN);
+            init_pair(6, COLOR_GREEN, COLOR_WHITE);
+            init_pair(7, COLOR_GREEN, COLOR_DEEP_BLACK);
+            init_pair(8, COLOR_RED, COLOR_BLACK);
+            init_pair(9, COLOR_BLACK, COLOR_WHITE);
+            init_pair(10, COLOR_BLACK, COLOR_BLACK);
+
+            bkgd(COLOR_PAIR(3));
+        }
+        else {
+    #endif
+            init_color(COLOR_LIGHT_WHITE, 768, 768, 768);
+            init_color(COLOR_BLUE_SKY, 0, 142, 768);  //  <-- create RGB value for COLOR_BLUE_SKY variable
+            init_pair(1, COLOR_LIGHT_WHITE, COLOR_BLUE_SKY);
+            init_color(COLOR_GRAY, 384, 384, 384);  //  <-- create RGB value for COLOR_GRAY variable
+            init_pair(2, COLOR_LIGHT_WHITE, COLOR_GRAY);
+            init_color(COLOR_DEEP_BLACK, 0, 0, 0);  //  <-- create RGB value for COLOR_DEEP_BLACK variable
+            init_pair(3, COLOR_LIGHT_WHITE, COLOR_DEEP_BLACK);
+            init_color(COLOR_RED, 255, 0, 0);  //  <-- create RGB value for COLOR_RED variable
+            init_pair(4, COLOR_LIGHT_WHITE, COLOR_RED);
+            init_color(COLOR_DARK_GREEN, 0, 255, 0);  //  <-- create RGB value for COLOR_GREEN variable
+            init_pair(5, COLOR_LIGHT_WHITE, COLOR_DARK_GREEN);
+            init_pair(6, COLOR_LIGHT_GREEN, COLOR_GRAY);
+            init_pair(7, COLOR_LIGHT_GREEN, COLOR_DEEP_BLACK);
+            init_color(COLOR_LIGHT_RED, 768, 120, 120);
+            init_pair(8, COLOR_LIGHT_RED, COLOR_DEEP_BLACK);
+            init_color(COLOR_DARK_GRAY, 255, 255, 255);
+            init_pair(9, COLOR_DARK_GRAY, COLOR_GRAY);
+            init_pair(10, COLOR_DARK_GRAY, COLOR_DEEP_BLACK);
+
+            bkgd(COLOR_PAIR(3));
+    #ifdef _WIN32
+        }
+    #endif
     }
 
-    bkgd(COLOR_PAIR(3));
+    
 
     gInterface = pInterface;
 
