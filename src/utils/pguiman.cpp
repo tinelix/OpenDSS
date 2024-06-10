@@ -43,10 +43,10 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager* pInterface) {
             winver = OpenDSSVersion::getWindowsVersion();
 
             if (winver[0] <= 10 && winver[2] <= 19041) { // if Windows lower than 10 2004
-                init_pair(1, COLOR_CYAN, COLOR_BLACK);
                 init_color(COLOR_CYAN, 768, 768, 768);
-                init_pair(2, COLOR_WHITE, COLOR_BLACK);
+                init_pair(1, COLOR_CYAN, COLOR_BLACK);
                 init_color(COLOR_WHITE, 768, 768, 768);
+                init_pair(2, COLOR_WHITE, COLOR_BLACK);
                 init_pair(3, COLOR_WHITE, COLOR_BLACK);
                 init_pair(4, COLOR_WHITE, COLOR_RED);
                 init_pair(5, COLOR_WHITE, COLOR_GREEN);
