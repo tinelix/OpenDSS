@@ -47,6 +47,7 @@ class ExtWindowCtrl {
         char hTitle[255], id[60];
         int hWidth, hHeight;
         WINDOW* hWnd;
+        WINDOW* hScreen;
         UIControl** hCtrls;
         ExtWindowCtrl** hChildWnds;
         ExtWindowCtrl* gParent;

@@ -20,8 +20,8 @@
 
 class MessageBoxU : ExtWindowCtrl {
 public:
-    MessageBoxU(char* pWndTitle, char* pMsgText);
-    MessageBoxU(char* pWndTitle, char* pMsgText, int pBgColor);
+    MessageBoxU(char* pWndTitle, char* pMsgText, WINDOW* screen);
+    MessageBoxU(char* pWndTitle, char* pMsgText, int pBgColor, WINDOW* screen);
     ~MessageBoxU();
     void free();
 private:

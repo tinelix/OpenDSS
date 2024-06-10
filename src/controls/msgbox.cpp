@@ -16,7 +16,7 @@
 
 #include "msgbox.h"
 
-MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText) {
+MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText, WINDOW* screen) {
     #ifdef _MSVC
         sprintf_s(id, "msgBoxWnd");
         sprintf_s(hTitle, 75, "%s", pWndTitle);
@@ -32,7 +32,7 @@ MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText) {
 
     int gActiveWidth, gActiveHeight;
 
-    getmaxyx(stdscr, gActiveHeight, gActiveWidth);
+    getmaxyx(screen, gActiveHeight, gActiveWidth);
 
     hWnd = newwin(hHeight, hWidth,
         ((gActiveHeight - hHeight) / 2) + 1,
@@ -56,7 +56,7 @@ MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText) {
     wrefresh(hWnd);
 }
 
-MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText, int pBgColor) {
+MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText, int pBgColor, WINDOW* screen) {
     #ifdef _MSVC
         sprintf_s(id, "msgBoxWnd");
         sprintf_s(hTitle, 75, "%s", pWndTitle);
@@ -72,7 +72,7 @@ MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText, int pBgColor) {
 
     int gActiveWidth, gActiveHeight;
 
-    getmaxyx(stdscr, gActiveHeight, gActiveWidth);
+    getmaxyx(screen, gActiveHeight, gActiveWidth);
 
     hWnd = newwin(hHeight, hWidth, ((gActiveHeight - hHeight) / 2) + 1, (gActiveWidth - hWidth) / 2);
 
