@@ -50,7 +50,7 @@
 class FileManagerWnd : public ExtWindowCtrl
 {
 	public:
-		FileManagerWnd(FileManager* pFileMan, IFileManager* pInterface);
+		FileManagerWnd(FileManager* pFileMan, IFileManager* pInterface, WINDOW* screen);
 		char* getSelectedFileName();
 		void listen(bool value);
 		void onKeyPressed(char k);

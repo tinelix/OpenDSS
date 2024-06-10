@@ -81,7 +81,10 @@ int main() {
 }
 
 void openFileManager() {
-    gFileManWnd = new FileManagerWnd(gFileMan, (IFileManager*)gFileManInterface);
+    gFileManWnd = new FileManagerWnd(
+        gFileMan, (IFileManager*)gFileManInterface,
+        gPsGuiMan->getScreen()
+    );
     gFileMan->readCurrentDir();
 }
 

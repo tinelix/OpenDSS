@@ -60,9 +60,10 @@ class PseudoGUIManager
 		void showTopVersionInfo();
 		void listenKeyboard();
 		void listenKeyboard(ExtWindowCtrl* pExtWnd);
+		WINDOW* getScreen();
 	private:
-		IPseudoGUIManager* gInterface;
-		//ExtWindowCtrl* gWnd;
+		IPseudoGUIManager	*gInterface;
+		WINDOW				*screen;
 		char                gWndTitle[255];
 		int					gActiveWidth;
 		int					gActiveHeight;
