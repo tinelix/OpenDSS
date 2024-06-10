@@ -27,9 +27,9 @@ int* winver;
 PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager* pInterface) {
     setlocale(LC_ALL, "");                      /* <-- set locale for correct non-ASCII characters
                                                        displaying */
-    initscr();                                  /* <-- temporally clearing command prompt and initializes
+    screen = initscr();                         /* <-- temporally clearing command prompt and initializes
                                                        empty screen of ncurses */
-    keypad(stdscr, true);                       // <-- enables arrow pressed keys handling
+    keypad(screen, true);                       // <-- enables arrow pressed keys handling
 
     noecho();                                   /* <-- disables escaping of characters typed on the
                                                        keyboard                                     */
@@ -80,7 +80,7 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager* pInterface) {
 
     gInterface = pInterface;
 
-    getmaxyx(stdscr, gActiveHeight, gActiveWidth);
+    getmaxyx(screen, gActiveHeight, gActiveWidth);
 }
 
 /* Shows version info and copyright in console top area. */
@@ -136,7 +136,11 @@ void PseudoGUIManager::listenKeyboard(ExtWindowCtrl* hWndCtrl) {
  * 'delete [object];' calling '[ClassName]::~[ClassName]()' function.
  */
 
+WINDOW* PseudoGUIManager::getScreen() {
+    return screen;
+}
+
 PseudoGUIManager::~PseudoGUIManager() {
     endwin();
-    delscreen((SCREEN*)stdscr);
+    delscreen((SCREEN*)screen);
 }

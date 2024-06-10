@@ -20,7 +20,9 @@
 
 ListBoxCtrl* mFileListBox;
 
-FileManagerWnd::FileManagerWnd(FileManager* pFileMan, IFileManager* pInterface) {
+FileManagerWnd::FileManagerWnd(
+    FileManager* pFileMan, IFileManager* pInterface, WINDOW* screen
+) {
     #ifdef _MSVC
         sprintf_s(hTitle, "File Manager");
         sprintf_s(id, "fileManWnd");
@@ -34,7 +36,7 @@ FileManagerWnd::FileManagerWnd(FileManager* pFileMan, IFileManager* pInterface) 
 
     int gActiveWidth, gActiveHeight;
 
-    getmaxyx(stdscr, gActiveHeight, gActiveWidth);
+    getmaxyx(screen, gActiveHeight, gActiveWidth);
 
     hWidth = gActiveWidth - 2;
     hHeight = gActiveHeight - 3;
