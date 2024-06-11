@@ -41,7 +41,7 @@ ExtWindowCtrl::ExtWindowCtrl(char* pId) {
 
 ExtWindowCtrl::ExtWindowCtrl(char* pId, ExtWindowCtrl* pParent) {
     #ifdef _MSVC
-        sprintf_s(id, strlen(pId), "%s", pId);
+        sprintf_s(id, 50, "%s", pId);
     #else
         sprintf(id, "%s", pId);
     #endif

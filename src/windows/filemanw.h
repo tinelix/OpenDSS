@@ -45,7 +45,7 @@
 #include <controls/msgbox.h>
 #include <utils/extstr.h>
 #include <utils/fileman.h>
-#include <interfaces/fileman.h>
+#include <interfaces/filemani.h>
 
 class FileManagerWnd : public ExtWindowCtrl
 {

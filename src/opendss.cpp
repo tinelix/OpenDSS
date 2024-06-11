@@ -33,17 +33,20 @@
 
 #include <tinydir.h>
 
-#include <interfaces/pguiman.h>
-#include <interfaces/fileman.h>
+#include <interfaces/pguimani.h>
+#include <interfaces/filemani.h>
 #include <controls/extwnd.h>
 #include <controls/uictrl.h>
 #include <windows/filemanw.h>
+#include <windows/playerw.h>
 #include <utils/pguiman.h>
 #include <utils/fileman.h>
 
-PseudoGUIManager* gPsGuiMan;
-FileManager* gFileMan;
-FileManagerWnd* gFileManWnd;
+PseudoGUIManager*   gPsGuiMan;
+FileManager*        gFileMan;
+
+FileManagerWnd*     gFileManWnd;
+AudioPlayerWnd*     gPlayerWnd;
 
 class IOpenDSSFileManager : IFileManager {
 public:
@@ -89,7 +92,9 @@ void openFileManager() {
 }
 
 void openAudioFile(char* pFileName) {
-    
+    gPlayerWnd = new AudioPlayerWnd(
+        pFileName, gFileManWnd, gPsGuiMan->getScreen()
+    );
 }
 
 /* Handles File Manager errors. */

@@ -1,6 +1,6 @@
 /*  Tinelix OpenDSS - open sourced clone of Digital Sound System player
  *  -------------------------------------------------------------------------------------------
- *  Copyright © 2024 Dmitry Tretyakov (aka. Tinelix)
+ *  Copyright Â© 2024 Dmitry Tretyakov (aka. Tinelix)
  *
  *  This program is free software: you can redistribute it and/or modify it under the terms of
  *  the GNU General Public License 3 (or any later version) and/or Apache License 2
@@ -14,37 +14,29 @@
  *  (in the opening comment of each file).
  */
 
-#pragma once
+#ifndef OPENDSS_DECODERS_MP3_MP3DEC_H
+#define OPENDSS_DECODERS_MP3_MP3DEC_H
 
-#include <tinydir.h>
-#include <interfaces/filemani.h>
+#include "../audiodec.h"
+#include "../stream.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <cstring>
-
+#include <math.h>
 #ifdef _MSVC
-    #include <direct.h>
 #else
-    #include <unistd.h>
+#include <pthread.h>
 #endif
 
-class FileManager {
+class MP3Decoder : AudioDecoder {
 public:
-    FileManager(IFileManager* pInterface);
-    ~FileManager();
-    void readCurrentDir();
-    void readDir(char* pDirPath);
-    tinydir_file getFile(int index);
-    long getFilesCount();
-    char* getRealPath(char* pDirPath);
-    char* getCurrentPath();
-
-private:
-    IFileManager* gInterface;
-    char                gCurrentPath[384];
-    int                 gSelectionIndex;
-    tinydir_file* gFiles;
-    long                gFilesCount;
-    int                 gPrevSlash;
+    MP3Decoder();
+    ~MP3Decoder();
+    int open(char* pFileName);
+    int decode();
+    int getFramesCount();
+    int getFrameRate();
+    int getFrameWidth();
+    int getErrorNumber();
+    StreamInfo* getStreamInfo();
 };
 
+#endif
