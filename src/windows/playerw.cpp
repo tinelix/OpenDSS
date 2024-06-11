@@ -32,16 +32,35 @@ class IOpenDSSAudioDecoder : IAudioDecoder {
 
 AudioPlayerWnd::AudioPlayerWnd(char* fname, ExtWindowCtrl* pParent, WINDOW* screen) {
     gParent = pParent;
+    
+    #ifdef _MSVC
+        sprintf_s(id, "msgBoxWnd");
+    #else
+        sprintf(id, "msgBoxWnd");
+    #endif
 
-    sprintf(id, "msgBoxWnd");
-    char* shortest_fname = new char[384];
-    sprintf(shortest_fname, "%s", fname);
+    char* shortest_fname = new char[400];
+    #ifdef _MSVC
+        sprintf_s(shortest_fname, 100, "%s", fname);
+    #else
+        sprintf(shortest_fname, "%s", fname);
+    #endif
     if(strlen(shortest_fname) > MAX_FILE_LENGTH) {
         ExtString::strcut(shortest_fname, MAX_FILE_LENGTH - 3, -1);
         strcat(shortest_fname, "...");
     }
-    sprintf(hTitle, "%s", shortest_fname);
-    sprintf(gFileName, "%s", fname);
+
+    #ifdef _MSVC
+        sprintf_s(hTitle, 100, "%s", shortest_fname);
+    #else
+        sprintf(hTitle, "%s", shortest_fname);
+    #endif
+
+    #ifdef _MSVC
+        sprintf_s(gFileName, 384, "%s", fname);
+    #else
+        sprintf(gFileName, "%s", fname);
+    #endif
 
     hScreen = screen;
 

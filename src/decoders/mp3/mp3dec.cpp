@@ -38,11 +38,19 @@ MP3Decoder::~MP3Decoder() {
 
 }
 
-static void *audioDecoderThread(void *arg) {
+#ifdef _WIN32
+    static DWORD WINAPI audioDecoderThread(void* arg) {
+#else
+    static void* audioDecoderThread(void* arg) {
+#endif{
     AudioDecThreadParams *params = (AudioDecThreadParams*) arg;
 
     params->audioDec->initOutput();
     params->audioDec->output(params->fileName);
+
+    #ifdef _WIN32
+        return 0;
+    #endif
 }
 
 int MP3Decoder::open(char* pFileName) {
@@ -67,13 +75,15 @@ int MP3Decoder::decode() {
 
     gSamples = mp3dec_ex_read(&gMP3ExDec, buffer, gMP3ExDec.samples);
 
-    #ifdef _MSVC
+    AudioDecThreadParams* params = new AudioDecThreadParams();
+    params->audioDec = this;
+    params->fileName = gFileName;
+    params->buffer = (short*)buffer;
+
+    #ifdef _WIN32
+        audioDecoderThread((void*)params);
     #else
         pthread_t audioDecThread;
-        AudioDecThreadParams* params = new AudioDecThreadParams();
-        params->audioDec = this;
-        params->fileName = gFileName;
-        params->buffer = (short*)buffer;
         audioDecoderThread((void*)params);
     #endif
 

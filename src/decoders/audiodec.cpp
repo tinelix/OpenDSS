@@ -57,12 +57,19 @@ int AudioDecoder::initOutput() {
     return 0;
 }
 
+/*   From MusicStream to output
+ *   
+ *   BUG: Sound remains choppy on Windows.
+*/
+
 void AudioDecoder::output(char* pFileName) {
     StreamInfo* streamInfo = getStreamInfo();
     gMusic = LoadMusicStream(pFileName);
     SetMasterVolume(1.0);
     PlayMusicStream(gMusic);
-    AttachAudioStreamProcessor(gMusic.stream, audioCallback);
+    #ifndef _WIN32
+        AttachAudioStreamProcessor(gMusic.stream, audioCallback);
+    #endif
     isPlaying = true;
     while(isPlaying) {
        UpdateMusicStream(gMusic);
@@ -149,7 +156,9 @@ void AudioDecoder::stop() {
 
 void AudioDecoder::freeStream() {
     if(initializedDevice == true) {
-        DetachAudioStreamProcessor(gMusic.stream, audioCallback);
+        #ifndef _WIN32
+            DetachAudioStreamProcessor(gMusic.stream, audioCallback);
+        #endif
         UnloadMusicStream(gMusic);
         CloseAudioDevice();
         initializedDevice = false;
@@ -166,7 +175,7 @@ static void audioCallback(
 
     short int* buffer = (short int*)bufferData;
     size_t bufferSize = sizeof(buffer) / (int)sizeof(short int);
-    double* multiChRMS = (double*) malloc(gMusic.stream.channels * sizeof(double));
+    double* multiChRMS = (double*)malloc(gMusic.stream.channels * sizeof(double));
 
     short int** multiChBuffer = splitAudioBuffer(
         buffer, bufferSize,
@@ -180,8 +189,6 @@ static void audioCallback(
         multiChRMS[i] = rms;
     }
 
-    free(multiChBuffer);
-
     gSpectrum->left = multiChRMS[0] * 100;
     if(gMusic.stream.channels >= 2)
         gSpectrum->right = multiChRMS[1] * 100;
@@ -194,11 +201,12 @@ static void audioCallback(
         gSpectrum->right = 100;
     }
 
-    free(multiChRMS);
-
     if(visualizerCalcCount % 2 == 0) {
         gInterface->onStreamClock(gSpectrum, gStreamTs);
     }
+
+    free(multiChRMS);
+    free(multiChBuffer);
 
     visualizerCalcCount++;
 }
