@@ -39,7 +39,7 @@
 #endif
 
 #include <version.h>
-#include <interfaces/pguiman.h>
+#include <interfaces/pguimani.h>
 #include <controls/extwnd.h>
 
 // Default colors

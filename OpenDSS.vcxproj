@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="libs\raudio\src\raudio.c" />
+    <ClCompile Include="src\decoders\audiodec.cpp" />
+    <ClCompile Include="src\decoders\mp3\mp3dec.cpp" />
+    <ClCompile Include="src\interfaces\auddeci.cpp" />
     <ClCompile Include="src\utils\extstr.cpp" />
     <ClCompile Include="src\controls\msgbox.cpp" />
     <ClCompile Include="src\controls\listbox.cpp" />
@@ -27,19 +31,26 @@
     <ClCompile Include="src\opendss.cpp" />
     <ClCompile Include="src\utils\pguiman.cpp" />
     <ClCompile Include="src\windows\filemanw.cpp" />
+    <ClCompile Include="src\windows\playerw.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libs\raudio\src\raudio.h" />
+    <ClInclude Include="src\decoders\audiodec.h" />
+    <ClInclude Include="src\decoders\mp3\mp3dec.h" />
+    <ClInclude Include="src\decoders\stream.h" />
+    <ClInclude Include="src\interfaces\auddeci.h" />
     <ClInclude Include="src\utils\extstr.h" />
     <ClInclude Include="src\controls\msgbox.h" />
     <ClInclude Include="src\controls\listbox.h" />
     <ClInclude Include="src\utils\fileman.h" />
     <ClInclude Include="src\controls\extwnd.h" />
     <ClInclude Include="src\controls\uictrl.h" />
-    <ClInclude Include="src\interfaces\fileman.h" />
-    <ClInclude Include="src\interfaces\pguiman.h" />
+    <ClInclude Include="src\interfaces\filemani.h" />
+    <ClInclude Include="src\interfaces\pguimani.h" />
     <ClInclude Include="src\utils\pguiman.h" />
     <ClInclude Include="src\version.h" />
     <ClInclude Include="src\windows\filemanw.h" />
+    <ClInclude Include="src\windows\playerw.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -115,10 +126,10 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;SUPPORT_MODULE_RAUDIO;RAUDIO_STANDALONE;SUPPORT_FILEFORMAT_WAV;SUPPORT_FILEFORMAT_OGG;SUPPORT_FILEFORMAT_MP3;SUPPORT_FILEFORMAT_FLAC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\raudio\src;$(ProjectDir)\libs\minimp3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
@@ -133,9 +144,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;SUPPORT_MODULE_RAUDIO;RAUDIO_STANDALONE;SUPPORT_FILEFORMAT_WAV;SUPPORT_FILEFORMAT_OGG;SUPPORT_FILEFORMAT_MP3;SUPPORT_FILEFORMAT_FLAC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\raudio\src;$(ProjectDir)\libs\minimp3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -150,9 +161,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;SUPPORT_MODULE_RAUDIO;RAUDIO_STANDALONE;SUPPORT_FILEFORMAT_WAV;SUPPORT_FILEFORMAT_OGG;SUPPORT_FILEFORMAT_MP3;SUPPORT_FILEFORMAT_FLAC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\raudio\src;$(ProjectDir)\libs\minimp3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
@@ -166,10 +177,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;SUPPORT_MODULE_RAUDIO;RAUDIO_STANDALONE;SUPPORT_FILEFORMAT_WAV;SUPPORT_FILEFORMAT_OGG;SUPPORT_FILEFORMAT_MP3;SUPPORT_FILEFORMAT_FLAC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\raudio\src;$(ProjectDir)\libs\minimp3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
