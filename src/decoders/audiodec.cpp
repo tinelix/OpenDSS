@@ -19,7 +19,10 @@
 
 #include <cstddef>
 #include <cstdio>
-#include <raudio.h>
+
+#ifdef SUPPORT_MODULE_RAUDIO
+    #include <raudio.h>
+#endif
 
 bool isPlaying, initializedDevice;
 StreamTimestamp* gStreamTs;
@@ -50,7 +53,9 @@ int AudioDecoder::close() {
 
 int AudioDecoder::initOutput() {
     if(!initializedDevice) {
-        InitAudioDevice();
+        #ifdef SUPPORT_MODULE_RAUDIO
+            InitAudioDevice();
+        #endif
         initializedDevice = true;
     }
 
@@ -64,16 +69,18 @@ int AudioDecoder::initOutput() {
 
 void AudioDecoder::output(char* pFileName) {
     StreamInfo* streamInfo = getStreamInfo();
-    gMusic = LoadMusicStream(pFileName);
-    SetMasterVolume(1.0);
-    PlayMusicStream(gMusic);
-    #ifndef _WIN32
-        AttachAudioStreamProcessor(gMusic.stream, audioCallback);
+    #ifdef SUPPORT_MODULE_RAUDIO
+        gMusic = LoadMusicStream(pFileName);
+        SetMasterVolume(1.0);
+        PlayMusicStream(gMusic);
+        #ifndef _WIN32
+            AttachAudioStreamProcessor(gMusic.stream, audioCallback);
+        #endif
+        isPlaying = true;
+        while(isPlaying) {
+           UpdateMusicStream(gMusic);
+        }
     #endif
-    isPlaying = true;
-    while(isPlaying) {
-       UpdateMusicStream(gMusic);
-    }
 }
 
 void AudioDecoder::output(short* buffer) {
@@ -81,11 +88,19 @@ void AudioDecoder::output(short* buffer) {
 }
 
 int AudioDecoder::getPlaybackPosition() {
-    return GetMusicTimePlayed(gMusic);
+    #ifdef SUPPORT_MODULE_RAUDIO
+        return GetMusicTimePlayed(gMusic);
+    #else
+        return 0;
+    #endif
 }
 
 int AudioDecoder::getPlaybackDuration() {
-    return GetMusicTimeLength(gMusic);
+    #ifdef SUPPORT_MODULE_RAUDIO
+        return GetMusicTimeLength(gMusic);
+    #else
+        return 0;
+    #endif
 }
 
 StreamInfo* AudioDecoder::getStreamInfo() {
@@ -139,29 +154,41 @@ double getRMS(short int *buffer, int length)
 
 void AudioDecoder::pause() {
     isPlaying = !isPlaying;
-    if(!isPlaying)
-        PauseMusicStream(gMusic);
+    if (!isPlaying)
+        #ifdef SUPPORT_MODULE_RAUDIO
+            PauseMusicStream(gMusic);
+        #else
+            int result = -1;
+        #endif
     else {
+    #ifdef SUPPORT_MODULE_RAUDIO
         ResumeMusicStream(gMusic);
-        while(isPlaying) {
+        while (isPlaying) {
             UpdateMusicStream(gMusic);
         }
+    #else
+        int result = -1;
+    #endif
     }
 }
 
 void AudioDecoder::stop() {
     isPlaying = false;
-    StopMusicStream(gMusic);
+    #ifdef SUPPORT_MODULE_RAUDIO
+        StopMusicStream(gMusic);
+    #endif
 }
 
 void AudioDecoder::freeStream() {
     if(initializedDevice == true) {
-        #ifndef _WIN32
-            DetachAudioStreamProcessor(gMusic.stream, audioCallback);
-        #endif
-        UnloadMusicStream(gMusic);
-        CloseAudioDevice();
-        initializedDevice = false;
+        #ifdef SUPPORT_MODULE_RAUDIO
+            #ifndef _WIN32
+                DetachAudioStreamProcessor(gMusic.stream, audioCallback);
+            #endif
+            UnloadMusicStream(gMusic);
+            CloseAudioDevice();
+            initializedDevice = false;
+        #endif    
     }
 }
 
