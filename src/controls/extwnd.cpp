@@ -26,7 +26,7 @@ ExtWindowCtrl::ExtWindowCtrl() {
 }
 
 ExtWindowCtrl::ExtWindowCtrl(char* pId) {
-    #ifdef _MSVC
+    #ifdef _MSVC2005G
         sprintf_s(id, strlen(pId), "%s", pId);
     #else
         sprintf(id, "%s", pId);
@@ -40,7 +40,7 @@ ExtWindowCtrl::ExtWindowCtrl(char* pId) {
 }
 
 ExtWindowCtrl::ExtWindowCtrl(char* pId, ExtWindowCtrl* pParent) {
-    #ifdef _MSVC
+    #ifdef _MSVC2005G
         sprintf_s(id, 50, "%s", pId);
     #else
         sprintf(id, "%s", pId);
@@ -94,7 +94,7 @@ void ExtWindowCtrl::addChildWindow(char* id, char* title, int width, int height,
 
     pExtWnd->hWnd = newwin(realHeight, realWidth, y + 1, x + 1);
 
-    #ifdef _MSVC
+    #ifdef _MSVC2005G
         sprintf_s(pExtWnd->hTitle, "%s", title);      // <-- store window text in ExtWindow object
     #else
         sprintf(pExtWnd->hTitle, "%s", title);      // <-- store window text in ExtWindow object

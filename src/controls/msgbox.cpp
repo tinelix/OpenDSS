@@ -17,7 +17,7 @@
 #include "msgbox.h"
 
 MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText, WINDOW* screen) {
-    #ifdef _MSVC
+    #ifdef _MSVC2005G
         sprintf_s(id, "msgBoxWnd");
         sprintf_s(hTitle, 75, "%s", pWndTitle);
         sprintf_s(hMsgText, 255, "%s", pMsgText);
@@ -57,7 +57,7 @@ MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText, WINDOW* screen) {
 }
 
 MessageBoxU::MessageBoxU(char* pWndTitle, char* pMsgText, int pBgColor, WINDOW* screen) {
-    #ifdef _MSVC
+    #ifdef _MSVC2005G
         sprintf_s(id, "msgBoxWnd");
         sprintf_s(hTitle, 75, "%s", pWndTitle);
         sprintf_s(hMsgText, 255, "%s", pMsgText);

@@ -23,7 +23,7 @@ ListBoxCtrl* mFileListBox;
 FileManagerWnd::FileManagerWnd(
     FileManager* pFileMan, IFileManager* pInterface, WINDOW* screen
 ) {
-    #ifdef _MSVC
+    #ifdef _MSVC2005G
         sprintf_s(hTitle, "File Manager");
         sprintf_s(id, "fileManWnd");
     #else
@@ -79,7 +79,7 @@ void FileManagerWnd::onKeyPressed(char k) {
         mFileListBox->getSelectionIndex()
     );
 
-    #ifdef _MSVC
+    #ifdef _MSVC2005G
         sprintf_s(
             fname, 384, "%s/%s", 
             gFileMan->getRealPath(gFileMan->getCurrentPath()), 
@@ -146,14 +146,14 @@ void FileManagerWnd::onDirectoryRead(tinydir_file* files) {
 
     for (int i = 0; i < gFileMan->getFilesCount(); i++) {
         ListItem* item = new ListItem();
-        #ifdef _MSVC
+        #ifdef _MSVC2005G
             sprintf_s(item->title, 256, "%s", files[i].name);
         #else
             sprintf(item->title, "%s", files[i].name);
         #endif
         if (strlen(item->title) > MAX_FILENAME_LENGTH) {
             ExtString::strcut(item->title, MAX_FILENAME_LENGTH - 3, -1);
-            #ifdef _MSVC
+            #ifdef _MSVC2005G
                 sprintf_s(item->title + MAX_FILENAME_LENGTH - 3, strlen(item->title), "...");
             #else
                 sprintf(item->title + MAX_FILENAME_LENGTH - 3, "...");
@@ -162,7 +162,7 @@ void FileManagerWnd::onDirectoryRead(tinydir_file* files) {
         if (i <= mFileListBox->hHeight
             && ExtString::strendq((char*)files[i].name, ".mp3")) {
             char full_fname[600];
-            #ifdef _MSVC
+            #ifdef _MSVC2005G
                 sprintf_s(
                     full_fname, 384, "%s/%s", 
                     gFileMan->getRealPath(gFileMan->getCurrentPath()), 
