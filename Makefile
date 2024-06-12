@@ -22,7 +22,8 @@ RAUDIO_SRC		= $(LIBS_DIR)/raudio/src
 # Libraries
 EXT_INCLUDES		= -I./$(SRC_DIR) \
 			  -I./$(TINYDIR_SRC) \
-			  -I./$(MINIMP3_SRC)
+			  -I./$(MINIMP3_SRC) \
+			  -I./$(RAUDIO_SRC)
 
 POSTLIBS		= -lncursesw $(EXT_INCLUDES) $(EXT_LIBS) -lstdc++ -lm -lpthread -ldl \
 			  -DSUPPORT_MODULE_RAUDIO -DRAUDIO_STANDALONE -DSUPPORT_FILEFORMAT_WAV \
@@ -31,9 +32,14 @@ POSTLIBS		= -lncursesw $(EXT_INCLUDES) $(EXT_LIBS) -lstdc++ -lm -lpthread -ldl \
 LIB_SOURCES 		= $(ID3_SRC)/*.cpp
 
 # Source codes
-SOURCES			= $(SRC_DIR)/*.cpp \
+SOURCES			= $(RAUDIO_SRC)/*.c \
+			  $(SRC_DIR)/*.cpp \
 			  $(SRC_DIR)/utils/*.cpp \
-			  $(SRC_DIR)/windows/*.cpp $(SRC_DIR)/controls/*.cpp \
+			  $(SRC_DIR)/windows/*.cpp \
+			  $(SRC_DIR)/interfaces/*.cpp \
+			  $(SRC_DIR)/controls/*.cpp \
+			  $(SRC_DIR)/decoders/*.cpp \
+			  $(SRC_DIR)/decoders/mp3/*.cpp \
 			  $(LIB_SOURCES)
 
 OUT_FILE=$(OUT_DIR)/opendss

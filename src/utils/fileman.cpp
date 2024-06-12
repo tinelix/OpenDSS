@@ -54,7 +54,7 @@ void FileManager::readDir(char* pDirPath) {
     #endif
 
     #ifdef _MSVC
-        if (tinydir_open_sorted(&dir, (TCHAR*)pDirPath) == -1) {
+        if (tinydir_open_sorted(&dir, (const _tinydir_char_t*)pDirPath) == -1) {
     #else
         if (tinydir_open_sorted(&dir, pDirPath) == -1) {
     #endif
