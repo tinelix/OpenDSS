@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="libs\raudio\src\raudio.c" />
     <ClCompile Include="src\decoders\audiodec.cpp" />
     <ClCompile Include="src\decoders\mp3\mp3dec.cpp" />
     <ClCompile Include="src\interfaces\auddeci.cpp" />
@@ -34,7 +33,6 @@
     <ClCompile Include="src\windows\playerw.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="libs\raudio\src\raudio.h" />
     <ClInclude Include="src\decoders\audiodec.h" />
     <ClInclude Include="src\decoders\mp3\mp3dec.h" />
     <ClInclude Include="src\decoders\stream.h" />
@@ -126,16 +124,17 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;SUPPORT_MODULE_RAUDIO;RAUDIO_STANDALONE;SUPPORT_FILEFORMAT_WAV;SUPPORT_FILEFORMAT_OGG;SUPPORT_FILEFORMAT_MP3;SUPPORT_FILEFORMAT_FLAC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\raudio\src;$(ProjectDir)\libs\minimp3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\miniaudio;$(ProjectDir)\libs\dr_libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ShowProgress>LinkVerbose</ShowProgress>
+      <AdditionalDependencies>pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,9 +143,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;SUPPORT_MODULE_RAUDIO;RAUDIO_STANDALONE;SUPPORT_FILEFORMAT_WAV;SUPPORT_FILEFORMAT_OGG;SUPPORT_FILEFORMAT_MP3;SUPPORT_FILEFORMAT_FLAC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\raudio\src;$(ProjectDir)\libs\minimp3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\miniaudio;$(ProjectDir)\libs\dr_libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -155,20 +154,22 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;SUPPORT_MODULE_RAUDIO;RAUDIO_STANDALONE;SUPPORT_FILEFORMAT_WAV;SUPPORT_FILEFORMAT_OGG;SUPPORT_FILEFORMAT_MP3;SUPPORT_FILEFORMAT_FLAC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\raudio\src;$(ProjectDir)\libs\minimp3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\miniaudio;$(ProjectDir)\libs\dr_libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -177,10 +178,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;SUPPORT_MODULE_RAUDIO;RAUDIO_STANDALONE;SUPPORT_FILEFORMAT_WAV;SUPPORT_FILEFORMAT_OGG;SUPPORT_FILEFORMAT_MP3;SUPPORT_FILEFORMAT_FLAC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\raudio\src;$(ProjectDir)\libs\minimp3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\miniaudio;$(ProjectDir)\libs\dr_libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
@@ -189,6 +190,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -14,22 +14,18 @@
  *  (in the opening comment of each file).
  */
 
-#ifndef OPENDSS_DECODERS_MP3_MP3DEC_H
-#define OPENDSS_DECODERS_MP3_MP3DEC_H
+#pragma once
 
 #include "../audiodec.h"
 #include "../stream.h"
 #include <stdio.h>
 #include <math.h>
-#ifdef _MSVC
-#else
-#include <pthread.h>
-#endif
 
 class MP3Decoder : AudioDecoder {
 public:
     MP3Decoder();
     ~MP3Decoder();
+    void setInterface(IAudioDecoder* pInterface);
     int open(char* pFileName);
     int decode();
     int getFramesCount();
@@ -38,5 +34,3 @@ public:
     int getErrorNumber();
     StreamInfo* getStreamInfo();
 };
-
-#endif
