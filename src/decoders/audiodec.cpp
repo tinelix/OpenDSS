@@ -28,7 +28,11 @@ bool isPlaying, initializedDevice;
 StreamTimestamp* gStreamTs;
 AudioSpectrum* gSpectrum;
 IAudioDecoder* gInterface;
-Music gMusic;
+
+#ifdef SUPPORT_MODULE_RAUDIO
+    Music gMusic;
+#endif
+
 int visualizerCalcCount;
 
 static void audioCallback(
@@ -202,7 +206,11 @@ static void audioCallback(
 
     short int* buffer = (short int*)bufferData;
     size_t bufferSize = sizeof(buffer) / (int)sizeof(short int);
-    double* multiChRMS = (double*)malloc(gMusic.stream.channels * sizeof(double));
+    #ifdef SUPPORT_MODULE_RAUDIO
+        double* multiChRMS = (double*)malloc(gMusic.stream.channels * sizeof(double));
+    #else
+        double* multiChRMS = (double*)malloc(2 * sizeof(double));
+    #endif
 
     short int** multiChBuffer = splitAudioBuffer(
         buffer, bufferSize,
