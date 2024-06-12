@@ -208,15 +208,15 @@ static void audioCallback(
     size_t bufferSize = sizeof(buffer) / (int)sizeof(short int);
     #ifdef SUPPORT_MODULE_RAUDIO
         double* multiChRMS = (double*)malloc(gMusic.stream.channels * sizeof(double));
+    
+        short int** multiChBuffer = splitAudioBuffer(
+            buffer, bufferSize,
+            gMusic.stream.sampleSize,
+            gMusic.stream.channels
+        );
     #else
         double* multiChRMS = (double*)malloc(2 * sizeof(double));
     #endif
-
-    short int** multiChBuffer = splitAudioBuffer(
-        buffer, bufferSize,
-        gMusic.stream.sampleSize,
-        gMusic.stream.channels
-    );
 
 
     for(int i = 0; i < gMusic.stream.channels; i++) {
