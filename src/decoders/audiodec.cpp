@@ -214,34 +214,34 @@ static void audioCallback(
             gMusic.stream.sampleSize,
             gMusic.stream.channels
         );
-    #else
-        double* multiChRMS = (double*)malloc(2 * sizeof(double));
+    
+
+
+        for(int i = 0; i < gMusic.stream.channels; i++) {
+            double rms = getRMS(multiChBuffer[i], bufferSize / gMusic.stream.channels);
+            multiChRMS[i] = rms;
+        }
+
+        gSpectrum->left = multiChRMS[0] * 100;
+        if(gMusic.stream.channels >= 2)
+            gSpectrum->right = multiChRMS[1] * 100;
+
+        if(gSpectrum->left > 100) {
+            gSpectrum->left = 100;
+        }
+
+        if(gSpectrum->right > 100) {
+            gSpectrum->right = 100;
+        }
+
+        if(visualizerCalcCount % 2 == 0) {
+            gInterface->onStreamClock(gSpectrum, gStreamTs);
+        }
+
+        free(multiChRMS);
+        free(multiChBuffer);
+
     #endif
-
-
-    for(int i = 0; i < gMusic.stream.channels; i++) {
-        double rms = getRMS(multiChBuffer[i], bufferSize / gMusic.stream.channels);
-        multiChRMS[i] = rms;
-    }
-
-    gSpectrum->left = multiChRMS[0] * 100;
-    if(gMusic.stream.channels >= 2)
-        gSpectrum->right = multiChRMS[1] * 100;
-
-    if(gSpectrum->left > 100) {
-        gSpectrum->left = 100;
-    }
-
-    if(gSpectrum->right > 100) {
-        gSpectrum->right = 100;
-    }
-
-    if(visualizerCalcCount % 2 == 0) {
-        gInterface->onStreamClock(gSpectrum, gStreamTs);
-    }
-
-    free(multiChRMS);
-    free(multiChBuffer);
 
     visualizerCalcCount++;
 }
