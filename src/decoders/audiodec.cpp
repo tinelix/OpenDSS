@@ -28,7 +28,11 @@ bool isPlaying, initializedDevice;
 StreamTimestamp* gStreamTs;
 AudioSpectrum* gSpectrum;
 IAudioDecoder* gInterface;
-Music gMusic;
+
+#ifdef SUPPORT_MODULE_RAUDIO
+    Music gMusic;
+#endif
+
 int visualizerCalcCount;
 
 static void audioCallback(
