@@ -38,7 +38,7 @@ class OpenDSSVersion {
 public:
     static char* getVersion() {
         char* version = new char[24];
-        #ifdef _MSVC
+        #ifdef _MSVC2005G
             #ifdef OPENDSS_SUFFIX
                 sprintf_s(version, 24, "%s-%s", OPENDSS_VERSION, OPENDSS_SUFFIX);
             #else

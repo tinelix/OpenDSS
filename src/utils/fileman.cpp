@@ -47,7 +47,7 @@ void FileManager::readDir(char* pDirPath) {
     int object_index = 0;
     tinydir_dir dir;
 
-    #ifdef _MSVC
+    #ifdef _MSVC2005G
         sprintf_s(gCurrentPath, "%s", pDirPath);
     #else
         sprintf(gCurrentPath, "%s", pDirPath);

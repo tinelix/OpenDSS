@@ -103,7 +103,7 @@ void IOpenDSSFileManager::onError(int cmdId, int errorCode) {
     if (cmdId == 0) {
         char msgTitle[] = "Error";
         char msgText[480];
-        #ifdef _MSVC
+        #ifdef _MSVC2005G
             sprintf_s(
                 msgText, 256,
                 "Cannot open this directory! Path: %s",

@@ -124,7 +124,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_MSVC2005G;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\miniaudio;$(ProjectDir)\libs\dr_libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -143,7 +143,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_MSVC2005G;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\miniaudio;$(ProjectDir)\libs\dr_libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -161,7 +161,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_MSVC2005G;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\miniaudio;$(ProjectDir)\libs\dr_libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -178,7 +178,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN32;$(PreprocessorDefinitions);_CONSOLE;_PDCURSES;_MSVC;_MSVC2005G;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>None</DebugInformationFormat>
       <AdditionalIncludeDirectories>$(ProjectDir)\src;$(ProjectDir)\libs\miniaudio;$(ProjectDir)\libs\dr_libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

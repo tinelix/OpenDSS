@@ -55,7 +55,7 @@ void ListBoxCtrl::addListItem(int index, ListItem* item) {
     gListItems[index] = item;
 
     char shortestTitle[128];
-    #ifdef _MSVC
+    #ifdef _MSVC2005G
         sprintf_s(shortestTitle, 128, "%s", item->title);
     #else
         sprintf(shortestTitle, "%s", item->title);
@@ -91,7 +91,7 @@ void ListBoxCtrl::setSelectionIndex(int index) {
 int ListBoxCtrl::getVirtualSelectionIndex() {
     if (gTrackPos) {
         char selection_label[80];
-        #ifdef _MSVC
+        #ifdef _MSVC2005G
             sprintf_s(
                 selection_label, "%d / %d",
                 80,
@@ -269,7 +269,7 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
         for (int y = 0; y <= (pIndex2 % hHeight); y++) {
             ListItem* item = gListItems[(gPageNumber * hHeight) + y];
             if (item != NULL) {
-                #ifdef _MSVC
+                #ifdef _MSVC2005G
                     sprintf_s(shortestTitle, 128, "%s", item->title);
                 #else
                     sprintf(shortestTitle, "%s", item->title);
@@ -293,7 +293,7 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
                 for (int x = hX; x <= hWidth; x++) {
                     mvwaddch(gParent->hWnd, y + hY, x, ' ');
                 }
-                #ifdef _MSVC
+                #ifdef _MSVC2005G
                     sprintf_s(shortestTitle, 128, "%s", item->title);
                 #else
                     sprintf(shortestTitle, "%s", item->title);
@@ -316,7 +316,7 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
         for (int y = firstSubItemY; y <= (getItemsCount() % hHeight - 1); y++) {
             ListItem* item = gListItems[y];
             if (item != NULL) {
-                #ifdef _MSVC
+                #ifdef _MSVC2005G
                     sprintf_s(shortestTitle, 128, "%s", item->title);
                 #else
                     sprintf(shortestTitle, "%s", item->title);
@@ -336,7 +336,7 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
         for (int y = 0; y <= ((getItemsCount() - subItemsCount - 1) % hHeight); y++) {
             ListItem* item = gListItems[(gPageNumber * hHeight) + y];
             if (item != NULL) {
-                #ifdef _MSVC
+                #ifdef _MSVC2005G
                     sprintf_s(shortestTitle, 128, "%s", item->title);
                 #else
                     sprintf(shortestTitle, "%s", item->title);
