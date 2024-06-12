@@ -114,14 +114,14 @@ char** ExtString::strsplitln(char* out) {
 
     char* stk = NULL;
     if (useCrlf) {
-        #ifdef _MSVC
+        #ifdef _MSVC2005G
             stk = strtok_s(out, "\r\n", NULL);
         #else
             stk = strtok(out, "\r\n");
         #endif
     }
     else {
-        #ifdef _MSVC
+        #ifdef _MSVC2005G
             stk = strtok_s(out, "\n", NULL);
         #else
             stk = strtok(out, "\n");
@@ -133,14 +133,14 @@ char** ExtString::strsplitln(char* out) {
         str[lines] = (char*)malloc(sizeof(char) * strlen(stk));
         str[lines] = stk;
         if (useCrlf) {
-            #ifdef _MSVC
+            #ifdef _MSVC2005G
                 stk = strtok_s(NULL, "\r\n", NULL);
             #else
                 stk = strtok(NULL, "\r\n");
             #endif
         }
         else {
-            #ifdef _MSVC
+            #ifdef _MSVC2005G
                 stk = strtok_s(NULL, "\n", NULL);
             #else
                 stk = strtok(NULL, "\n");
