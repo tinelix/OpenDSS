@@ -2,3 +2,5 @@ out/
 *.so
 *.o
 .vs
+
+*.user
