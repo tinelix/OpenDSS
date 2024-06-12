@@ -43,7 +43,7 @@ class AudioDecoder {
         virtual int getFrameWidth() = 0;
         virtual int getErrorNumber() = 0;
         virtual StreamInfo* getStreamInfo();
-        void setInterface(IAudioDecoder* pInterface);
+        virtual void setInterface(IAudioDecoder* pInterface);
         int initOutput();
         void output(short* buffer);
         void output(char* pFileName);
@@ -51,8 +51,13 @@ class AudioDecoder {
         int getPlaybackDuration();
         void pause();
         void stop();
+        static short int** splitAudioBuffer(
+            short int* buffer, int length, int sampleSize, int channels
+        );
+        static double getRMS(short int* buffer, int length);
         void freeStream();
         char* gFileName;
+        IAudioDecoder* pubInterface;
     protected:
         unsigned char* gBuffer;
         int gFramesCount, gFrameRate, gSamples;

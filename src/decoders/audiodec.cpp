@@ -22,15 +22,16 @@
 
 #ifdef SUPPORT_MODULE_RAUDIO
     #include <raudio.h>
+#else
+    #include <miniaudio.h>
 #endif
 
 bool isPlaying, initializedDevice;
-StreamTimestamp* gStreamTs;
-AudioSpectrum* gSpectrum;
-IAudioDecoder* gInterface;
 
 #ifdef SUPPORT_MODULE_RAUDIO
     Music gMusic;
+#else
+
 #endif
 
 int visualizerCalcCount;
@@ -73,18 +74,7 @@ int AudioDecoder::initOutput() {
 
 void AudioDecoder::output(char* pFileName) {
     StreamInfo* streamInfo = getStreamInfo();
-    #ifdef SUPPORT_MODULE_RAUDIO
-        gMusic = LoadMusicStream(pFileName);
-        SetMasterVolume(1.0);
-        PlayMusicStream(gMusic);
-        #ifndef _WIN32
-            AttachAudioStreamProcessor(gMusic.stream, audioCallback);
-        #endif
-        isPlaying = true;
-        while(isPlaying) {
-           UpdateMusicStream(gMusic);
-        }
-    #endif
+
 }
 
 void AudioDecoder::output(short* buffer) {
@@ -92,19 +82,11 @@ void AudioDecoder::output(short* buffer) {
 }
 
 int AudioDecoder::getPlaybackPosition() {
-    #ifdef SUPPORT_MODULE_RAUDIO
-        return GetMusicTimePlayed(gMusic);
-    #else
-        return 0;
-    #endif
+    return 0;
 }
 
 int AudioDecoder::getPlaybackDuration() {
-    #ifdef SUPPORT_MODULE_RAUDIO
-        return GetMusicTimeLength(gMusic);
-    #else
-        return 0;
-    #endif
+    return 0;
 }
 
 StreamInfo* AudioDecoder::getStreamInfo() {
@@ -118,10 +100,10 @@ StreamInfo* AudioDecoder::getStreamInfo() {
 }
 
 void AudioDecoder::setInterface(IAudioDecoder* pInterface) {
-    gInterface = pInterface;
+    pubInterface = pInterface;
 }
 
-static short int** splitAudioBuffer(
+short int** AudioDecoder::splitAudioBuffer(
     short int *buffer, int length, int sampleSize, int channels
 ) {
     int channelSize = length / channels;
@@ -143,7 +125,7 @@ static short int** splitAudioBuffer(
     return multiChannelBuffer;
 }
 
-double getRMS(short int *buffer, int length)
+double AudioDecoder::getRMS(short int *buffer, int length)
 {
     double sumSquared = 0;
     double scaleShortToDouble = 1.0/0x8000;
@@ -165,83 +147,17 @@ void AudioDecoder::pause() {
             int result = -1;
         #endif
     else {
-    #ifdef SUPPORT_MODULE_RAUDIO
-        ResumeMusicStream(gMusic);
-        while (isPlaying) {
-            UpdateMusicStream(gMusic);
-        }
-    #else
         int result = -1;
-    #endif
     }
 }
 
 void AudioDecoder::stop() {
     isPlaying = false;
-    #ifdef SUPPORT_MODULE_RAUDIO
-        StopMusicStream(gMusic);
-    #endif
 }
 
 void AudioDecoder::freeStream() {
     if(initializedDevice == true) {
-        #ifdef SUPPORT_MODULE_RAUDIO
-            #ifndef _WIN32
-                DetachAudioStreamProcessor(gMusic.stream, audioCallback);
-            #endif
-            UnloadMusicStream(gMusic);
-            CloseAudioDevice();
-            initializedDevice = false;
-        #endif    
+   
     }
 }
 
-static void audioCallback(
-    void *bufferData, unsigned int frames
-) {
-    int lRMS, rRMS;
-
-    gStreamTs = new StreamTimestamp();
-    gSpectrum = new AudioSpectrum();
-
-    short int* buffer = (short int*)bufferData;
-    size_t bufferSize = sizeof(buffer) / (int)sizeof(short int);
-    #ifdef SUPPORT_MODULE_RAUDIO
-        double* multiChRMS = (double*)malloc(gMusic.stream.channels * sizeof(double));
-    
-        short int** multiChBuffer = splitAudioBuffer(
-            buffer, bufferSize,
-            gMusic.stream.sampleSize,
-            gMusic.stream.channels
-        );
-    
-
-
-        for(int i = 0; i < gMusic.stream.channels; i++) {
-            double rms = getRMS(multiChBuffer[i], bufferSize / gMusic.stream.channels);
-            multiChRMS[i] = rms;
-        }
-
-        gSpectrum->left = multiChRMS[0] * 100;
-        if(gMusic.stream.channels >= 2)
-            gSpectrum->right = multiChRMS[1] * 100;
-
-        if(gSpectrum->left > 100) {
-            gSpectrum->left = 100;
-        }
-
-        if(gSpectrum->right > 100) {
-            gSpectrum->right = 100;
-        }
-
-        if(visualizerCalcCount % 2 == 0) {
-            gInterface->onStreamClock(gSpectrum, gStreamTs);
-        }
-
-        free(multiChRMS);
-        free(multiChBuffer);
-
-    #endif
-
-    visualizerCalcCount++;
-}

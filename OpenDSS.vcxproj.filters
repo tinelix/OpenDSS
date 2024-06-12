@@ -58,14 +58,8 @@
     <Filter Include="Исходные файлы\Libraries">
       <UniqueIdentifier>{617b966c-dee9-4a5c-b991-88cb090e7b7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Libraries\raudio">
-      <UniqueIdentifier>{760b1d9b-f68a-4cb8-939e-bddb68574624}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Файлы заголовков\Libraries">
       <UniqueIdentifier>{2886f095-cca2-4c62-8c2a-8cf324e30332}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Файлы заголовков\Libraries\raudio">
-      <UniqueIdentifier>{4f965f37-48c9-4af6-bcaf-5ac9c830eaf9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +92,6 @@
     </ClCompile>
     <ClCompile Include="src\decoders\mp3\mp3dec.cpp">
       <Filter>Исходные файлы\Sources\Decoders\MP3</Filter>
-    </ClCompile>
-    <ClCompile Include="libs\raudio\src\raudio.c">
-      <Filter>Исходные файлы\Libraries\raudio</Filter>
     </ClCompile>
     <ClCompile Include="src\windows\playerw.cpp">
       <Filter>Исходные файлы\Sources\Windows</Filter>
@@ -154,9 +145,6 @@
     </ClInclude>
     <ClInclude Include="src\decoders\audiodec.h">
       <Filter>Файлы заголовков\Sources\Decoders</Filter>
-    </ClInclude>
-    <ClInclude Include="libs\raudio\src\raudio.h">
-      <Filter>Файлы заголовков\Libraries\raudio</Filter>
     </ClInclude>
     <ClInclude Include="src\windows\playerw.h">
       <Filter>Файлы заголовков\Sources\Windows</Filter>
