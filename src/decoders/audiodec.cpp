@@ -135,7 +135,7 @@ double AudioDecoder::getRMS(short int *buffer, int length)
          double s = buffer[i] * scaleShortToDouble;
          sumSquared += s * s;
     }
-    return sqrt(2) * sqrt(sumSquared/length);
+    return sqrt((double)(2)) * sqrt((double)(sumSquared/length));
 }
 
 void AudioDecoder::pause() {
