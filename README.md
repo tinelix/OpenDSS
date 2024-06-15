@@ -11,4 +11,4 @@ Open sourced clone of Digital Sound System DOS audio player
 ### Structure of `main` branch
 * `linux` - OpenDSS graphical version for Linux (under construction)
 * `ps-gui` - Cross-platform pseudographical OpenDSS version
-* `windows` - OpenDSS MFC graphical version for Windows
+* `windows` - OpenDSS UWP graphical version for Windows
