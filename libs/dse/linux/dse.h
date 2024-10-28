@@ -1,0 +1,39 @@
+/*  Digital Sound Engine - basis of Tinelix OpenDSS
+ *  -------------------------------------------------------------------------------------------
+ *  Copyright © 2024 Dmitry Tretyakov (aka. Tinelix)
+ *
+ *  This program is free software: you can redistribute it and/or modify it under the terms of
+ *  the GNU General Public License 3 (or any later version) and/or Apache License 2
+ *  See the following files in repository directory for the precise terms and conditions of
+ *  either license:
+ *
+ *     LICENSE.APACHE
+ *     LICENSE.GPLv3
+ *
+ *  Please see each file in the implementation for copyright and licensing information,
+ *  (in the opening comment of each file).
+ */
+
+#ifndef DSE_LINUX_DSE_H
+#define DSE_LINUX_DSE_H
+
+#include "error.h"
+
+#include <alsa/asoundlib.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int dse_alsa_init(void);
+int dse_alsa_prepare(void);
+int dse_alsa_output(
+    int format, int sample_rate, int channels,
+    unsigned char data
+);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // DSE_LINUX_DSE_H

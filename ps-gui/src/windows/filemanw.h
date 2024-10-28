@@ -33,7 +33,7 @@
 	#endif
 #endif
 
-#include <tinydir.h>
+#include <tinydir/tinydir.h>
 
 #include <stdio.h>
 #include <stdlib.h>

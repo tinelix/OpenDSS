@@ -14,32 +14,21 @@ SRC_DIR			= src
 LIBS_DIR		= libs
 OUT_DIR			= out
 
-TINYDIR_SRC		= $(LIBS_DIR)/tinydir
-ID3_SRC			= $(LIBS_DIR)/libid3/src
-MINIMP3_SRC		= $(LIBS_DIR)/minimp3
-RAUDIO_SRC		= $(LIBS_DIR)/raudio/src
-
 # Libraries
 EXT_INCLUDES		= -I./$(SRC_DIR) \
-			  -I./$(TINYDIR_SRC) \
-			  -I./$(MINIMP3_SRC) \
-			  -I./$(RAUDIO_SRC)
+			  -I../$(LIBS_DIR)
 
 POSTLIBS		= -lncursesw $(EXT_INCLUDES) $(EXT_LIBS) -lstdc++ -lm -lpthread -ldl \
-			  -DSUPPORT_MODULE_RAUDIO -DRAUDIO_STANDALONE -DSUPPORT_FILEFORMAT_WAV \
-			  -DSUPPORT_FILEFORMAT_OGG -DSUPPORT_FILEFORMAT_MP3 -DSUPPORT_FILEFORMAT_FLAC
 
-LIB_SOURCES 		= $(ID3_SRC)/*.cpp
+LIB_SOURCES 		= $(ID3_SRC)/*.cpp \
+			  ../$(LIBS_DIR)/dse/*.c
 
 # Source codes
-SOURCES			= $(RAUDIO_SRC)/*.c \
-			  $(SRC_DIR)/*.cpp \
+SOURCES			= $(SRC_DIR)/*.cpp \
 			  $(SRC_DIR)/utils/*.cpp \
 			  $(SRC_DIR)/windows/*.cpp \
 			  $(SRC_DIR)/interfaces/*.cpp \
 			  $(SRC_DIR)/controls/*.cpp \
-			  $(SRC_DIR)/decoders/*.cpp \
-			  $(SRC_DIR)/decoders/mp3/*.cpp \
 			  $(LIB_SOURCES)
 
 OUT_FILE=$(OUT_DIR)/opendss

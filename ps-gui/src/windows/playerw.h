@@ -49,8 +49,8 @@
 //#include <utils/audtags.h>
 #include <utils/extstr.h>
 
-#include <decoders/audiodec.h>
-#include <decoders/mp3/mp3dec.h>
+//#include <decoders/audiodec.h>
+//#include <decoders/mp3/mp3dec.h>
 
 class AudioPlayerWnd : ExtWindowCtrl {
     public:

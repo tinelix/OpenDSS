@@ -1,4 +1,4 @@
-/*  Tinelix OpenDSS - open sourced clone of Digital Sound System player
+/*  Digital Sound Engine - basis of Tinelix OpenDSS
  *  -------------------------------------------------------------------------------------------
  *  Copyright © 2024 Dmitry Tretyakov (aka. Tinelix)
  *
@@ -14,23 +14,22 @@
  *  (in the opening comment of each file).
  */
 
-#pragma once
+#ifndef DSE_LINUX_ERROR_H
+#define DSE_LINUX_ERROR_H
 
-#include "../audiodec.h"
-#include "../stream.h"
-#include <stdio.h>
-#include <math.h>
+typedef struct {
+    int err_num;
+    int err_cmd;
+} DseError;
 
-class MP3Decoder : AudioDecoder {
-public:
-    MP3Decoder();
-    ~MP3Decoder();
-    void setInterface(IAudioDecoder* pInterface);
-    int open(char* pFileName);
-    int decode();
-    int getFramesCount();
-    int getFrameRate();
-    int getFrameWidth();
-    int getErrorNumber();
-    StreamInfo* getStreamInfo();
-};
+// Error codes
+#define DSE_ERROR_OPEN_PCM                      -1
+#define DSE_ERROR_HWPARAMS_ALLOCATION           -2
+#define DSE_ERROR_HWPARAMS_SETUP                -3
+#define DSE_ERROR_HWPARAMS_ACCESS               -4
+#define DSE_ERROR_HWPARAMS_FORMAT               -5
+
+// Commands
+#define DSE_COMMAND_PREPARE 0x8001
+
+#endif // DSE_LINUX_ERROR_H

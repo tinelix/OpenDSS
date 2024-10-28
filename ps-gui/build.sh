@@ -2,7 +2,7 @@
 
 echo "Building Tinelix OpenDSS..."
 
-if [[ $OSTYPE == "linux-gnu" ]]; then
+if [[ $OSTYPE == "linux-gnu" || $OSTYPE == "linux" ]]; then
     echo "Your OS: GNU/Linux"
     echo
     if [ -x "$(command -v apt)" ]; then         # <-- for Ubuntu/Debian/derivatives
@@ -11,6 +11,8 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
         su -c "yum install ncurses-devel"
     elif [ -x "$(command -v pacman)" ]; then    # <-- for Arch/Artix/Manjaro/derivatives
         su -c "pacman -S ncurses"
+    elif [ -x "$(command -v zypper)" ]; then
+	su -c "zypper in ncurses-devel"		# <-- for openSUSE/derivatives
     else
         echo "ERROR: Your package manager is not supported"
         echo
