@@ -1,0 +1,382 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  playerw.cpp
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\libs\dse\include\utils\stream.h(53): warning C4091: typedef : пропускается слева от "DSE_STREAM_INFO", когда ни одна переменная не объявлена
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\libs\dse\include\utils\stream.h(57): warning C4091: typedef : пропускается слева от "DSE_STREAM_TIMESTAMP", когда ни одна переменная не объявлена
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\libs\dse\include\utils\stream.h(62): warning C4091: typedef : пропускается слева от "DSE_AUDIO_SPECTRUM", когда ни одна переменная не объявлена
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(82): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(82): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(83): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(169): warning C4566: символ, представленный универсальным именем символа "\u25BA", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(179): warning C4566: символ, представленный универсальным именем символа "\u2500", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(277): warning C4566: символ, представленный универсальным именем символа "\u25BA", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(404): warning C4566: символ, представленный универсальным именем символа "\u25A0", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(409): warning C4566: символ, представленный универсальным именем символа "\u25A0", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(415): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\playerw.cpp(418): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  filemanw.cpp
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\sal_supp.h(57): warning C4005: __useHeader: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2866): note: см. предыдущее определение "__useHeader"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\specstrings_supp.h(77): warning C4005: __on_failure: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2876): note: см. предыдущее определение "__on_failure"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\wincon.h(101): warning C4005: MOUSE_MOVED: изменение макроопределения
+  d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\libs\pdcurses\curses.h(192): note: см. предыдущее определение "MOUSE_MOVED"
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\filemanw.cpp(55): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\filemanw.cpp(55): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\windows\filemanw.cpp(56): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  pguiman.cpp
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\sal_supp.h(57): warning C4005: __useHeader: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2866): note: см. предыдущее определение "__useHeader"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\specstrings_supp.h(77): warning C4005: __on_failure: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2876): note: см. предыдущее определение "__on_failure"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\wincon.h(101): warning C4005: MOUSE_MOVED: изменение макроопределения
+  d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\libs\pdcurses\curses.h(192): note: см. предыдущее определение "MOUSE_MOVED"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(147): warning C4005: STATUS_WAIT_0: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1983): note: см. предыдущее определение "STATUS_WAIT_0"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(199): warning C4005: STATUS_ABANDONED_WAIT_0: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1984): note: см. предыдущее определение "STATUS_ABANDONED_WAIT_0"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(222): warning C4005: STATUS_USER_APC: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1985): note: см. предыдущее определение "STATUS_USER_APC"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(249): warning C4005: STATUS_TIMEOUT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1986): note: см. предыдущее определение "STATUS_TIMEOUT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(258): warning C4005: STATUS_PENDING: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1987): note: см. предыдущее определение "STATUS_PENDING"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(651): warning C4005: DBG_EXCEPTION_HANDLED: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1988): note: см. предыдущее определение "DBG_EXCEPTION_HANDLED"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(660): warning C4005: DBG_CONTINUE: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1989): note: см. предыдущее определение "DBG_CONTINUE"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(746): warning C4005: STATUS_SEGMENT_NOTIFICATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1990): note: см. предыдущее определение "STATUS_SEGMENT_NOTIFICATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1219): warning C4005: DBG_TERMINATE_THREAD: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1991): note: см. предыдущее определение "DBG_TERMINATE_THREAD"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1228): warning C4005: DBG_TERMINATE_PROCESS: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1992): note: см. предыдущее определение "DBG_TERMINATE_PROCESS"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1237): warning C4005: DBG_CONTROL_C: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1993): note: см. предыдущее определение "DBG_CONTROL_C"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1246): warning C4005: DBG_PRINTEXCEPTION_C: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1994): note: см. предыдущее определение "DBG_PRINTEXCEPTION_C"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1255): warning C4005: DBG_RIPEXCEPTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1995): note: см. предыдущее определение "DBG_RIPEXCEPTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1264): warning C4005: DBG_CONTROL_BREAK: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1996): note: см. предыдущее определение "DBG_CONTROL_BREAK"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1273): warning C4005: DBG_COMMAND_EXCEPTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1997): note: см. предыдущее определение "DBG_COMMAND_EXCEPTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1305): warning C4005: STATUS_GUARD_PAGE_VIOLATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1998): note: см. предыдущее определение "STATUS_GUARD_PAGE_VIOLATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1316): warning C4005: STATUS_DATATYPE_MISALIGNMENT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1999): note: см. предыдущее определение "STATUS_DATATYPE_MISALIGNMENT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1327): warning C4005: STATUS_BREAKPOINT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2000): note: см. предыдущее определение "STATUS_BREAKPOINT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1338): warning C4005: STATUS_SINGLE_STEP: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2001): note: см. предыдущее определение "STATUS_SINGLE_STEP"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1641): warning C4005: STATUS_LONGJUMP: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2002): note: см. предыдущее определение "STATUS_LONGJUMP"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1668): warning C4005: STATUS_UNWIND_CONSOLIDATE: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2003): note: см. предыдущее определение "STATUS_UNWIND_CONSOLIDATE"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1735): warning C4005: DBG_EXCEPTION_NOT_HANDLED: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2004): note: см. предыдущее определение "DBG_EXCEPTION_NOT_HANDLED"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1864): warning C4005: STATUS_ACCESS_VIOLATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2005): note: см. предыдущее определение "STATUS_ACCESS_VIOLATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1873): warning C4005: STATUS_IN_PAGE_ERROR: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2006): note: см. предыдущее определение "STATUS_IN_PAGE_ERROR"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1891): warning C4005: STATUS_INVALID_HANDLE: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2007): note: см. предыдущее определение "STATUS_INVALID_HANDLE"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1936): warning C4005: STATUS_INVALID_PARAMETER: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2008): note: см. предыдущее определение "STATUS_INVALID_PARAMETER"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(2036): warning C4005: STATUS_NO_MEMORY: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2009): note: см. предыдущее определение "STATUS_NO_MEMORY"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(2093): warning C4005: STATUS_ILLEGAL_INSTRUCTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2010): note: см. предыдущее определение "STATUS_ILLEGAL_INSTRUCTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(2174): warning C4005: STATUS_NONCONTINUABLE_EXCEPTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2011): note: см. предыдущее определение "STATUS_NONCONTINUABLE_EXCEPTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(2183): warning C4005: STATUS_INVALID_DISPOSITION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2012): note: см. предыдущее определение "STATUS_INVALID_DISPOSITION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3105): warning C4005: STATUS_ARRAY_BOUNDS_EXCEEDED: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2013): note: см. предыдущее определение "STATUS_ARRAY_BOUNDS_EXCEEDED"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3115): warning C4005: STATUS_FLOAT_DENORMAL_OPERAND: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2014): note: см. предыдущее определение "STATUS_FLOAT_DENORMAL_OPERAND"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3125): warning C4005: STATUS_FLOAT_DIVIDE_BY_ZERO: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2015): note: см. предыдущее определение "STATUS_FLOAT_DIVIDE_BY_ZERO"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3135): warning C4005: STATUS_FLOAT_INEXACT_RESULT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2016): note: см. предыдущее определение "STATUS_FLOAT_INEXACT_RESULT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3145): warning C4005: STATUS_FLOAT_INVALID_OPERATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2017): note: см. предыдущее определение "STATUS_FLOAT_INVALID_OPERATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3155): warning C4005: STATUS_FLOAT_OVERFLOW: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2018): note: см. предыдущее определение "STATUS_FLOAT_OVERFLOW"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3165): warning C4005: STATUS_FLOAT_STACK_CHECK: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2019): note: см. предыдущее определение "STATUS_FLOAT_STACK_CHECK"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3175): warning C4005: STATUS_FLOAT_UNDERFLOW: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2020): note: см. предыдущее определение "STATUS_FLOAT_UNDERFLOW"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3185): warning C4005: STATUS_INTEGER_DIVIDE_BY_ZERO: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2021): note: см. предыдущее определение "STATUS_INTEGER_DIVIDE_BY_ZERO"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3195): warning C4005: STATUS_INTEGER_OVERFLOW: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2022): note: см. предыдущее определение "STATUS_INTEGER_OVERFLOW"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3205): warning C4005: STATUS_PRIVILEGED_INSTRUCTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2023): note: см. предыдущее определение "STATUS_PRIVILEGED_INSTRUCTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4151): warning C4005: STATUS_STACK_OVERFLOW: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2024): note: см. предыдущее определение "STATUS_STACK_OVERFLOW"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4668): warning C4005: STATUS_DLL_NOT_FOUND: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2025): note: см. предыдущее определение "STATUS_DLL_NOT_FOUND"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4697): warning C4005: STATUS_ORDINAL_NOT_FOUND: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2026): note: см. предыдущее определение "STATUS_ORDINAL_NOT_FOUND"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4707): warning C4005: STATUS_ENTRYPOINT_NOT_FOUND: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2027): note: см. предыдущее определение "STATUS_ENTRYPOINT_NOT_FOUND"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4717): warning C4005: STATUS_CONTROL_C_EXIT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2028): note: см. предыдущее определение "STATUS_CONTROL_C_EXIT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4795): warning C4005: STATUS_DLL_INIT_FAILED: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2029): note: см. предыдущее определение "STATUS_DLL_INIT_FAILED"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(7197): warning C4005: STATUS_FLOAT_MULTIPLE_FAULTS: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2030): note: см. предыдущее определение "STATUS_FLOAT_MULTIPLE_FAULTS"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(7207): warning C4005: STATUS_FLOAT_MULTIPLE_TRAPS: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2031): note: см. предыдущее определение "STATUS_FLOAT_MULTIPLE_TRAPS"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(7330): warning C4005: STATUS_REG_NAT_CONSUMPTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2032): note: см. предыдущее определение "STATUS_REG_NAT_CONSUMPTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(8523): warning C4005: STATUS_STACK_BUFFER_OVERRUN: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2033): note: см. предыдущее определение "STATUS_STACK_BUFFER_OVERRUN"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(8650): warning C4005: STATUS_INVALID_CRUNTIME_PARAMETER: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2034): note: см. предыдущее определение "STATUS_INVALID_CRUNTIME_PARAMETER"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(8713): warning C4005: STATUS_ASSERTION_FAILURE: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2035): note: см. предыдущее определение "STATUS_ASSERTION_FAILURE"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(11904): warning C4005: STATUS_SXS_EARLY_DEACTIVATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2037): note: см. предыдущее определение "STATUS_SXS_EARLY_DEACTIVATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(11913): warning C4005: STATUS_SXS_INVALID_DEACTIVATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2038): note: см. предыдущее определение "STATUS_SXS_INVALID_DEACTIVATION"
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\version.h(32): warning C4005: STATUS_SUCCESS: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(64): note: см. предыдущее определение "STATUS_SUCCESS"
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\utils\pguiman.cpp(117): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  opendss.cpp
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\sal_supp.h(57): warning C4005: __useHeader: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2866): note: см. предыдущее определение "__useHeader"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\specstrings_supp.h(77): warning C4005: __on_failure: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2876): note: см. предыдущее определение "__on_failure"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\wincon.h(101): warning C4005: MOUSE_MOVED: изменение макроопределения
+  d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\libs\pdcurses\curses.h(192): note: см. предыдущее определение "MOUSE_MOVED"
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\libs\dse\include\utils\stream.h(53): warning C4091: typedef : пропускается слева от "DSE_STREAM_INFO", когда ни одна переменная не объявлена
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\libs\dse\include\utils\stream.h(57): warning C4091: typedef : пропускается слева от "DSE_STREAM_TIMESTAMP", когда ни одна переменная не объявлена
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\libs\dse\include\utils\stream.h(62): warning C4091: typedef : пропускается слева от "DSE_AUDIO_SPECTRUM", когда ни одна переменная не объявлена
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(147): warning C4005: STATUS_WAIT_0: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1983): note: см. предыдущее определение "STATUS_WAIT_0"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(199): warning C4005: STATUS_ABANDONED_WAIT_0: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1984): note: см. предыдущее определение "STATUS_ABANDONED_WAIT_0"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(222): warning C4005: STATUS_USER_APC: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1985): note: см. предыдущее определение "STATUS_USER_APC"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(249): warning C4005: STATUS_TIMEOUT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1986): note: см. предыдущее определение "STATUS_TIMEOUT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(258): warning C4005: STATUS_PENDING: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1987): note: см. предыдущее определение "STATUS_PENDING"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(651): warning C4005: DBG_EXCEPTION_HANDLED: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1988): note: см. предыдущее определение "DBG_EXCEPTION_HANDLED"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(660): warning C4005: DBG_CONTINUE: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1989): note: см. предыдущее определение "DBG_CONTINUE"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(746): warning C4005: STATUS_SEGMENT_NOTIFICATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1990): note: см. предыдущее определение "STATUS_SEGMENT_NOTIFICATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1219): warning C4005: DBG_TERMINATE_THREAD: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1991): note: см. предыдущее определение "DBG_TERMINATE_THREAD"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1228): warning C4005: DBG_TERMINATE_PROCESS: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1992): note: см. предыдущее определение "DBG_TERMINATE_PROCESS"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1237): warning C4005: DBG_CONTROL_C: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1993): note: см. предыдущее определение "DBG_CONTROL_C"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1246): warning C4005: DBG_PRINTEXCEPTION_C: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1994): note: см. предыдущее определение "DBG_PRINTEXCEPTION_C"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1255): warning C4005: DBG_RIPEXCEPTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1995): note: см. предыдущее определение "DBG_RIPEXCEPTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1264): warning C4005: DBG_CONTROL_BREAK: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1996): note: см. предыдущее определение "DBG_CONTROL_BREAK"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1273): warning C4005: DBG_COMMAND_EXCEPTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1997): note: см. предыдущее определение "DBG_COMMAND_EXCEPTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1305): warning C4005: STATUS_GUARD_PAGE_VIOLATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1998): note: см. предыдущее определение "STATUS_GUARD_PAGE_VIOLATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1316): warning C4005: STATUS_DATATYPE_MISALIGNMENT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(1999): note: см. предыдущее определение "STATUS_DATATYPE_MISALIGNMENT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1327): warning C4005: STATUS_BREAKPOINT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2000): note: см. предыдущее определение "STATUS_BREAKPOINT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1338): warning C4005: STATUS_SINGLE_STEP: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2001): note: см. предыдущее определение "STATUS_SINGLE_STEP"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1641): warning C4005: STATUS_LONGJUMP: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2002): note: см. предыдущее определение "STATUS_LONGJUMP"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1668): warning C4005: STATUS_UNWIND_CONSOLIDATE: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2003): note: см. предыдущее определение "STATUS_UNWIND_CONSOLIDATE"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1735): warning C4005: DBG_EXCEPTION_NOT_HANDLED: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2004): note: см. предыдущее определение "DBG_EXCEPTION_NOT_HANDLED"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1864): warning C4005: STATUS_ACCESS_VIOLATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2005): note: см. предыдущее определение "STATUS_ACCESS_VIOLATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1873): warning C4005: STATUS_IN_PAGE_ERROR: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2006): note: см. предыдущее определение "STATUS_IN_PAGE_ERROR"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1891): warning C4005: STATUS_INVALID_HANDLE: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2007): note: см. предыдущее определение "STATUS_INVALID_HANDLE"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(1936): warning C4005: STATUS_INVALID_PARAMETER: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2008): note: см. предыдущее определение "STATUS_INVALID_PARAMETER"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(2036): warning C4005: STATUS_NO_MEMORY: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2009): note: см. предыдущее определение "STATUS_NO_MEMORY"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(2093): warning C4005: STATUS_ILLEGAL_INSTRUCTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2010): note: см. предыдущее определение "STATUS_ILLEGAL_INSTRUCTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(2174): warning C4005: STATUS_NONCONTINUABLE_EXCEPTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2011): note: см. предыдущее определение "STATUS_NONCONTINUABLE_EXCEPTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(2183): warning C4005: STATUS_INVALID_DISPOSITION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2012): note: см. предыдущее определение "STATUS_INVALID_DISPOSITION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3105): warning C4005: STATUS_ARRAY_BOUNDS_EXCEEDED: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2013): note: см. предыдущее определение "STATUS_ARRAY_BOUNDS_EXCEEDED"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3115): warning C4005: STATUS_FLOAT_DENORMAL_OPERAND: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2014): note: см. предыдущее определение "STATUS_FLOAT_DENORMAL_OPERAND"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3125): warning C4005: STATUS_FLOAT_DIVIDE_BY_ZERO: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2015): note: см. предыдущее определение "STATUS_FLOAT_DIVIDE_BY_ZERO"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3135): warning C4005: STATUS_FLOAT_INEXACT_RESULT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2016): note: см. предыдущее определение "STATUS_FLOAT_INEXACT_RESULT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3145): warning C4005: STATUS_FLOAT_INVALID_OPERATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2017): note: см. предыдущее определение "STATUS_FLOAT_INVALID_OPERATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3155): warning C4005: STATUS_FLOAT_OVERFLOW: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2018): note: см. предыдущее определение "STATUS_FLOAT_OVERFLOW"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3165): warning C4005: STATUS_FLOAT_STACK_CHECK: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2019): note: см. предыдущее определение "STATUS_FLOAT_STACK_CHECK"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3175): warning C4005: STATUS_FLOAT_UNDERFLOW: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2020): note: см. предыдущее определение "STATUS_FLOAT_UNDERFLOW"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3185): warning C4005: STATUS_INTEGER_DIVIDE_BY_ZERO: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2021): note: см. предыдущее определение "STATUS_INTEGER_DIVIDE_BY_ZERO"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3195): warning C4005: STATUS_INTEGER_OVERFLOW: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2022): note: см. предыдущее определение "STATUS_INTEGER_OVERFLOW"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(3205): warning C4005: STATUS_PRIVILEGED_INSTRUCTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2023): note: см. предыдущее определение "STATUS_PRIVILEGED_INSTRUCTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4151): warning C4005: STATUS_STACK_OVERFLOW: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2024): note: см. предыдущее определение "STATUS_STACK_OVERFLOW"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4668): warning C4005: STATUS_DLL_NOT_FOUND: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2025): note: см. предыдущее определение "STATUS_DLL_NOT_FOUND"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4697): warning C4005: STATUS_ORDINAL_NOT_FOUND: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2026): note: см. предыдущее определение "STATUS_ORDINAL_NOT_FOUND"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4707): warning C4005: STATUS_ENTRYPOINT_NOT_FOUND: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2027): note: см. предыдущее определение "STATUS_ENTRYPOINT_NOT_FOUND"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4717): warning C4005: STATUS_CONTROL_C_EXIT: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2028): note: см. предыдущее определение "STATUS_CONTROL_C_EXIT"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(4795): warning C4005: STATUS_DLL_INIT_FAILED: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2029): note: см. предыдущее определение "STATUS_DLL_INIT_FAILED"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(7197): warning C4005: STATUS_FLOAT_MULTIPLE_FAULTS: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2030): note: см. предыдущее определение "STATUS_FLOAT_MULTIPLE_FAULTS"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(7207): warning C4005: STATUS_FLOAT_MULTIPLE_TRAPS: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2031): note: см. предыдущее определение "STATUS_FLOAT_MULTIPLE_TRAPS"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(7330): warning C4005: STATUS_REG_NAT_CONSUMPTION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2032): note: см. предыдущее определение "STATUS_REG_NAT_CONSUMPTION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(8523): warning C4005: STATUS_STACK_BUFFER_OVERRUN: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2033): note: см. предыдущее определение "STATUS_STACK_BUFFER_OVERRUN"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(8650): warning C4005: STATUS_INVALID_CRUNTIME_PARAMETER: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2034): note: см. предыдущее определение "STATUS_INVALID_CRUNTIME_PARAMETER"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(8713): warning C4005: STATUS_ASSERTION_FAILURE: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2035): note: см. предыдущее определение "STATUS_ASSERTION_FAILURE"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(11904): warning C4005: STATUS_SXS_EARLY_DEACTIVATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2037): note: см. предыдущее определение "STATUS_SXS_EARLY_DEACTIVATION"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(11913): warning C4005: STATUS_SXS_INVALID_DEACTIVATION: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\winnt.h(2038): note: см. предыдущее определение "STATUS_SXS_INVALID_DEACTIVATION"
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\version.h(32): warning C4005: STATUS_SUCCESS: изменение макроопределения
+  c:\program files (x86)\microsoft sdks\windows\v7.1a\include\ntstatus.h(64): note: см. предыдущее определение "STATUS_SUCCESS"
+  extwnd.cpp
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\extwnd.cpp(115): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\extwnd.cpp(115): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\extwnd.cpp(116): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\extwnd.cpp(147): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\extwnd.cpp(147): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\extwnd.cpp(148): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  fileman.cpp
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\sal_supp.h(57): warning C4005: __useHeader: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2866): note: см. предыдущее определение "__useHeader"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\specstrings_supp.h(77): warning C4005: __on_failure: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2876): note: см. предыдущее определение "__on_failure"
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\utils\fileman.cpp(100): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  listbox.cpp
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\listbox.cpp(115): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\listbox.cpp(104): warning C4474: "sprintf_s" : для строки формата передано слишком много аргументов
+  d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\listbox.cpp(104): note: заполнители и их параметры ожидают переменное число аргументов в количестве 2, но было предоставлено 3
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\listbox.cpp(304): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\listbox.cpp(304): warning C4566: символ, представленный универсальным именем символа "\u2500", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\listbox.cpp(307): warning C4566: символ, представленный универсальным именем символа "\u2514", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\listbox.cpp(307): warning C4566: символ, представленный универсальным именем символа "\u2500", невозможно представить в текущей кодовой странице (1251)
+  msgbox.cpp
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\msgbox.cpp(34): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\msgbox.cpp(51): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\msgbox.cpp(51): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\msgbox.cpp(52): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\msgbox.cpp(74): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\msgbox.cpp(89): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\msgbox.cpp(89): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\controls\msgbox.cpp(90): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  extstr.cpp
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\utils\extstr.cpp(12): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\src\utils\extstr.cpp(23): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  auddeci.cpp
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\libs\dse\include\utils\stream.h(53): warning C4091: typedef : пропускается слева от "DSE_STREAM_INFO", когда ни одна переменная не объявлена
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\libs\dse\include\utils\stream.h(57): warning C4091: typedef : пропускается слева от "DSE_STREAM_TIMESTAMP", когда ни одна переменная не объявлена
+d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\libs\dse\include\utils\stream.h(62): warning C4091: typedef : пропускается слева от "DSE_AUDIO_SPECTRUM", когда ни одна переменная не объявлена
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\sal_supp.h(57): warning C4005: __useHeader: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2866): note: см. предыдущее определение "__useHeader"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\specstrings_supp.h(77): warning C4005: __on_failure: изменение макроопределения
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2876): note: см. предыдущее определение "__on_failure"
+c:\program files (x86)\microsoft sdks\windows\v7.1a\include\wincon.h(101): warning C4005: MOUSE_MOVED: изменение макроопределения
+  d:\users\tretdm\documents\sources\git\github.com\tinelix\opendss\tui\libs\pdcurses\curses.h(192): note: см. предыдущее определение "MOUSE_MOVED"
+  Создание кода...
+  LINK : не найден или не выполнена сборка D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\\out\windows-x64\OpenDSS.exe при последней инкрементной компоновке; выполняется полная компоновка
+msgbox.obj : error LNK2019: ссылка на неразрешенный внешний символ box в функции "public: __cdecl MessageBoxU::MessageBoxU(char *,char *,int,struct _win *)" (??0MessageBoxU@@QEAA@PEAD0HPEAU_win@@@Z)
+extwnd.obj : error LNK2001: неразрешенный внешний символ "box"
+filemanw.obj : error LNK2001: неразрешенный внешний символ "box"
+playerw.obj : error LNK2001: неразрешенный внешний символ "box"
+playerw.obj : error LNK2001: неразрешенный внешний символ "keypad"
+msgbox.obj : error LNK2001: неразрешенный внешний символ "keypad"
+extwnd.obj : error LNK2001: неразрешенный внешний символ "keypad"
+pguiman.obj : error LNK2001: неразрешенный внешний символ "keypad"
+filemanw.obj : error LNK2001: неразрешенный внешний символ "keypad"
+playerw.obj : error LNK2001: неразрешенный внешний символ "mvwprintw"
+msgbox.obj : error LNK2001: неразрешенный внешний символ "mvwprintw"
+listbox.obj : error LNK2001: неразрешенный внешний символ "mvwprintw"
+extwnd.obj : error LNK2001: неразрешенный внешний символ "mvwprintw"
+filemanw.obj : error LNK2001: неразрешенный внешний символ "mvwprintw"
+msgbox.obj : error LNK2019: ссылка на неразрешенный внешний символ newwin в функции "public: __cdecl MessageBoxU::MessageBoxU(char *,char *,int,struct _win *)" (??0MessageBoxU@@QEAA@PEAD0HPEAU_win@@@Z)
+extwnd.obj : error LNK2001: неразрешенный внешний символ "newwin"
+filemanw.obj : error LNK2001: неразрешенный внешний символ "newwin"
+playerw.obj : error LNK2001: неразрешенный внешний символ "newwin"
+msgbox.obj : error LNK2019: ссылка на неразрешенный внешний символ wbkgd в функции "public: __cdecl MessageBoxU::MessageBoxU(char *,char *,int,struct _win *)" (??0MessageBoxU@@QEAA@PEAD0HPEAU_win@@@Z)
+extwnd.obj : error LNK2001: неразрешенный внешний символ "wbkgd"
+filemanw.obj : error LNK2001: неразрешенный внешний символ "wbkgd"
+playerw.obj : error LNK2001: неразрешенный внешний символ "wbkgd"
+playerw.obj : error LNK2001: неразрешенный внешний символ "wrefresh"
+msgbox.obj : error LNK2001: неразрешенный внешний символ "wrefresh"
+listbox.obj : error LNK2001: неразрешенный внешний символ "wrefresh"
+extwnd.obj : error LNK2001: неразрешенный внешний символ "wrefresh"
+filemanw.obj : error LNK2001: неразрешенный внешний символ "wrefresh"
+msgbox.obj : error LNK2019: ссылка на неразрешенный внешний символ getmaxx в функции "public: __cdecl MessageBoxU::MessageBoxU(char *,char *,int,struct _win *)" (??0MessageBoxU@@QEAA@PEAD0HPEAU_win@@@Z)
+pguiman.obj : error LNK2001: неразрешенный внешний символ "getmaxx"
+filemanw.obj : error LNK2001: неразрешенный внешний символ "getmaxx"
+playerw.obj : error LNK2001: неразрешенный внешний символ "getmaxx"
+msgbox.obj : error LNK2019: ссылка на неразрешенный внешний символ getmaxy в функции "public: __cdecl MessageBoxU::MessageBoxU(char *,char *,int,struct _win *)" (??0MessageBoxU@@QEAA@PEAD0HPEAU_win@@@Z)
+pguiman.obj : error LNK2001: неразрешенный внешний символ "getmaxy"
+filemanw.obj : error LNK2001: неразрешенный внешний символ "getmaxy"
+playerw.obj : error LNK2001: неразрешенный внешний символ "getmaxy"
+listbox.obj : error LNK2019: ссылка на неразрешенный внешний символ mvwaddch в функции "public: void __cdecl ListBoxCtrl::drawListPointer(int,int,char,bool)" (?drawListPointer@ListBoxCtrl@@QEAAXHHD_N@Z)
+filemanw.obj : error LNK2001: неразрешенный внешний символ "mvwaddch"
+playerw.obj : error LNK2001: неразрешенный внешний символ "mvwaddch"
+listbox.obj : error LNK2019: ссылка на неразрешенный внешний символ mvwchgat в функции "public: void __cdecl ListBoxCtrl::drawListPointer(int,int,char,bool)" (?drawListPointer@ListBoxCtrl@@QEAAXHHD_N@Z)
+playerw.obj : error LNK2001: неразрешенный внешний символ "mvwchgat"
+extwnd.obj : error LNK2019: ссылка на неразрешенный внешний символ delwin в функции "public: virtual void __cdecl ExtWindowCtrl::freeWnd(void)" (?freeWnd@ExtWindowCtrl@@UEAAXXZ)
+playerw.obj : error LNK2001: неразрешенный внешний символ "delwin"
+extwnd.obj : error LNK2019: ссылка на неразрешенный внешний символ refresh в функции "public: virtual void __cdecl ExtWindowCtrl::freeWnd(void)" (?freeWnd@ExtWindowCtrl@@UEAAXXZ)
+pguiman.obj : error LNK2001: неразрешенный внешний символ "refresh"
+playerw.obj : error LNK2001: неразрешенный внешний символ "refresh"
+extwnd.obj : error LNK2019: ссылка на неразрешенный внешний символ touchwin в функции "public: void __cdecl ExtWindowCtrl::redraw(void)" (?redraw@ExtWindowCtrl@@QEAAXXZ)
+playerw.obj : error LNK2001: неразрешенный внешний символ "touchwin"
+extwnd.obj : error LNK2019: ссылка на неразрешенный внешний символ wclear в функции "public: void __cdecl ExtWindowCtrl::clear(void)" (?clear@ExtWindowCtrl@@QEAAXXZ)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ bkgd в функции "public: __cdecl PseudoGUIManager::PseudoGUIManager(class IPseudoGUIManager *)" (??0PseudoGUIManager@@QEAA@PEAVIPseudoGUIManager@@@Z)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ curs_set в функции "public: __cdecl PseudoGUIManager::PseudoGUIManager(class IPseudoGUIManager *)" (??0PseudoGUIManager@@QEAA@PEAVIPseudoGUIManager@@@Z)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ delscreen в функции "public: __cdecl PseudoGUIManager::~PseudoGUIManager(void)" (??1PseudoGUIManager@@QEAA@XZ)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ endwin в функции "public: __cdecl PseudoGUIManager::~PseudoGUIManager(void)" (??1PseudoGUIManager@@QEAA@XZ)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ has_colors в функции "public: __cdecl PseudoGUIManager::PseudoGUIManager(class IPseudoGUIManager *)" (??0PseudoGUIManager@@QEAA@PEAVIPseudoGUIManager@@@Z)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ init_color в функции "public: __cdecl PseudoGUIManager::PseudoGUIManager(class IPseudoGUIManager *)" (??0PseudoGUIManager@@QEAA@PEAVIPseudoGUIManager@@@Z)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ init_pair в функции "public: __cdecl PseudoGUIManager::PseudoGUIManager(class IPseudoGUIManager *)" (??0PseudoGUIManager@@QEAA@PEAVIPseudoGUIManager@@@Z)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ initscr в функции "public: __cdecl PseudoGUIManager::PseudoGUIManager(class IPseudoGUIManager *)" (??0PseudoGUIManager@@QEAA@PEAVIPseudoGUIManager@@@Z)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ move в функции "public: void __cdecl PseudoGUIManager::showTopVersionInfo(void)" (?showTopVersionInfo@PseudoGUIManager@@QEAAXXZ)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ mvchgat в функции "public: void __cdecl PseudoGUIManager::showTopVersionInfo(void)" (?showTopVersionInfo@PseudoGUIManager@@QEAAXXZ)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ noecho в функции "public: __cdecl PseudoGUIManager::PseudoGUIManager(class IPseudoGUIManager *)" (??0PseudoGUIManager@@QEAA@PEAVIPseudoGUIManager@@@Z)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ printw в функции "public: void __cdecl PseudoGUIManager::showTopVersionInfo(void)" (?showTopVersionInfo@PseudoGUIManager@@QEAAXXZ)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ start_color в функции "public: __cdecl PseudoGUIManager::PseudoGUIManager(class IPseudoGUIManager *)" (??0PseudoGUIManager@@QEAA@PEAVIPseudoGUIManager@@@Z)
+pguiman.obj : error LNK2019: ссылка на неразрешенный внешний символ wgetch в функции "public: void __cdecl PseudoGUIManager::listenKeyboard(class ExtWindowCtrl *)" (?listenKeyboard@PseudoGUIManager@@QEAAXPEAVExtWindowCtrl@@@Z)
+filemanw.obj : error LNK2001: неразрешенный внешний символ "wgetch"
+playerw.obj : error LNK2001: неразрешенный внешний символ "wgetch"
+pguiman.obj : error LNK2001: неразрешенный внешний символ "stdscr"
+playerw.obj : error LNK2001: неразрешенный внешний символ "stdscr"
+playerw.obj : error LNK2019: ссылка на неразрешенный внешний символ scrollok в функции "public: virtual void __cdecl AudioPlayerWnd::onKeyPressed(char)" (?onKeyPressed@AudioPlayerWnd@@UEAAXD@Z)
+playerw.obj : error LNK2019: ссылка на неразрешенный внешний символ wtimeout в функции "public: __cdecl AudioPlayerWnd::AudioPlayerWnd(char *,class ExtWindowCtrl *,struct _win *)" (??0AudioPlayerWnd@@QEAA@PEADPEAVExtWindowCtrl@@PEAU_win@@@Z)
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\libs\pdcurses\wincon\pdcurses.lib : warning LNK4272: тип компьютера библиотеки "X86" конфликтует с типом целевого компьютера "x64"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\\out\windows-x64\OpenDSS.exe : fatal error LNK1120: неразрешенных внешних элементов: 31

@@ -1,0 +1,12 @@
+﻿D:\Program Files\Microsoft Visual Studio\2022\Preview\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(524,5): warning MSB8004: каталог Output заканчивается не косой чертой.  Этот экземпляр сборки добавит косую черту, поскольку она необходима для правильного определения каталога Output.
+  listbox.cpp
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\controls\listbox.cpp(104,64): warning C4474: "sprintf_s" : для строки формата передано слишком много аргументов
+      D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\controls\listbox.cpp(104,64):
+      заполнители и их параметры ожидают переменное число аргументов в количестве 2, но было предоставлено 3
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\controls\listbox.cpp(113,73): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\controls\listbox.cpp(304,57): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\controls\listbox.cpp(304,57): warning C4566: символ, представленный универсальным именем символа "\u2500", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\controls\listbox.cpp(307,57): warning C4566: символ, представленный универсальным именем символа "\u2514", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\controls\listbox.cpp(307,57): warning C4566: символ, представленный универсальным именем символа "\u2500", невозможно представить в текущей кодовой странице (1251)
+  OpenDSS.vcxproj -> D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\out\windows-x64\OpenDSS.exe

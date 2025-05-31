@@ -1,18 +1,15 @@
-[submodule "libs/minimp3"]
-	path = libs/minimp3
-	url = https://github.com/lieff/minimp3
-[submodule "libs/raudio"]
-	path = libs/raudio
-	url = https://github.com/raysan5/raudio
-[submodule "libs/miniaudio"]
-	path = libs/miniaudio
-	url = https://github.com/mackron/miniaudio
-[submodule "libs/tinydir"]
-	path = libs/tinydir
+[submodule "tui/libs/tinydir"]
+	path = tui/libs/tinydir
 	url = https://github.com/cxong/tinydir
-[submodule "libs/dr_libs"]
-	path = libs/dr_libs
-	url = https://github.com/mackron/dr_libs
-[submodule "ps-gui/libs/AudioPlayerClass"]
-	path = ps-gui/libs/AudioPlayerClass
-	url = https://github.com/jonnypetraglia/AudioPlayerClass
+[submodule "tui/libs/tinydir"]
+	path = tui/libs/tinydir
+	url = https://github.com/cxong/tinydir
+[submodule "libs/PDCurses"]
+	path = libs/PDCurses
+	url = https://github.com/rbergen/PDCurses
+[submodule "tui/libs/PDCurses"]
+	path = tui/libs/PDCurses
+	url = https://github.com/wmcbrine/PDCurses.git
+[submodule "tui/libs/pdcurses"]
+	path = tui/libs/pdcurses
+	url = https://github.com/wmcbrine/PDCurses.git

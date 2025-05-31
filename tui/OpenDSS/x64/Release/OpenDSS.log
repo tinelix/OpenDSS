@@ -1,0 +1,17 @@
+﻿D:\Program Files\Microsoft Visual Studio\2022\Preview\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(524,5): warning MSB8004: каталог Output заканчивается не косой чертой.  Этот экземпляр сборки добавит косую черту, поскольку она необходима для правильного определения каталога Output.
+  filemanw.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\wincontypes.h(103,9): warning C4005: MOUSE_MOVED: изменение макроопределения
+  (компиляция исходного файла "src/windows/filemanw.cpp")
+      D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\libs\pdcurses\curses.h(192,9):
+      см. предыдущее определение "MOUSE_MOVED"
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\windows\filemanw.cpp(55,9): warning C4566: символ, представленный универсальным именем символа "\u2524", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\windows\filemanw.cpp(55,9): warning C4566: символ, представленный универсальным именем символа "\u251C", невозможно представить в текущей кодовой странице (1251)
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\src\windows\filemanw.cpp(54,54): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+LINK : warning LNK4075: не учитывается "/INCREMENTAL" из-за спецификации "/LTCG"
+  Создание кода
+  3 of 111 functions ( 2.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  OpenDSS.vcxproj -> D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\tui\out\windows-x64\OpenDSS.exe
