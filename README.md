@@ -1,5 +1,5 @@
 # OpenDSS
-Virtual music center for Windows and Linux. Based on Digital Sound System DOS version from Sergey Sapelin.
+Virtual music center for Windows and Linux. Inspired on Digital Sound System DOS version from Sergey Sapelin.
 
 ## Repository Structure
 
