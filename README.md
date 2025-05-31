@@ -1,5 +1,5 @@
 # OpenDSS
-Open sourced clone of Digital Sound System DOS audio player
+Virtual music center for Windows and Linux. Based on Digital Sound System by Sergey Sapelin.
 
 ## Repository Structure
 
