@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков\Platform-specific">
+      <UniqueIdentifier>{af16b522-5c20-4005-853f-ca9b30892bb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Platform-specific\Windows">
+      <UniqueIdentifier>{e954accb-53d9-4872-b416-fd669f4f897d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Platform-specific">
+      <UniqueIdentifier>{e6e03478-6a7e-4e19-9344-d8b45d555747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Platform-specific\Windows">
+      <UniqueIdentifier>{33dc84f0-46ad-48dc-adb6-f8813e8e79e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\MPEG-ES">
+      <UniqueIdentifier>{5e7ff12d-9449-44b7-97f7-dafa969d976a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\MPEG-ES">
+      <UniqueIdentifier>{c915d08c-aae1-447a-941a-4faf7a3ac10e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Utilites">
+      <UniqueIdentifier>{76cfafbe-02dc-47db-930b-f9cfdf2433da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Utilities">
+      <UniqueIdentifier>{8bb604e2-a846-4dcd-86cc-50adfa10e56b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\mp3dec.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\windows\mp3decw.c">
+      <Filter>Исходные файлы\Platform-specific\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mpeges\stream.c">
+      <Filter>Исходные файлы\MPEG-ES</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\intext.c">
+      <Filter>Исходные файлы\Utilites</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\platform\windows\mp3decw.h">
+      <Filter>Файлы заголовков\Platform-specific\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mp3dec.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mpeges\stream.h">
+      <Filter>Файлы заголовков\MPEG-ES</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\intext.h">
+      <Filter>Файлы заголовков\Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

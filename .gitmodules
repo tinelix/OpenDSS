@@ -1,15 +1,6 @@
 [submodule "tui/libs/tinydir"]
 	path = tui/libs/tinydir
 	url = https://github.com/cxong/tinydir
-[submodule "tui/libs/tinydir"]
-	path = tui/libs/tinydir
-	url = https://github.com/cxong/tinydir
-[submodule "libs/PDCurses"]
-	path = libs/PDCurses
-	url = https://github.com/rbergen/PDCurses
-[submodule "tui/libs/PDCurses"]
-	path = tui/libs/PDCurses
-	url = https://github.com/wmcbrine/PDCurses.git
 [submodule "tui/libs/pdcurses"]
 	path = tui/libs/pdcurses
 	url = https://github.com/wmcbrine/PDCurses.git

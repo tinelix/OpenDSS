@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{b599d7ed-5d1f-48cf-9201-c9414a766add}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{cbf6bf1b-750e-4a8e-a3dc-285efd665b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{fa40aa5e-f827-42d7-b46f-dd2fd2df861e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utilities">
+      <UniqueIdentifier>{089f92f4-4816-4c03-9506-790af29acfc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Platfrom-specific">
+      <UniqueIdentifier>{838e758e-20c5-4534-8e5f-c7d106861c9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Platfrom-specific\Windows">
+      <UniqueIdentifier>{ce599beb-b5e0-42dc-9b16-86182d0b8c70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Decoders">
+      <UniqueIdentifier>{e46cd688-3273-47fc-9f2c-be3a1838036f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Decoders\Common">
+      <UniqueIdentifier>{abceda09-ef5b-44d7-90bb-2afa5b8e8036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform-specific">
+      <UniqueIdentifier>{4d6f7f4f-cdfb-4a68-a476-e9509697e9bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform-specific\Windows">
+      <UniqueIdentifier>{9436168c-ca56-4521-ba1b-61eeae2e0003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{08e4515b-5825-43bb-a0b8-742ca435c61e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Decoders\mp3dec">
+      <UniqueIdentifier>{96079089-0a6e-432b-958a-1c5c2136048b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Decoders">
+      <UniqueIdentifier>{1d67add1-c118-45da-a113-e7eeb26395cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Decoders\Common">
+      <UniqueIdentifier>{70f6d06e-aee3-4b20-ae9b-e19aea0dffb8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\dse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\errcodes.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\extstr.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\player.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\sndfmt.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\stream.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\platform\windows\dsewin.h">
+      <Filter>Header Files\Platfrom-specific\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="include\platform\windows\errcodes.h">
+      <Filter>Header Files\Platfrom-specific\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="include\platform\windows\dsemodl.h">
+      <Filter>Header Files\Platfrom-specific\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\fileext.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\dse.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\windows\dsewin.c">
+      <Filter>Source Files\Platform-specific\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\player.c">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\extstr.c">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\windows\dsemodl.c">
+      <Filter>Source Files\Platform-specific\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\windows\fileext.c">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="OpenDSE.rc" />
+  </ItemGroup>
+</Project>

@@ -1,4 +1,7 @@
 out/
 *.so
+*.obj
+*.exe
+*.res
 *.o
 .vs

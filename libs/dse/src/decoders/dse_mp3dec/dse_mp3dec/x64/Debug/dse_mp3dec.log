@@ -1,0 +1,66 @@
+﻿  mp3dec.c
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(51,29): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mp3dec.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(51,36): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mp3dec.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(51,43): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mp3dec.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(52,29): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mp3dec.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(52,36): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mp3dec.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(52,43): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mp3dec.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(53,29): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mp3dec.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(53,36): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mp3dec.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(53,43): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mp3dec.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(15,28): warning C4047: return: "int" отличается по уровням косвенного обращения от "void *"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(17,7): warning C4013: dse_mp3dec_parse_frame_header: нет определения; предполагается "extern" с возвратом типа "int"
+  stream.c
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(51,29): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mpeges/stream.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(51,36): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mpeges/stream.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(51,43): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mpeges/stream.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(52,29): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mpeges/stream.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(52,36): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mpeges/stream.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(52,43): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mpeges/stream.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(53,29): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mpeges/stream.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(53,36): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mpeges/stream.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\include\mpeges\stream.h(53,43): warning C4305: инициализация: усечение из "int" в "const unsigned char"
+  (компиляция исходного файла "src/mpeges/stream.c")
+  
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mpeges\stream.c(49,25): warning C4293: <<: отрицательное или слишком большое смещение; поведение не определено
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mpeges\stream.c(111,27): warning C4013: sin: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mpeges\stream.c(111,27): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mpeges\stream.c(119,60): warning C4244: =: преобразование "long" в "unsigned char", возможна потеря данных
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mpeges\stream.c(116,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  intext.c
+  Создание кода...
+  dse_mp3dec.vcxproj -> D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\x64\Debug\dse_mp3dec.dll
