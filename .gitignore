@@ -1,3 +1,5 @@
+tui/x64/
+tui/OpenDSS/
 out/
 *.so
 *.obj
