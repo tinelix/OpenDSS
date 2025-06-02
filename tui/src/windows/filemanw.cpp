@@ -103,7 +103,9 @@ void FileManagerWnd::onKeyPressed(char k) {
 
    if (k == (int)10) {
         if (file.is_dir) { // if it's directory
-            gFileMan->readDir(fname);
+			char* realPath = framedir_normalize_path(fname);
+            gFileMan->readDir(realPath);
+			free(realPath);
         } else if (ExtString::strendq(fname, ".mp3")) {
             char msgTitle[] = "Opening file";
             MessageBoxU* pMsgBox = new MessageBoxU(

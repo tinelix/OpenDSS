@@ -57,7 +57,7 @@ void FileManager::readDir(char* pDirPath) {
     #ifdef _MSVC2005G
         sprintf_s(gCurrentPath, "%s", pDirPath);
     #else
-        sprintf(gCurrentPath, "%s", framedir_normalize_path(pDirPath));
+        sprintf(gCurrentPath, "%s", pDirPath);
     #endif
 
 	result = framedir_open(&dir, (const char*)gCurrentPath);
