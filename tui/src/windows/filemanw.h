@@ -33,7 +33,7 @@
 	#endif
 #endif
 
-#include <tinydir/tinydir.h>
+#include <framedir/include/framedir.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,9 +54,10 @@ class FileManagerWnd : public ExtWindowCtrl
 		char* getSelectedFileName();
 		void listen(bool value);
 		void onKeyPressed(char k);
-		void onDirectoryRead(tinydir_file* files);
+		void onDirectoryRead(framedir_file* files);
 		void onFileManResult(int cmdId, int resultCode);
 		void onFileManError(int cmdId, int errorCode);
+		void readCurrentDir();
 		bool disableListening;
 	private:
 		FileManager* gFileMan;

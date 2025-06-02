@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <tinydir/tinydir.h>
+#include <framedir/include/framedir.h>
 
 class IFileManager {
 public:
@@ -28,5 +28,5 @@ public:
     virtual ~IFileManager() {};
     virtual void onError(int cmdId, int errorCode) = 0;
     virtual void onResult(int cmdId, int resultCode) = 0;
-    virtual void onDirectoryRead(tinydir_file* files) = 0;
+    virtual void onDirectoryRead(framedir_file* files) = 0;
 };

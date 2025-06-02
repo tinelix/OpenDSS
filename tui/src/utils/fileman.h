@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <tinydir/tinydir.h>
+#include <framedir/include/framedir.h>
 #include <interfaces/filemani.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,16 +38,16 @@ public:
     ~FileManager();
     void readCurrentDir();
     void readDir(char* pDirPath);
-    tinydir_file getFile(int index);
+    framedir_file getFile(int index);
     long getFilesCount();
     char* getRealPath(char* pDirPath);
     char* getCurrentPath();
 
 private:
     IFileManager* gInterface;
-    char                gCurrentPath[384];
+    char                gCurrentPath[FRAMEDIR_FN_MAX];
     int                 gSelectionIndex;
-    tinydir_file* gFiles;
+    framedir_file* gFiles;
     long                gFilesCount;
     int                 gPrevSlash;
 };

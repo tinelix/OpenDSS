@@ -24,7 +24,7 @@
 
 FileManager::FileManager(IFileManager* pInterface) {
     gInterface = pInterface;
-    gFiles = (tinydir_file*)malloc(MAX_FILES_COUNT * sizeof(tinydir_file));
+    gFiles = (framedir_file*)malloc(MAX_FILES_COUNT * sizeof(framedir_file));
     gFilesCount = 0;
 }
 
@@ -49,7 +49,7 @@ void FileManager::readCurrentDir() {
 
 void FileManager::readDir(char* pDirPath) {
     int object_index = 0;
-    tinydir_dir dir;
+    framedir_dir dir;
 
     #ifdef _MSVC2005G
         sprintf_s(gCurrentPath, "%s", pDirPath);
@@ -57,11 +57,7 @@ void FileManager::readDir(char* pDirPath) {
         sprintf(gCurrentPath, "%s", pDirPath);
     #endif
 
-    #ifdef _MSVC
-        if (tinydir_open_sorted(&dir, (const _tinydir_char_t*)pDirPath) == -1) {
-    #else
-        if (tinydir_open_sorted(&dir, pDirPath) == -1) {
-    #endif
+    if (framedir_open(&dir, (const char*)pDirPath) == -1) {
         gInterface->onError(0, -1);
         return;
     }
@@ -70,8 +66,8 @@ void FileManager::readDir(char* pDirPath) {
         if (object_index >= MAX_FILES_COUNT) {
             break;
         }
-        tinydir_file file;
-        if (tinydir_readfile_n(&dir, &file, i) == -1) {
+        framedir_file file;
+        if (framedir_readfile_n(&dir, &file, i) == -1) {
             continue;
         }
         gFiles[object_index] = file;
@@ -80,10 +76,10 @@ void FileManager::readDir(char* pDirPath) {
 
     gFilesCount = object_index;
     gInterface->onDirectoryRead(gFiles);
-    tinydir_close(&dir);
+    framedir_close(&dir);
 }
 
-tinydir_file FileManager::getFile(int index) {
+framedir_file FileManager::getFile(int index) {
     return gFiles[index];
 }
 

@@ -35,7 +35,7 @@
 	#endif
 #endif
 
-#include <tinydir/tinydir.h>
+#include <framedir/include/framedir.h>
 
 #include <interfaces/pguimani.h>
 #include <interfaces/filemani.h>
@@ -56,7 +56,7 @@ class IOpenDSSFileManager : IFileManager {
 public:
 	void onError(int cmdId, int errorCode);
 	void onResult(int cmdId, int resultCode);
-	void onDirectoryRead(tinydir_file* files);
+	void onDirectoryRead(framedir_file* files);
 };
 
 IOpenDSSFileManager* gFileManInterface;
@@ -92,7 +92,7 @@ void openFileManager() {
         gFileMan, (IFileManager*)gFileManInterface,
         gPsGuiMan->getScreen()
     );
-    gFileMan->readCurrentDir();
+    gFileManWnd->readCurrentDir();
 }
 
 void openAudioFile(char* pFileName) {
@@ -141,7 +141,7 @@ void IOpenDSSFileManager::onResult(int cmdId, int resultCode) {
 
 /* Handles File Manager directory list. */
 
-void IOpenDSSFileManager::onDirectoryRead(tinydir_file* files) {
+void IOpenDSSFileManager::onDirectoryRead(framedir_file* files) {
     gFileManWnd->onDirectoryRead(files);
 }
 
