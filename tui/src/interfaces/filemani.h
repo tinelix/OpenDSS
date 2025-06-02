@@ -18,9 +18,10 @@
  *  with Tinelix OpenDSS. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef _OPENDSS_INTERFACES_FILEMANI_H
+#define _OPENDSS_INTERFACES_FILEMANI_H
 
-#include <tinydir/tinydir.h>
+#include <framedir/include/framedir.h>
 
 class IFileManager {
 public:
@@ -28,5 +29,7 @@ public:
     virtual ~IFileManager() {};
     virtual void onError(int cmdId, int errorCode) = 0;
     virtual void onResult(int cmdId, int resultCode) = 0;
-    virtual void onDirectoryRead(tinydir_file* files) = 0;
+	virtual void onDirectoryRead(framedir_file* files) = 0;
 };
+
+#endif

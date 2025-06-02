@@ -150,11 +150,15 @@ void ListBoxCtrl::goToPage(int pPageNumb) {
         }
     }
 
-    for (int y = 0; y <= hHeight; y++) {
-        ListItem *item = gListItems[(pPageNumb * hHeight) + y];
-        if (item != NULL) {
-            mvwprintw(gParent->hWnd, y + hY, 4, "%s", item->title);
-        }
+    for (int y2 = 0; y2 <= hHeight; y2++) {
+		if((pPageNumb * hHeight) + y2 < gItemCount) {
+			ListItem *item = gListItems[(pPageNumb * hHeight) + y2];
+			if (item != NULL) {
+				mvwprintw(gParent->hWnd, y2 + hY, 4, "%s", item->title);
+			}
+		} else {
+			break;
+		}
     }
 }
 
@@ -205,10 +209,6 @@ void ListBoxCtrl::onKeyPressed(char k) {
         int virtIndex = getVirtualSelectionIndex();
         int index = getSelectionIndex();
 
-        drawListPointer(
-            hX, hY + virtIndex, '^', k == (int)5
-        );
-
         expand(index, k == (int)5);
     }
     else if (k == (int)82) {
@@ -242,11 +242,18 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
         pIndex2 -= hSubItemCount;
     }
 
+	if(pIndex2 >= gItemCount) {
+		return;
+	}
+
     ListItem* parentItem = gListItems[pIndex2];
 
-    int subItemsCount = gListItems[pIndex2]->subItemsCount;
+	if(parentItem == NULL)
+		return;
 
-    if (subItemsCount == 0) return;
+    int subItemsCount = parentItem->subItemsCount;
+
+    if (subItemsCount <= 0) return;
 
     if ((status && !parentItem->expanded)
         || (!status && parentItem->expanded)) {
@@ -278,7 +285,7 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
                 #ifdef _MSVC2005G
                     strcpy_s(shortestTitle, 288, item->title);
                 #else
-                    strcpy(shortestTitle, item->w_title);
+                    strcpy(shortestTitle, item->title);
                 #endif
                 if ((int)strlen(parentItem->title) > hWidth - 2) {
                     ExtString::strcut(shortestTitle, hWidth + 16, -1);
@@ -293,7 +300,7 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
 
         // Child items
 
-        for (int y = firstSubItemY; y < endOfSubItems; y++) {
+        for (int y2 = firstSubItemY; y2 < endOfSubItems; y2++) {
             ListItem* item = gListItems[pIndex2]->subItems[y - firstSubItemY];
             if (item != NULL) {
                 for (int x = hX; x <= hWidth; x++) {
@@ -302,24 +309,24 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
                 #ifdef _MSVC2005G
                     strcpy_s(shortestTitle, 288, item->title);
                 #else
-                    strcpy(shortestTitle, item->w_title);
+                    strcpy(shortestTitle, item->title);
                 #endif
                 if ((int)strlen(parentItem->title) > hWidth - 6) {
                     ExtString::strcut(shortestTitle, hWidth + 12, -1);
                 }
 
                 if (y < endOfSubItems - 1) {
-                    mvwprintw(gParent->hWnd, hY + y, 4, "\u251C\u2500 %s", shortestTitle);
+                    mvwprintw(gParent->hWnd, hY + y2, 4, "\u251C\u2500 %s", shortestTitle);
                 }
                 else {
-                    mvwprintw(gParent->hWnd, hY + y, 4, "\u2514\u2500 %s", shortestTitle);
+                    mvwprintw(gParent->hWnd, hY + y2, 4, "\u2514\u2500 %s", shortestTitle);
                 }
             }
         }
 
         // After child items
 
-        for (int y = firstSubItemY; y <= (getItemsCount() % hHeight - 1); y++) {
+        for (int y3 = firstSubItemY; y3 <= (getItemsCount() % hHeight - 1); y3++) {
             ListItem* item = gListItems[y];
             if (item != NULL) {
                 #ifdef _MSVC2005G
@@ -331,28 +338,31 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
                     ExtString::strcut(shortestTitle, hWidth + 16, -1);
                 }
 
-                mvwprintw(gParent->hWnd, hY + y + subItemsCount, 4, "%s", shortestTitle);
+                mvwprintw(gParent->hWnd, hY + y3 + subItemsCount, 4, "%s", shortestTitle);
             }
         }
 
         gItemCount += subItemsCount;
-    }
-    else if (!status && parentItem->expanded) {
+    } else if (!status && parentItem->expanded) {
         hSubItemCount = 0;
         for (int y = 0; y <= ((getItemsCount() - subItemsCount - 1) % hHeight); y++) {
-            ListItem* item = gListItems[(gPageNumber * hHeight) + y];
-            if (item != NULL) {
-                #ifdef _MSVC2005G
-                    strcpy_s(shortestTitle, 288, item->title);
-                #else
-                    strcpy(shortestTitle, item->title, 288);
-                #endif
-                if ((int)strlen(parentItem->title) > hWidth - 2) {
-                    ExtString::strcut(shortestTitle, hWidth + 16, -1);
-                }
+			if((gPageNumber * hHeight) + y <= gItemCount) {
+				ListItem* item = gListItems[(gPageNumber * hHeight) + y];
+				if (item != NULL) {
+					#ifdef _MSVC2005G
+						strcpy_s(shortestTitle, 288, item->title);
+					#else
+						strcpy(shortestTitle, item->title);
+					#endif
+					if ((int)strlen(parentItem->title) > hWidth - 2) {
+						ExtString::strcut(shortestTitle, hWidth + 16, -1);
+					}
 
-                mvwprintw(gParent->hWnd, y + hY, 4, "%s", shortestTitle);
-            }
+					mvwprintw(gParent->hWnd, y + hY, 4, "%s", shortestTitle);
+				}
+			} else {
+				break;
+			}
         }
         gItemCount -= subItemsCount;
     }

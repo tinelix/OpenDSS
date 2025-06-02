@@ -25,6 +25,12 @@
 	#else
 		#include <ncurses.h>
 	#endif
+
+	#ifdef _TINYDIR
+		#include <tinydir/tinydir.h>
+	#else
+		#include <framedir/include/framedir.h>
+	#endif
 #else
 	#ifdef __PDCURSES__
 		#include <curses.h>
@@ -33,9 +39,13 @@
 	#else
 		#include <ncurses.h>
 	#endif
-#endif
 
-#include <tinydir/tinydir.h>
+	#ifdef _TINYDIR
+		#include <tinydir/tinydir.h>
+	#else
+		#include <framedir/include/framedir.h>
+	#endif
+#endif
 
 #include <interfaces/pguimani.h>
 #include <interfaces/filemani.h>
@@ -56,7 +66,7 @@ class IOpenDSSFileManager : IFileManager {
 public:
 	void onError(int cmdId, int errorCode);
 	void onResult(int cmdId, int resultCode);
-	void onDirectoryRead(tinydir_file* files);
+	void onDirectoryRead(framedir_file* files);
 };
 
 IOpenDSSFileManager* gFileManInterface;
@@ -92,7 +102,7 @@ void openFileManager() {
         gFileMan, (IFileManager*)gFileManInterface,
         gPsGuiMan->getScreen()
     );
-    gFileMan->readCurrentDir();
+	gFileManWnd->openCurrentDir();
 }
 
 void openAudioFile(char* pFileName) {
@@ -141,7 +151,7 @@ void IOpenDSSFileManager::onResult(int cmdId, int resultCode) {
 
 /* Handles File Manager directory list. */
 
-void IOpenDSSFileManager::onDirectoryRead(tinydir_file* files) {
+void IOpenDSSFileManager::onDirectoryRead(framedir_file* files) {
     gFileManWnd->onDirectoryRead(files);
 }
 

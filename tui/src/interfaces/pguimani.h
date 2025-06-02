@@ -18,7 +18,8 @@
  *  with Tinelix OpenDSS. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef _OPENDSS_INTERFACES_PGUIMANI_H
+#define _OPENDSS_INTERFACES_PGUIMANI_H
 
 #include <controls/extwnd.h>
 
@@ -29,3 +30,5 @@ public:
     virtual void onKeyPressed(char k) = 0;
     virtual void onKeyPressed(char k, ExtWindowCtrl* pExtWnd) = 0;
 };
+
+#endif

@@ -20,7 +20,21 @@
 
 #pragma once
 
-#include <tinydir/tinydir.h>
+#ifdef _MSVC		/* If it turns out that we are building a 
+                       project using Microsoft Visual Studio. */
+	#ifdef __TINYDIR
+			#include <tinydir/tinydir.h>
+	#else
+			#include <framedir/include/framedir.h>
+	#endif
+#else
+	#ifdef _TINYDIR
+			#include <tinydir/tinydir.h>
+	#else
+			#include <framedir/include/framedir.h>
+	#endif
+#endif
+
 #include <interfaces/filemani.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,16 +52,31 @@ public:
     ~FileManager();
     void readCurrentDir();
     void readDir(char* pDirPath);
-    tinydir_file getFile(int index);
+	#ifdef _MSVC		/* If it turns out that we are building a 
+                       project using Microsoft Visual Studio. */
+		#ifdef __TINYDIR
+		    tinydir_file getFile(int index);
+		#else
+		    framedir_file getFile(int index);
+		#endif
+	#else
+		#ifdef _TINYDIR
+			tinydir_file getFile(int index);
+		#else
+			framedir_file getFile(int index);
+		#endif
+	#endif
+
     long getFilesCount();
     char* getRealPath(char* pDirPath);
     char* getCurrentPath();
 
 private:
-    IFileManager* gInterface;
+    IFileManager*		gInterface;
     char                gCurrentPath[384];
     int                 gSelectionIndex;
-    tinydir_file* gFiles;
+	framedir_file*		gFiles;
+    
     long                gFilesCount;
     int                 gPrevSlash;
 };

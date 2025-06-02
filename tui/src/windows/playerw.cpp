@@ -405,8 +405,8 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
     }
 
     mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 2, 2, "R");
-    for(int i = 0; i < maxBlocksSize; i++) {
-        mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 2, i + 4, "\u25A0");
+    for(int i2 = 0; i2 < maxBlocksSize; i2++) {
+        mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 2, i2 + 4, "\u25A0");
     }
 
     // ColorPair 9 = COLOR_DARK_GRAY

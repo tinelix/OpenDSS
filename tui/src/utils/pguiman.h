@@ -42,6 +42,8 @@
 	#endif
 #endif
 
+#include <framedir/include/framedir.h>
+
 #include <version.h>
 #include <interfaces/pguimani.h>
 #include <controls/extwnd.h>

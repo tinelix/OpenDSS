@@ -18,7 +18,8 @@
  *  with Tinelix OpenDSS. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef _OPENDSS_CONTROLS_EXTWND_H
+#define _OPENDSS_CONTROLS_EXTWND_H
 
 #ifdef _MSVC		/* If it turns out that we are building a 
                        project using Microsoft Visual Studio. */
@@ -71,4 +72,5 @@ class ExtWindowCtrl {
         int gChildWndsSize;
 };
 
+#endif
 

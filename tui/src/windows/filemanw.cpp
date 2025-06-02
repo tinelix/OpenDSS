@@ -62,6 +62,14 @@ FileManagerWnd::FileManagerWnd(
     disableListening = false;
 }
 
+void FileManagerWnd::openCurrentDir() {
+	if(gFileMan == NULL) {
+		gFileMan = new FileManager((IFileManager*)gInterface);
+	}
+
+	gFileMan->readCurrentDir();
+}
+
 char* FileManagerWnd::getSelectedFileName() {
     return gSelectedFileName;
 }
@@ -75,19 +83,19 @@ void FileManagerWnd::onKeyPressed(char k) {
     ListBoxCtrl* mFileListBox = ((ListBoxCtrl*)hCtrls[0]);
     char fname[384];
 
-    tinydir_file file = gFileMan->getFile(
+    framedir_file file = gFileMan->getFile(
         mFileListBox->getSelectionIndex()
     );
 
     #ifdef _MSVC2005G
         sprintf_s(
-            fname, 384, "%s/%s", 
+            fname, 384, "%s\\%s", 
             gFileMan->getRealPath(gFileMan->getCurrentPath()), 
             file.name
         );
     #else
         sprintf(
-            fname, "%s/%s", 
+            fname, "%s\\%s", 
             gFileMan->getRealPath(gFileMan->getCurrentPath()), 
             file.name
         );
@@ -96,8 +104,7 @@ void FileManagerWnd::onKeyPressed(char k) {
    if (k == (int)10) {
         if (file.is_dir) { // if it's directory
             gFileMan->readDir(fname);
-        }
-        else if (ExtString::strendq(fname, ".mp3")) {
+        } else if (ExtString::strendq(fname, ".mp3")) {
             char msgTitle[] = "Opening file";
             MessageBoxU* pMsgBox = new MessageBoxU(
                 msgTitle, fname, 5, hScreen
@@ -118,7 +125,7 @@ void FileManagerWnd::onKeyPressed(char k) {
     }
 }
 
-void FileManagerWnd::onDirectoryRead(tinydir_file* files) {
+void FileManagerWnd::onDirectoryRead(framedir_file* files) {
     for (int x = 2; x <= hWidth - 2; x++) {
         mvwaddch(hWnd, 2, x, ' ');
     }

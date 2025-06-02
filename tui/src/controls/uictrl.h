@@ -18,7 +18,8 @@
  *  with Tinelix OpenDSS. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef _OPENDSS_CONTROLS_UICTRL_H
+#define _OPENDSS_CONTROLS_UICTRL_H
 
 class UIControl {
 public:
@@ -26,4 +27,6 @@ public:
     int hType;
     int hX, hY, hWidth, hHeight;
 };
+
+#endif
 
