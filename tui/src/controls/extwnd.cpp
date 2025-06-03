@@ -15,6 +15,7 @@
  *  Please see each file in the implementation for copyright and licensing 
  *  information, (in the opening comment of each file).
  */
+
 #include "extwnd.h"
 
 ExtWindowCtrl::ExtWindowCtrl() {
