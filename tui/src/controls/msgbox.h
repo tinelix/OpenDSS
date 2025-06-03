@@ -1,6 +1,6 @@
 /*  Tinelix OpenDSS - open sourced clone of Digital Sound System player
  *  -----------------------------------------------------------------------
- *  Copyright © 2024 Dmitry Tretyakov (aka. Tinelix)
+ *  Copyright © 2024, 2025 Dmitry Tretyakov (aka. Tinelix)
  *
  *  This file is part of Tinelix OpenDSS.
  *

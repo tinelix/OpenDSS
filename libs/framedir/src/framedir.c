@@ -1,3 +1,21 @@
+/*  FrameDir - TinyDir alternative with support for older Windows versions
+ *  ----------------------------------------------------------------------------
+ *  Copyright © 2024, 2025 Dmitry Tretyakov (aka. Tinelix)
+ *
+ *  This library is free software: you can redistribute it and/or modify it 
+ *  under the terms of the GNU Lesser General Public License 3 (or any later 
+ *  version) and/or Apache License 2.
+ *
+ *  See the following files in repository directory for the precise terms and 
+ *  conditions of either license:
+ *
+ *     LICENSE.APACHE
+ *     LICENSE.LGPLv3
+ *
+ *  Please see each file in the implementation for copyright and licensing 
+ *  information, (in the opening comment of each file).
+ */
+
 #include <framedir.h>
 
 void _framedir_get_fileext(framedir_file* file);
