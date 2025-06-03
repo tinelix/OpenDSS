@@ -43,10 +43,12 @@ int framedir_open(framedir_dir* dir, const char* path) {
 
 		if(dir->_h != INVALID_HANDLE_VALUE) {
 
-			if(dir->allocated == 0)
+			if (dir->allocated == 0) {
 				dir->_files = (framedir_file*)malloc(
 					dir->i_files * sizeof(framedir_file)
 				);
+				dir->allocated = 1;
+			}
 
 			do {
 
@@ -110,9 +112,9 @@ int framedir_open(framedir_dir* dir, const char* path) {
 
 				if (dir->n_files == dir->i_files) {
 
-					if (dir->i_files < 64) {
+					if (dir->i_files < 32) {
 						dir->i_files *= 4;
-					} if (dir->i_files < 256) {
+					} if (dir->i_files < 128) {
 						dir->i_files *= 2;
 					} else if (dir->i_files < 512) {
 						dir->i_files *= 1.5;

@@ -53,7 +53,8 @@ void FileManager::readDir(char* pDirPath) {
     int object_index = 0;
 
     dir.allocated = 0;
-    dir.i_files = 128;
+    if(dir.i_files < 32)
+        dir.i_files = 32;
 
     #ifdef _MSVC2005G
         sprintf_s(gCurrentPath, "%s", pDirPath);
