@@ -42,8 +42,8 @@
 #include <utils/extstr.h>
 
 struct ListItem {
-    char title[384];
-    wchar_t w_title[384];
+    char *title;
+    wchar_t *w_title;
     void* ptr;
     struct ListItem** subItems;
     int subItemsCount;

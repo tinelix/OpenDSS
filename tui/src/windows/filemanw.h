@@ -58,6 +58,7 @@ class FileManagerWnd : public ExtWindowCtrl
 		void onFileManResult(int cmdId, int resultCode);
 		void onFileManError(int cmdId, int errorCode);
 		void readCurrentDir();
+		void listenKeyboard();
 		bool disableListening;
 	private:
 		FileManager* gFileMan;

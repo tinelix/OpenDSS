@@ -132,11 +132,9 @@ int framedir_open(framedir_dir* dir, const char* path) {
 
 			} while(FindNextFileA(dir->_h, &dir->_f));
 
-			FindClose(dir->_h);
 			return 0;
 
 		} else {
-			FindClose(dir->_h);
 			return -1;
 
 		}

@@ -26,11 +26,21 @@ framedir_dir dir;
 
 FileManager::FileManager(IFileManager* pInterface) {
     gInterface = pInterface;
-    gFiles = (framedir_file*)malloc(MAX_FILES_COUNT * sizeof(framedir_file));
     gFilesCount = 0;
 }
 
 FileManager::~FileManager() {
+    free(gFiles);
+}
+
+void FileManager::allocateFilesArray() {
+    if(!gFiles)
+        gFiles = (framedir_file*)malloc(dir.i_files * sizeof(framedir_file));
+    else
+        gFiles = (framedir_file*)realloc(gFiles, dir.i_files * sizeof(framedir_file));
+}
+
+void FileManager::freeFilesArray() {
     free(gFiles);
 }
 
@@ -50,6 +60,8 @@ void FileManager::readCurrentDir() {
 }
 
 void FileManager::readDir(char* pDirPath) {
+    
+
     int object_index = 0;
 
     dir.allocated = 0;
@@ -67,6 +79,8 @@ void FileManager::readDir(char* pDirPath) {
         return;
     }
 
+    allocateFilesArray();
+
     for (int i = 1; i < dir.n_files; i++) {
         if (object_index >= MAX_FILES_COUNT) {
             break;
@@ -81,8 +95,7 @@ void FileManager::readDir(char* pDirPath) {
 
     gFilesCount = object_index;
     gInterface->onDirectoryRead(gFiles);
-    //framedir_close(&dir);
-    delete &dir;
+    framedir_close(&dir);
 }
 
 framedir_file FileManager::getFile(int index) {
@@ -97,7 +110,7 @@ char* FileManager::getRealPath(char* pDirPath) {
     int lastPathSlash = 0;
     int pathSlashesCount = -1;
 
-    int pathSlashes[192];
+    int *pathSlashes = (int*)malloc(192 * sizeof(int));
 
     int pathLen = strlen(pDirPath);
 
@@ -124,6 +137,8 @@ char* FileManager::getRealPath(char* pDirPath) {
             )
             pDirPath[lastPathSlash] = '\0';
     }
+
+    free(pathSlashes);
     return pDirPath;
 }
 

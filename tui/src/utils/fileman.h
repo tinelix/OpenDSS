@@ -42,6 +42,8 @@ public:
     long getFilesCount();
     char* getRealPath(char* pDirPath);
     char* getCurrentPath();
+    void allocateFilesArray();
+    void freeFilesArray();
 
 private:
     IFileManager* gInterface;

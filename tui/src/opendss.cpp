@@ -93,6 +93,7 @@ void openFileManager() {
         gPsGuiMan->getScreen()
     );
     gFileManWnd->readCurrentDir();
+    gFileManWnd->listenKeyboard();
 }
 
 void openAudioFile(char* pFileName) {

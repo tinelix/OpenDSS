@@ -59,7 +59,13 @@ FileManagerWnd::FileManagerWnd(
 
     wrefresh(hWnd);
 
-    disableListening = false;
+}
+
+void FileManagerWnd::listenKeyboard() {
+    while (!disableListening) {
+        char k = wgetch(hWnd);
+        onKeyPressed(k);
+    }
 }
 
 void FileManagerWnd::readCurrentDir() {
@@ -67,6 +73,7 @@ void FileManagerWnd::readCurrentDir() {
         gFileMan = new FileManager((IFileManager*)gInterface);
     }
     gFileMan->readCurrentDir();
+    
 }
 
 char* FileManagerWnd::getSelectedFileName() {
@@ -74,6 +81,7 @@ char* FileManagerWnd::getSelectedFileName() {
 }
 
 void FileManagerWnd::onKeyPressed(char k) {
+
     if (k == 'q') {
         disableListening = false;
         return;
@@ -88,7 +96,7 @@ void FileManagerWnd::onKeyPressed(char k) {
 
     #ifdef _MSVC2005G
         sprintf_s(
-            fname, 384, "%s\\%s", 
+            fname, FRAMEDIR_FN_MAX, "%s\\%s", 
             gFileMan->getRealPath(gFileMan->getCurrentPath()), 
             file.name
         );
@@ -119,11 +127,6 @@ void FileManagerWnd::onKeyPressed(char k) {
         }
     } else {
         mFileListBox->onKeyPressed(k);
-    }
-
-    if (!disableListening) {
-        k = wgetch(hWnd);
-        onKeyPressed(k);
     }
 }
 
@@ -159,6 +162,7 @@ void FileManagerWnd::onDirectoryRead(framedir_file* files) {
 
     for (int i = 0; i < gFileMan->getFilesCount(); i++) {
         ListItem* item = new ListItem();
+        item->title = new char[384];
         strcpy(item->title, gFileMan->getFile(i).name);
         if (strlen(item->title) > MAX_FILENAME_LENGTH) {
             ExtString::strcut(item->title, MAX_FILENAME_LENGTH - 3, -1);
@@ -200,10 +204,6 @@ void FileManagerWnd::onDirectoryRead(framedir_file* files) {
     }
 
     wrefresh(hWnd);
-
-    char k = wgetch(hWnd);
-
-    onKeyPressed(k);
 }
 
 void FileManagerWnd::onFileManResult(int cmdId, int resultCode) {
