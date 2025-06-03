@@ -1,6 +1,8 @@
 #include <platform/windows/dsemodl.h>
 #include <stdio.h>
 
+// Loads the library by matching the char* value of the required key
+
 HMODULE dse_win32_load_libs_c(char* dir, int type, char* key, char* value) {
     WIN32_FIND_DATAA wfd;
     HANDLE hFind;
@@ -54,6 +56,8 @@ HMODULE dse_win32_load_libs_c(char* dir, int type, char* key, char* value) {
     FindClose(hFind);
     return NULL;
 }
+
+// Loads the library by matching the BOOL value of the required key
 
 HMODULE dse_win32_load_libs_b(char* dir, int type, char* key, BOOL value) {
     WIN32_FIND_DATAA wfd;
