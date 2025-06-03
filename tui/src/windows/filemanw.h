@@ -55,6 +55,7 @@ class FileManagerWnd : public ExtWindowCtrl
 		char* getSelectedFileName();
 		void listen(bool value);
 		void onKeyPressed(char k);
+		void listenKeyboard();
 		void onDirectoryRead(framedir_file* files);
 		void onFileManResult(int cmdId, int resultCode);
 		void onFileManError(int cmdId, int errorCode);

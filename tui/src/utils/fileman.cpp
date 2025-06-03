@@ -22,14 +22,26 @@
 
 #define MAX_FILES_COUNT 2048
 
+framedir_dir dir;
+
 FileManager::FileManager(IFileManager* pInterface) {
     gInterface = pInterface;
-	gFiles = (framedir_file*)malloc(MAX_FILES_COUNT * sizeof(framedir_file));
-    
+	gFiles = NULL;
     gFilesCount = 0;
 }
 
 FileManager::~FileManager() {
+    free(gFiles);
+}
+
+void FileManager::allocateFilesArray() {
+    if(!gFiles)
+        gFiles = (framedir_file*)malloc(dir.i_files * sizeof(framedir_file));
+    else
+        gFiles = (framedir_file*)realloc(gFiles, dir.i_files * sizeof(framedir_file));
+}
+
+void FileManager::freeFilesArray() {
     free(gFiles);
 }
 
@@ -50,9 +62,9 @@ void FileManager::readCurrentDir() {
 
 void FileManager::readDir(char* pDirPath) {
     int object_index = 0, result;
-    framedir_dir dir;
 
-
+	dir.allocated = 0;
+	dir.i_files = 128;
 
     #ifdef _MSVC2005G
         sprintf_s(gCurrentPath, "%s", pDirPath);
@@ -66,6 +78,8 @@ void FileManager::readDir(char* pDirPath) {
         gInterface->onError(0, -1);
         return;
     }
+
+	allocateFilesArray();
 
     for (int i = 1; i < dir.n_files; i++) {
         if (object_index >= MAX_FILES_COUNT) {

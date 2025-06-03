@@ -74,6 +74,13 @@ char* FileManagerWnd::getSelectedFileName() {
     return gSelectedFileName;
 }
 
+void FileManagerWnd::listenKeyboard() {
+	while (!disableListening) {
+        char k = wgetch(hWnd);
+        onKeyPressed(k);
+    }
+}
+
 void FileManagerWnd::onKeyPressed(char k) {
     if (k == 'q') {
         disableListening = false;
@@ -105,7 +112,6 @@ void FileManagerWnd::onKeyPressed(char k) {
         if (file.is_dir) { // if it's directory
 			char* realPath = framedir_normalize_path(fname);
             gFileMan->readDir(realPath);
-			free(realPath);
         } else if (ExtString::strendq(fname, ".mp3")) {
             char msgTitle[] = "Opening file";
             MessageBoxU* pMsgBox = new MessageBoxU(
@@ -119,11 +125,6 @@ void FileManagerWnd::onKeyPressed(char k) {
         }
     } else {
         mFileListBox->onKeyPressed(k);
-    }
-
-    if (!disableListening) {
-        k = wgetch(hWnd);
-        onKeyPressed(k);
     }
 }
 
@@ -196,10 +197,6 @@ void FileManagerWnd::onDirectoryRead(framedir_file* files) {
     }
 
     wrefresh(hWnd);
-
-    char k = wgetch(hWnd);
-
-    onKeyPressed(k);
 }
 
 void FileManagerWnd::onFileManResult(int cmdId, int resultCode) {

@@ -52,6 +52,9 @@ public:
     ~FileManager();
     void readCurrentDir();
     void readDir(char* pDirPath);
+	void allocateFilesArray();
+	void freeFilesArray();
+
 	#ifdef _MSVC		/* If it turns out that we are building a 
                        project using Microsoft Visual Studio. */
 		#ifdef __TINYDIR

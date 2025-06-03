@@ -15,6 +15,9 @@ int framedir_open(framedir_dir* dir, const char* path) {
     dir->_files = NULL;
     dir->n_files = 0;
 
+	if (dir->i_files <= 0)
+		dir->i_files = 8;
+
 	sprintf(
 		searchPattern, 
 		"%s\\*.*", 
@@ -29,10 +32,12 @@ int framedir_open(framedir_dir* dir, const char* path) {
 
 		do {
 
-			dir->_files = realloc(
-				dir->_files,
-				(dir->n_files + 1) * sizeof(framedir_file)
-			);
+			if (dir->allocated == 0) {
+				dir->_files = (framedir_file*)malloc(
+					dir->i_files * sizeof(framedir_file)
+				);
+				dir->allocated = 1;
+			}
 				
 			if(!dir->_files) break;
 
@@ -72,15 +77,33 @@ int framedir_open(framedir_dir* dir, const char* path) {
 
 			++dir->n_files;
 
-		} while(FindNextFileA(dir->_h, &dir->_f));
+			if (dir->n_files == dir->i_files) {
 
-		FindClose(dir->_h);
+				if (dir->i_files < 32) {
+					dir->i_files *= 4;
+				} if (dir->i_files < 128) {
+					dir->i_files *= 2;
+				} else if (dir->i_files < 512) {
+					dir->i_files *= 1.5;
+				} else if(dir->i_files < 4096) {
+					dir->i_files *= 1.25;
+				} else {
+					dir->i_files *= 1.05;
+				}
+
+				dir->_files = (framedir_file*)realloc(
+					dir->_files,
+					dir->i_files * sizeof(framedir_file)
+				);
+			}
+
+		} while(FindNextFileA(dir->_h, &dir->_f));
 
 		return 0;
 
 	} else {
 
-			return -1;
+		return -1;
 
 	}
 }
