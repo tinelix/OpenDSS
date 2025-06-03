@@ -7,6 +7,8 @@
  * Author: Dmitry Tretyakov (tretdm), 2024-05-20
  */
 
+// strcut, wcscut - trims strings
+
 int ExtString::strcut(char* str, int begin, int len)
 {
     int l = strlen(str);
@@ -29,6 +31,8 @@ int ExtString::wcscut(wchar_t* str, int begin, int len)
     return len;
 }
 
+// strendq, wcsendq - 'endsWith' ANSI and WideChar equivalent
+
 int ExtString::strendq(const char* str, const char* suffix)
 {
     if (!str || !suffix)
@@ -50,6 +54,8 @@ int ExtString::wcsendq(const wchar_t* str, const wchar_t* suffix)
         return 0;
     return wcscmp(str + lenstr - lensuffix, suffix) == 0;
 }
+
+// strwrap - 'wrapLines' ANSI and WideChar equivalent
 
 char* ExtString::strwrap(char* out, int width) {
 
@@ -100,6 +106,8 @@ char* ExtString::strwrap(char* out, int width) {
     return str;
 }
 
+// strcrlfc - checks CR+LF line endings
+
 bool ExtString::strcrlfc(char* out) {
     for (int i = 0; i < (int)strlen(out); i++) {
         if (out[i] == '\r' && out[i + 1] == '\n') {
@@ -116,6 +124,8 @@ bool ExtString::strcrlfc(char* out) {
     return false;
 }
 
+// strlines - counts the number of lines
+
 size_t ExtString::strlines(char* out, bool useCrLf) {
     int lines = 0;
     for (int i = 0; i < (int)strlen(out); i++) {
@@ -129,6 +139,8 @@ size_t ExtString::strlines(char* out, bool useCrLf) {
 
     return lines - 2;
 }
+
+// strsplitln - 'split('\r\n')' equivalent
 
 char** ExtString::strsplitln(char* out) {
     bool useCrlf = strcrlfc(out);
