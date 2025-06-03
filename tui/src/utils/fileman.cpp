@@ -20,7 +20,9 @@
 
 #include "fileman.h"
 
-#define MAX_FILES_COUNT 2048
+framedir_dir dir;
+
+#define MAX_FILES_COUNT 4096
 
 FileManager::FileManager(IFileManager* pInterface) {
     gInterface = pInterface;
@@ -49,7 +51,9 @@ void FileManager::readCurrentDir() {
 
 void FileManager::readDir(char* pDirPath) {
     int object_index = 0;
-    framedir_dir dir;
+
+    dir.allocated = 0;
+    dir.i_files = 128;
 
     #ifdef _MSVC2005G
         sprintf_s(gCurrentPath, "%s", pDirPath);
@@ -76,7 +80,8 @@ void FileManager::readDir(char* pDirPath) {
 
     gFilesCount = object_index;
     gInterface->onDirectoryRead(gFiles);
-    framedir_close(&dir);
+    //framedir_close(&dir);
+    delete &dir;
 }
 
 framedir_file FileManager::getFile(int index) {

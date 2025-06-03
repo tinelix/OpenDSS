@@ -29,7 +29,9 @@ typedef struct {
 typedef struct {
 	char path[FRAMEDIR_PATH_MAX];
 	size_t n_files;
+	size_t i_files;
 	framedir_file *_files;
+	int allocated;
 	#ifdef _WIN32
 		HANDLE _h;
 		WIN32_FIND_DATA _f;

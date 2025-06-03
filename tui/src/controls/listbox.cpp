@@ -46,6 +46,9 @@ void ListBoxCtrl::recreate(int pItemCount) {
         }
     }
     wrefresh(gParent->hWnd);
+    for (int i = 0; i < gItemCount; i++) {
+        free(gListItems[i]->subItems);
+    }
     free(gListItems);
     gListItems = (ListItem**)malloc(pItemCount * sizeof(ListItem));
     gPageNumber = 0;

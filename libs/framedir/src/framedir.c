@@ -19,6 +19,8 @@ int framedir_open(framedir_dir* dir, const char* path) {
 	dir->_files = NULL;
 	dir->n_files = 0;
 	
+	if (dir->i_files <= 0)
+		dir->i_files = 8;
 
 	#ifdef _MSVC2005G
 		sprintf_s(
@@ -41,14 +43,14 @@ int framedir_open(framedir_dir* dir, const char* path) {
 
 		if(dir->_h != INVALID_HANDLE_VALUE) {
 
-			do {
-				dir->_files = realloc(
-					dir->_files,
-					(dir->n_files + 1) * sizeof(framedir_file)
+			if(dir->allocated == 0)
+				dir->_files = (framedir_file*)malloc(
+					dir->i_files * sizeof(framedir_file)
 				);
 
-				if (!dir->_files) break;
+			do {
 
+				if (!dir->_files) break;
 
 				// Filling file structure
 				#ifdef _MSVC2005G
@@ -105,13 +107,34 @@ int framedir_open(framedir_dir* dir, const char* path) {
 				_framedir_get_fileext(&(dir->_files[dir->n_files]));
 
 				++dir->n_files;
+
+				if (dir->n_files == dir->i_files) {
+
+					if (dir->i_files < 64) {
+						dir->i_files *= 4;
+					} if (dir->i_files < 256) {
+						dir->i_files *= 2;
+					} else if (dir->i_files < 512) {
+						dir->i_files *= 1.5;
+					} else if(dir->i_files < 4096) {
+						dir->i_files *= 1.25;
+					} else {
+						dir->i_files *= 1.05;
+					}
+
+					dir->_files = (framedir_file*)realloc(
+						dir->_files,
+						dir->i_files * sizeof(framedir_file)
+					);
+				}
+
 			} while(FindNextFileA(dir->_h, &dir->_f));
 
-			//FindClose(dir->_h);
+			FindClose(dir->_h);
 			return 0;
 
 		} else {
-			//FindClose(dir->_h);
+			FindClose(dir->_h);
 			return -1;
 
 		}
@@ -210,6 +233,8 @@ void framedir_close(framedir_dir* dir) {
 
 	memset(dir->path, 0, sizeof(dir->path));
 	dir->n_files = 0;
+	dir->i_files = 0;
+	dir->allocated = 0;
 	free(dir->_files);
 	dir->_files = NULL;
 	#ifdef _WIN32
