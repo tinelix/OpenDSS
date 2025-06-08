@@ -24,7 +24,6 @@ int dse_mp3dec_huffman_decode(
     if (!table || sizeof(*table) < 128)
         return -1;
 
-    // Читаем биты из входного потока
     while (len < MAX_CODE_BITS) {
         bits <<= 1;
         bits |= (data[*offset++] & 0x1);
