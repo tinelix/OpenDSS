@@ -58,7 +58,6 @@ void FileManager::readCurrentDir() {
 }
 
 void FileManager::readDir(char* pDirPath) {
-    
 
     int object_index = 0;
 

@@ -6,7 +6,7 @@
 #include <Windows.h>
 #include <utils/fileext.h>
 
-HMODULE dse_win32_load_libs_c(char* dir, int type, char* key, char* value);
-HMODULE dse_win32_load_libs_b(char* dir, int type, char* key, BOOL value);
+HMODULE _dse_win32_load_decoder(char* dir, char* f_ext);
+void dse_win32_import_decoder();
 
 #endif

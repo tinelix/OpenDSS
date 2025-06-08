@@ -35,14 +35,10 @@
 unsigned char *dse_audio_buffer;
 char* dse_file_path;
 
-LIB_EXPORT int dse_init(void);
-LIB_EXPORT int dse_prepare(void);
-LIB_EXPORT int dse_open_src(char path[260]);
 
-typedef struct {
-    int sample_rate;
-    int bits_per_sample;
-    int channels;
-} DSE_PCM_OUTPUT_PARAMS;
+LIB_EXPORT int dse_init(void);
+LIB_EXPORT int dse_prepare(DSE_PCM_OUTPUT_FORMAT out);
+LIB_EXPORT int dse_open_src(char path[260]);
+LIB_EXPORT int dse_decode_frame();
 
 #endif // DSE_DSE_H

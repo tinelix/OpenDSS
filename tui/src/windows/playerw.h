@@ -16,8 +16,7 @@
  *  information (in the opening comment of each file).
  */
 
-#ifndef OPENDSS_WINDOWS_PLAYER_H
-#define OPENDSS_WINDOWS_PLAYER_H
+#pragma once
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,6 +48,7 @@
 #include "../controls/uictrl.h"
 #include "../controls/extwnd.h"
 #include "../controls/listbox.h"
+#include "../wrappers/dsewrap.h"
 
 #include <interfaces/auddeci.h>
 
@@ -75,7 +75,6 @@ class AudioPlayerWnd : ExtWindowCtrl {
         char* getCodecName(int pCodecId);
         int gActiveWidth, gActiveHeight;
         char gFileName[384];
+        SoundEngineWrapper *gWrapper;
         //StreamInfo* gStreamInfo;
 };
-
-#endif

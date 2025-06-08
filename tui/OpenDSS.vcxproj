@@ -29,6 +29,7 @@
     <ClCompile Include="src\utils\pguiman.cpp" />
     <ClCompile Include="src\windows\filemanw.cpp" />
     <ClCompile Include="src\windows\playerw.cpp" />
+    <ClCompile Include="src\wrappers\dsewrap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\interfaces\auddeci.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="src\version.h" />
     <ClInclude Include="src\windows\filemanw.h" />
     <ClInclude Include="src\windows\playerw.h" />
+    <ClInclude Include="src\wrappers\dsewrap.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -1,0 +1,21 @@
+﻿  mp3dec.c
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(18,24): warning C4101: out_info: неиспользованная локальная переменная
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(37,32): warning C4013: malloc: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(37,15): warning C4312: приведение типов: преобразование из "int" в "unsigned char *" большего размера
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(39,17): warning C4312: приведение типов: преобразование из "int" в "short *" большего размера
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(48,29): warning C4047: функция: "const unsigned char *" отличается по уровням косвенного обращения от "unsigned char **"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(48,29): warning C4024: dse_mp3dec_bypass_id3v2: различные типы для формального и фактического параметров 1
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(53,9): warning C4013: free: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(84,26): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(85,9): warning C4013: realloc: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(95,9): warning C4013: memmove: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(99,27): warning C4267: +=: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(122,15): warning C4013: dse_mp3dec_descale: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(133,9): warning C4013: memset: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(135,22): warning C4013: dse_mp3dec_huffman_select: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(135,20): warning C4047: =: "const unsigned int *" отличается по уровням косвенного обращения от "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(147,33): warning C4013: dse_mp3dec_huffman_decode: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(159,9): warning C4013: dse_mp3dec_imdct_decode: нет определения; предполагается "extern" с возвратом типа "int"
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(178,20): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\src\mp3dec.c(78,11): warning C4101: scale_factors: неиспользованная локальная переменная
+  dse_mp3dec.vcxproj -> D:\Users\tretdm\Documents\Sources\Git\github.com\tinelix\OpenDSS\libs\dse\src\decoders\dse_mp3dec\x64\Debug\dse_mp3dec.dll

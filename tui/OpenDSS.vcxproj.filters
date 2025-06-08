@@ -46,6 +46,12 @@
     <Filter Include="Исходные файлы\Sources\Windows">
       <UniqueIdentifier>{3cb824d8-0d3e-499a-b0d8-0d58b086e427}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Sources\Wrappers">
+      <UniqueIdentifier>{9668da88-319b-4ee1-ba48-f8887d719004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Sources\Wrappers">
+      <UniqueIdentifier>{4af04772-40b3-4ecb-a70c-0c50a9d4bd02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\opendss.cpp">
@@ -77,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="src\interfaces\auddeci.cpp">
       <Filter>Исходные файлы\Sources\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wrappers\dsewrap.cpp">
+      <Filter>Исходные файлы\Sources\Wrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="src\interfaces\auddeci.h">
       <Filter>Файлы заголовков\Sources\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="src\wrappers\dsewrap.h">
+      <Filter>Файлы заголовков\Sources\Wrappers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

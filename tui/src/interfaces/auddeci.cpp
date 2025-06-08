@@ -20,19 +20,14 @@
 
 #ifdef _WIN32
     #include <Windows.h>
-    HMODULE OpenDSE;
 #endif
 
 IAudioDecoder::IAudioDecoder() {
-    #ifdef _WIN32
-        OpenDSE = LoadLibrary("dse/dse.dll");
-    #endif
+    
 }
 
 IAudioDecoder::~IAudioDecoder() {
-    #ifdef _WIN32
-        FreeLibrary(OpenDSE);
-    #endif
+    
 }
 
 void IAudioDecoder::setWindow(ExtWindowCtrl* pExtWnd) {

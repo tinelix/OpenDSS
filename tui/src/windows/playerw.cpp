@@ -130,6 +130,8 @@ void AudioPlayerWnd::prepare() {
 
     loadAudioTags();
 
+    gWrapper = new SoundEngineWrapper();
+
     openAudioFile();
     playAudioFile();
 }
@@ -261,10 +263,15 @@ void AudioPlayerWnd::openAudioFile() {
     wrefresh(playerCtrlWnd->hWnd);
     wrefresh(statsWnd->hWnd);
 
+    gWrapper->init();
+    gWrapper->prepare();
+    gWrapper->openInputFile(gFileName);
+
     free(trackBar);
 }
 
 void AudioPlayerWnd::playAudioFile() {
+    gWrapper = new SoundEngineWrapper();
     ExtWindowCtrl* playerCtrlWnd = hChildWnds[0];
     ExtWindowCtrl* playlistWnd = hChildWnds[1];
     ExtWindowCtrl* statsWnd = hChildWnds[2];
@@ -287,6 +294,7 @@ void AudioPlayerWnd::playAudioFile() {
     int seconds         = 0;
     int minutes         = 0;
 
+
     /*if((status = gAudioDec->decode()) >= 0) {
         mvwprintw(
             playerCtrlWnd->hWnd,
@@ -296,6 +304,8 @@ void AudioPlayerWnd::playAudioFile() {
         );
         wrefresh(playerCtrlWnd->hWnd);
     }*/
+
+    gWrapper->play();
 
     wrefresh(playerCtrlWnd->hWnd);
 }
