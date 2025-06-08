@@ -31,6 +31,12 @@ typedef struct {
 } dse_source;
 
 typedef struct {
+    int bits_per_sample;
+    int channels;
+    int sample_rate;
+} DSE_PCM_OUTPUT_FORMAT;
+
+typedef struct {
     WORD wFormatTag;
     WORD nChannels;
     DWORD nSamplesPerSec;
@@ -40,7 +46,8 @@ typedef struct {
 } DSE_WAVE_OUTPUT_FORMAT;
 
 int dse_win32_init(void);
-int dse_win32_prepare(void);
+int dse_win32_prepare(DSE_PCM_OUTPUT_FORMAT out);
 int dse_win32_open_src(char path[260]);
+int dse_win32_close_input();
 
 #endif // DSE_WINDOWS_DSE_H

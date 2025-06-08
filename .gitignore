@@ -9,6 +9,3 @@ out/
 *.res
 *.o
 .vs
-*.ncb
-*.opt
-*.plg

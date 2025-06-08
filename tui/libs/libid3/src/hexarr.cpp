@@ -1,13 +1,13 @@
 #include "hexarr.h"
 
-uint32_t HexCharArray::toDec(unsigned char *bytes, int size, int offset) {
-    uint32_t result = 0x00;
+unsigned long HexCharArray::toDec(unsigned char *bytes, int size, int offset) {
+    unsigned long result = 0x00;
     for(int i = 0; i < size; i++) {
         result = result << 8;
         result = result | (unsigned char)bytes[offset + i];
     }
 
-    uint32_t a, b, c, d, result2 = 0x0;
+    unsigned long a, b, c, d, result2 = 0x0;
     a = result & 0xFF;
     b = (result >> 8) & 0xFF;
     c = (result >> 16) & 0xFF;

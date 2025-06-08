@@ -33,24 +33,40 @@ LIB_EXPORT int dse_init(void) {
     return result;
 }
 
-LIB_EXPORT int dse_prepare(DSE_PCM_OUTPUT_PARAMS out_params) {
+LIB_EXPORT int dse_prepare(DSE_PCM_OUTPUT_FORMAT out) {
 
     #ifdef _WIN32
-        result = dse_win32_prepare();
+        result = dse_win32_prepare(out);
     #endif
 
     return result;
 }
 
-LIB_EXPORT int dse_open_src(char path[260]) {
+LIB_EXPORT int dse_open_input(const char path[512]) {
     dse_file_path = path;
     #ifdef _WIN32
-        result = dse_win32_open_src(dse_file_path);
+        result = dse_win32_open_input(dse_file_path);
     #endif
 
     return result;
 }
 
+LIB_EXPORT int dse_decode_frame() {
+    #ifdef _WIN32
+        result = dse_win32_decode_frame();
+    #endif
+
+    return result;
+}
+
+LIB_EXPORT int dse_close_input(const char path[512]) {
+    dse_file_path = path;
+#ifdef _WIN32
+    result = dse_win32_close_input(dse_file_path);
+#endif
+
+    return result;
+}
 
 #ifdef __cplusplus
 }

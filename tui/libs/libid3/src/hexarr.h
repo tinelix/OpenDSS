@@ -1,12 +1,11 @@
 #ifndef _HEXARR_H
 #define _HEXARR_H
 
-#include <cstdlib>
-#include <stdint.h>
+#include <stdlib.h>
 
 class HexCharArray {
 public:
-    static uint32_t toDec(unsigned char *bytes, int size, int offset);
+    static unsigned long toDec(unsigned char *bytes, int size, int offset);
 };
 
 #endif

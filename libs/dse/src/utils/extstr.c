@@ -20,10 +20,12 @@ int strcut(char* str, size_t begin, size_t len)
 
 int strendq(const char* str, const char* suffix)
 {
+	size_t lenstr;
+	size_t lensuffix;
     if (!str || !suffix)
         return 0;
-    size_t lenstr = strlen(str);
-    size_t lensuffix = strlen(suffix);
+    lenstr = strlen(str);
+    lensuffix = strlen(suffix);
     if (lensuffix > lenstr)
         return 0;
     return strncmp(str + lenstr - lensuffix, suffix, lensuffix) == 0;
@@ -35,12 +37,17 @@ char* strwrap(char* out, int width) {
 
     int len = 180, n, w, wordlen = 0, linepos = 0, outlen = 0;
 
+	#ifdef _MSVC
+		char* word;
+    #else
+		char word[len];
+    #endif
+
     for (len = 0; len; len++) {
-        #ifdef _MSVC
-            char* word = malloc(sizeof(char) * len);
-        #else
-            char word[len];
-        #endif
+
+		#ifdef _MSVC
+			word = malloc(sizeof(char) * len);
+		#endif
 
         for (n = 0; n <= len; n++) {
             if (str[n] == ' ' || str[n] == '\n' || n == len) {
@@ -79,7 +86,8 @@ char* strwrap(char* out, int width) {
 }
 
 int strcrlfc(char* out) {
-    for (int i = 0; i < (int)strlen(out); i++) {
+	int i;
+    for (i = 0; i < (int)strlen(out); i++) {
         if (out[i] == '\r' && out[i + 1] == '\n') {
             return out[i] == '\r' && out[i + 1] == '\n';
         }
@@ -96,7 +104,8 @@ int strcrlfc(char* out) {
 
 size_t strlines(char* out, int useCrLf) {
     int lines = 0;
-    for (int i = 0; i < (int)strlen(out); i++) {
+	int i;
+    for (i = 0; i < (int)strlen(out); i++) {
         if (useCrLf && out[i] == '\r' && out[i + 1] == '\n') {
             lines++;
         }
@@ -111,8 +120,9 @@ size_t strlines(char* out, int useCrLf) {
 char** strsplitln(char* out) {
     int useCrlf = strcrlfc(out);
     char** str = (char**)malloc(sizeof(char) * 1024 * strlines(out, useCrlf));
-
     char* stk = NULL;
+	int lines;
+
     if (useCrlf == 0) {
         #ifdef _MSVC2005G
             stk = strtok_s(out, "\r\n", "");
@@ -127,7 +137,7 @@ char** strsplitln(char* out) {
             stk = strtok(out, "\n");
         #endif
     }
-    int lines = 0;
+    lines = 0;
 
     while (stk != NULL) {
         str[lines] = stk;
