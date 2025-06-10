@@ -110,7 +110,7 @@ void ExtWindowCtrl::addChildWindow(char* id, char* title, int width, int height,
     mvwprintw(                                  // <-- draw window text in top border area
         pExtWnd->hWnd,
         0, (pExtWnd->hWidth - strlen(pExtWnd->hTitle) - 4) / 2,
-        "\u2524 %s \u251c", pExtWnd->hTitle
+        "%c %s %c", 0xB4, pExtWnd->hTitle, 0xC3
     );
 
     wbkgd(pExtWnd->hWnd, COLOR_PAIR(2));
@@ -142,7 +142,7 @@ void ExtWindowCtrl::clear() {
     mvwprintw(                                  // <-- draw window text in top border area
         hWnd,
         0, (hWidth - strlen(hTitle) - 4) / 2,
-        "\u2524 %s \u251c", hTitle
+        "%c %s %c", 0xB4, hTitle, 0xC3
     );
 }
 

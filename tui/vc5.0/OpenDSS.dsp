@@ -153,6 +153,14 @@ SOURCE=..\src\windows\filemanw.h
 SOURCE=..\src\windows\playerw.h
 # End Source File
 # End Group
+# Begin Group "Wrappers (H)"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\src\wrappers\dsewrap.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=..\src\version.h
@@ -215,6 +223,14 @@ SOURCE=..\src\windows\filemanw.cpp
 # Begin Source File
 
 SOURCE=..\src\windows\playerw.cpp
+# End Source File
+# End Group
+# Begin Group "Wrapper (S)"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\src\wrappers\dsewrap.cpp
 # End Source File
 # End Group
 # Begin Source File

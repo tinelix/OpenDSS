@@ -21,6 +21,7 @@
 int duplicateKeys = 0;
 char prev_key;
 bool disableListening;
+int result;
 
 #define MAX_FILE_LENGTH 80
 
@@ -81,7 +82,7 @@ AudioPlayerWnd::AudioPlayerWnd(char* fname, ExtWindowCtrl* pParent, WINDOW* scre
     mvwprintw(                                  // <-- draw window text in top border area
         hWnd,
         0, (gActiveWidth - strlen(hTitle) - 4) / 2.5,
-        "\u2524 %s \u251c", hTitle
+        "%c %s %c", 0xB4, hTitle, 0xC3
     );
 
     wbkgd(hWnd, COLOR_PAIR(2));
@@ -126,8 +127,11 @@ void AudioPlayerWnd::prepare() {
 
     loadAudioTags();
 
+	gWrapper = new SoundEngineWrapper();
+
     openAudioFile();
-    playAudioFile();
+	if(result == 0)
+		playAudioFile();
 }
 
 void AudioPlayerWnd::loadAudioTags() {
@@ -168,7 +172,8 @@ void AudioPlayerWnd::openAudioFile() {
     mvwprintw(
         playerCtrlWnd->hWnd,
         2, 2,
-        "\u25BA Opening"
+        "%c Opening",
+		0xFE
     );
 
     char* trackBar;
@@ -178,7 +183,7 @@ void AudioPlayerWnd::openAudioFile() {
     wrefresh(playerCtrlWnd->hWnd);
 
     for(int i = 0; i < maxBlocksSize; i++) {
-        mvwprintw(playerCtrlWnd->hWnd, 5, i + 2, "\u2500");
+        mvwprintw(playerCtrlWnd->hWnd, 5, i + 2, "%c", 0xC4);
     }
 
     mvwprintw(
@@ -257,6 +262,9 @@ void AudioPlayerWnd::openAudioFile() {
     wrefresh(playerCtrlWnd->hWnd);
     wrefresh(statsWnd->hWnd);
 
+	gWrapper->init();
+    result = gWrapper->openInputFile(gFileName);
+
     free(trackBar);
 }
 
@@ -276,22 +284,15 @@ void AudioPlayerWnd::playAudioFile() {
     mvwprintw(
         playerCtrlWnd->hWnd,
         2, 2,
-        "\u25BA Playing"
+        "%c Playing",
+		0xE2
     );
 
     int status          = 0;
     int seconds         = 0;
     int minutes         = 0;
 
-    /*if((status = gAudioDec->decode()) >= 0) {
-        mvwprintw(
-            playerCtrlWnd->hWnd,
-            4, 2,
-            "%02d:%02d",
-            minutes, seconds % 60
-        );
-        wrefresh(playerCtrlWnd->hWnd);
-    }*/
+    gWrapper->play();
 
     wrefresh(playerCtrlWnd->hWnd);
 }
@@ -403,21 +404,27 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
 
     mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 3, 2, "L");
     for(int i = 0; i < maxBlocksSize; i++) {
-        mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 3, i + 4, "\u25A0");
+        mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 3, i + 4, "%c", 0xFE);
     }
 
     mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 2, 2, "R");
     for(int i2 = 0; i2 < maxBlocksSize; i2++) {
-        mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 2, i2 + 4, "\u25A0");
+        mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 2, i2 + 4, "%c", 0xFE);
     }
 
     // ColorPair 9 = COLOR_DARK_GRAY
 
     mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 3, 4, maxBlocksSize, A_BOLD, 9, NULL);
-    mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 3, 4, (double)((double)left / 100) * maxBlocksSize, A_BOLD, 6, NULL);
+    mvwchgat(
+		statsWnd->hWnd, statsWnd->hHeight - 3, 4, 
+		(double)((double)left / 100) * maxBlocksSize, A_BOLD, 6, NULL
+	);
 
     mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, maxBlocksSize, A_BOLD, 9, NULL);
-    mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, (double)((double)right / 100) * maxBlocksSize, A_BOLD, 6, NULL);
+    mvwchgat(
+		statsWnd->hWnd, statsWnd->hHeight - 2, 4, 
+		(double)((double)right / 100) * maxBlocksSize, A_BOLD, 6, NULL
+	);
 
     wrefresh(statsWnd->hWnd);
 }
@@ -461,7 +468,9 @@ void AudioPlayerWnd::freeWnd() {
     delwin(playlistWnd->hWnd);
     delwin(statsWnd->hWnd);
     delwin(hWnd);
+
     refresh();
+
     touchwin(gParent->hWnd);
     wrefresh(gParent->hWnd);
     gParent->listen(true);

@@ -114,7 +114,7 @@ void FileManagerWnd::onKeyPressed(char k) {
         if (file.is_dir) { // if it's directory
 			char* realPath = framedir_normalize_path(fname);
             gFileMan->readDir(realPath);
-        } else if (ExtString::strendq(fname, ".mp3")) {
+        } else if(gFileMan->checkFileExtInBlacklist(fname) < 0) {
             char msgTitle[] = "Opening file";
             MessageBoxU* pMsgBox = new MessageBoxU(
                 msgTitle, fname, 5, hScreen
@@ -167,8 +167,7 @@ void FileManagerWnd::onDirectoryRead(framedir_file* files) {
                 sprintf(item->title + MAX_FILENAME_LENGTH - 3, "...");
             #endif
         }
-        if (i <= mFileListBox->hHeight
-            && ExtString::strendq((char*)files[i].name, ".mp3")) {
+        if (i <= mFileListBox->hHeight) {
             char full_fname[600];
             #ifdef _MSVC2005G
                 sprintf_s(

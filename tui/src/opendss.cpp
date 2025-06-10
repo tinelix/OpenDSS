@@ -154,8 +154,7 @@ void IOpenDSSPseudoGUIManager::onKeyPressed(char k, ExtWindowCtrl* pExtWnd) {
                 mFileListBox->onKeyPressed(k);
             }
         }
-    }
-    else if ((int)k == 10) { // ENTER key
+    } else if ((int)k == 10) { // ENTER key
         if (strcmp(pExtWnd->id, "fileManWnd") == 0
             || strcmp(pExtWnd->id, "articlesListWnd") == 0) {
             if (k == 'q') {

@@ -141,3 +141,19 @@ char* FileManager::getRealPath(char* pDirPath) {
 char* FileManager::getCurrentPath() {
     return gCurrentPath;
 }
+
+int FileManager::checkFileExtInBlacklist(char* fpath) {
+
+	char file_path[512];
+
+	strcpy(file_path, fpath);
+
+    for (int i = 0; i < FORBIDDEN_FEXT_COUNT; ++i) {
+        if (strcmp(framedir_get_fileext(file_path), forbidden_fexts[i]) == 0) {
+            return 0;
+        }
+    }
+
+    return -1;
+
+}

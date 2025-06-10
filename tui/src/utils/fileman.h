@@ -19,7 +19,6 @@
 #pragma once
 
 #include <framedir/include/framedir.h>
-
 #include <interfaces/filemani.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,6 +29,33 @@
 #else
     #include <unistd.h>
 #endif
+
+// Forbidden file extensions
+
+static const char* forbidden_fexts[] = {
+	// DOS/Windows executables
+    "com", "exe", "dll","ax",
+
+	// Microsoft Visual C++ files
+	"vcsproj", "ilk", "obj",
+
+	// ELF files (UNIX and etc.)
+	"elf", "o", "so",
+
+	// Graphics files (unsupported yet)
+    "png", "jpg", "gif", "heic",
+
+	// Video files (unsupported yet)
+	"heif", "mov", "mp4", "mpg", "vob",
+
+	// Archive files
+    "tar.gz", "zip", "rar", "7z",
+
+	// Image files (unsupported yet)
+	"iso", "img", "fdd", "ima", "fdi"
+};
+
+#define FORBIDDEN_FEXT_COUNT (sizeof(forbidden_fexts)/sizeof(forbidden_fexts[0]))
 
 class FileManager {
 public:
@@ -58,6 +84,7 @@ public:
     long getFilesCount();
     char* getRealPath(char* pDirPath);
     char* getCurrentPath();
+	int checkFileExtInBlacklist(char* fpath);
 
 private:
     IFileManager*		gInterface;
