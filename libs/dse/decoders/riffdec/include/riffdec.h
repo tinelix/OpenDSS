@@ -7,10 +7,12 @@
 #define _RIFFDEC_H
 
 #include <stdio.h>
+#include <errno.h>
 
 #define CHUNK_SIZE 4096
 #define MAX_PATH_LENGTH 512
 
+#pragma pack(push, 1)
 typedef struct {
 
     unsigned char	chunk_id[4];
@@ -23,12 +25,20 @@ typedef struct {
     unsigned short	channels;
     unsigned long	sample_rate;
     unsigned long	byte_rate;
-    unsigned long	block_align;
-    unsigned long	bits_per_sample;
+    unsigned short	block_align;
+    unsigned short	bits_per_sample;
     
     unsigned char	subchunk2_id[4];
     unsigned long	subchunk2_size;
 
 } RIFF_WAVE_HEADER;
+
+typedef struct {
+	int sample_rate;
+	int channels;
+	int bits_per_sample;
+} DSE_AUDIO_OUTPUT_INFO;
+
+#pragma pack(pop)
 
 #endif

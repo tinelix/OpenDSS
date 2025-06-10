@@ -9,10 +9,10 @@ Project's tools are:
 			"Custom Build" with flags ""
 			"<Component 0xa>" with flags ""
 
-Creating temp file "C:\TEMP\RSP128.tmp" with contents </nologo /MLd /W3 /GX /Z7 /Od /I "../include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /Fp"../out/intermediate/framedir.pch" /YX /Fo"../out/intermediate/" /Fd"../out/intermediate/" /FD /c 
+Creating temp file "C:\TEMP\RSPA8.tmp" with contents </nologo /MLd /W3 /GX /Z7 /Od /I "../include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /Fp"../out/intermediate/framedir.pch" /YX /Fo"../out/intermediate/" /Fd"../out/intermediate/" /FD /c 
 "E:\Users\tretdm\Sources\OpenDSS\libs\framedir\src\framedir.c"
 >
-Creating command line "cl.exe @C:\TEMP\RSP128.tmp" 
+Creating command line "cl.exe @C:\TEMP\RSPA8.tmp" 
 Creating command line "link.exe -lib /nologo /out:"../out/bin/framedir.lib"  \Users\tretdm\Sources\OpenDSS\libs\framedir\out\intermediate\framedir.obj" 
 Compiling...
 framedir.c

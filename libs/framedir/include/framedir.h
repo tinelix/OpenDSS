@@ -66,6 +66,8 @@ int framedir_readfile_n(
 
 char* framedir_normalize_path(const char* path);
 
+char* framedir_get_fileext(const char* fpath);
+
 void framedir_close(framedir_dir* dir);
 
 #ifdef __cplusplus

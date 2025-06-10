@@ -80,12 +80,12 @@ LIB_EXPORT const char* DSE_GetSupportedMediaFormats(void) {
 	return "*.mp1|*.mp2|*.mp2a|*.mp3|*.mpg";
 }
 
-LIB_EXPORT int DSE_DecodeFrameUC(unsigned char** pcm_buf, size_t pcm_len) {
+LIB_EXPORT int DSE_DecodeFrameU8(unsigned char** pcm_buf, size_t pcm_len) {
 
     return -101;
 }
 
-LIB_EXPORT int DSE_DecodeFrameSS(short** pcm_buf, size_t pcm_len) {
+LIB_EXPORT int DSE_DecodeFrameS16LE(short** pcm_buf, size_t pcm_len) {
 
     MPEG_ES_HEADER mpeges;
     MPEG_L3_SIDEINFO si;

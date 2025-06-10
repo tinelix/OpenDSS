@@ -15,30 +15,46 @@
  *  Please see each file in the implementation for copyright and licensing information,
  *  (in the opening comment of each file).
  */
-
-#include <dse.h>
 #include <platform/windows/dsewin.h>
 #include <platform/windows/dsemodl.h>
 #include <Windows.h>
 
 dse_source *dse;
+
 HWAVEOUT hWaveOut;
 HMODULE decoder;
-unsigned char* pcm_buf_uc;
-short** pcm_buf_ss;
+
+DSE_USER_DATA dse_user_data;
+DSE_AUDIO_OUTPUT_INFO dse_audio_out;
+
+double dse_current_frame_rms;
+int frames_count;
+int is_riff;
+WAVEHDR buffers[4];
 
 HMODULE dse_win32_load_decoder();
 void dse_win32_import_decoder();
+void dse_win32_free_frame();
+
+void CALLBACK DSE_WaveOutCallback(
+	HWAVEOUT handleWaveOut,
+	UINT uMsg,
+	DWORD uParam,
+	DWORD lParam,
+	DWORD pParam
+);
 
 typedef int (WINAPI* DSEDecOpenInputFileFunction) (const char*);
-typedef int (WINAPI* DSEDecDecodeFrameUCFunction) (unsigned char**, size_t);
-typedef int (WINAPI* DSEDecDecodeFrameSSFunction) (short**, size_t);
+typedef int (WINAPI* DSEDecDecodeFrameU8Function) (unsigned char**, size_t);
+typedef int (WINAPI* DSEDecDecodeFrameS16LEFunction) (short**, size_t);
+typedef DSE_AUDIO_OUTPUT_INFO (WINAPI* DSEDecGetOutputInfoFunction) ();
 typedef int (WINAPI* DSEDecCloseInputFileFunction) ();
 
-DSEDecDecodeFrameUCFunction	    DSEDec_DecodeFrameUC;
-DSEDecDecodeFrameSSFunction	    DSEDec_DecodeFrameSS;
-DSEDecOpenInputFileFunction	    DSEDec_OpenInputFile;
-DSEDecCloseInputFileFunction	DSEDec_CloseInputFile;
+DSEDecDecodeFrameU8Function			DSEDec_DecodeFrameU8;
+DSEDecDecodeFrameS16LEFunction	    DSEDec_DecodeFrameS16LE;
+DSEDecOpenInputFileFunction			DSEDec_OpenInputFile;
+DSEDecGetOutputInfoFunction			DSEDec_GetOutputInfo;
+DSEDecCloseInputFileFunction		DSEDec_CloseInputFile;
 
 BOOL APIENTRY DllMain(HMODULE hModule,
     DWORD  ul_reason_for_call,
@@ -58,42 +74,57 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 
 int dse_win32_init(void) {
 
-    int result = -1;
-
-    decoder = dse_win32_load_decoder("decoders", "*.mp3");
-
-    if(decoder != NULL) {
-        result = 0;
-    }
+    int result = 0;
 
     return result;
 }
 
-int dse_win32_prepare(DSE_PCM_OUTPUT_FORMAT out) {
+int dse_win32_prepare(DSE_AUDIO_OUTPUT_INFO out) {
 
     int result = 0;
 
     DSE_WAVE_OUTPUT_FORMAT wf;
 
-    wf.wFormatTag = WAVE_FORMAT_PCM;
-    wf.nSamplesPerSec = out.sample_rate;
-    wf.wBitsPerSample = out.bits_per_sample;
-    wf.nChannels = out.channels;
-    wf.nBlockAlign = wf.nChannels * (wf.wBitsPerSample / 8);
-    wf.nAvgBytesPerSec = wf.nSamplesPerSec * wf.nBlockAlign;
+	dse_audio_out = out;
 
-    result = waveOutOpen(&hWaveOut, WAVE_MAPPER, &wf, NULL, NULL, CALLBACK_NULL);
+    wf.wFormatTag		= WAVE_FORMAT_PCM;
+    wf.nSamplesPerSec	= out.sample_rate;
+    wf.wBitsPerSample	= out.bits_per_sample;
+    wf.nChannels		= out.channels;
+    wf.nBlockAlign		= wf.nChannels * (wf.wBitsPerSample / 8);
+    wf.nAvgBytesPerSec	= wf.nSamplesPerSec * wf.nBlockAlign;
+
+	dse_user_data.buffer_size	= 4096;
+	dse_user_data.header		= NULL;
+	dse_user_data.next_header	= NULL;
+
+	dse_user_data.finished = CreateEvent(NULL, TRUE, FALSE, NULL);
+
+    result = waveOutOpen(
+		&hWaveOut, WAVE_MAPPER, &wf, 
+		NULL, NULL, 0
+	);
+
+	if (result != MMSYSERR_NOERROR) {
+		return -1;
+	}
 
     return result;
 }
 
 int dse_win32_open_input(const char path[512]) {
-    int result = dse_win32_init();
+	int result, prepare_result, info_result;
 
     decoder = dse_win32_load_decoder();
 
     if (decoder != NULL) {
         result = DSEDec_OpenInputFile(dse_file_path);
+		out_info = DSEDec_GetOutputInfo();
+		prepare_result = dse_win32_prepare(out_info);
+    } else if(is_riff == 1) {
+        result = DSE_RIFF_OpenInputFile(dse_file_path);
+		info_result = DSE_RIFF_GetOutputInfo(&out_info);
+		prepare_result = dse_win32_prepare(out_info);
     } else {
         result = -2;
     }
@@ -107,11 +138,22 @@ HMODULE dse_win32_load_decoder() {
 
     if (dse_file_path != NULL) {
         file_ext = getfext(dse_file_path);
-        decoder = _dse_win32_load_decoder("decoders", file_ext);
-        if (decoder != NULL); {
-            dse_win32_import_decoder();
-        }
-        return decoder;
+
+		if(!file_ext) {
+			return NULL;
+		}
+
+		if(strcmp(file_ext, "wav") == 0) {
+			is_riff = 1;
+			return NULL;
+		} else {
+			is_riff = 0;
+			decoder = _dse_win32_load_decoder("decoders", file_ext);
+			if (decoder != NULL); {
+				dse_win32_import_decoder();
+			}
+			return decoder;
+		}
     }
 
     return NULL;
@@ -120,55 +162,156 @@ HMODULE dse_win32_load_decoder() {
 void dse_win32_import_decoder() {
     DSEDec_OpenInputFile = (DSEDecOpenInputFileFunction)
         GetProcAddress(decoder, "DSE_OpenInputFile");
-    DSEDec_DecodeFrameUC = (DSEDecDecodeFrameUCFunction)
-        GetProcAddress(decoder, "DSE_DecodeFrameUC");
-    DSEDec_DecodeFrameSS = (DSEDecDecodeFrameSSFunction)
-        GetProcAddress(decoder, "DSE_DecodeFrameSS");
+    DSEDec_DecodeFrameU8 = (DSEDecDecodeFrameU8Function)
+        GetProcAddress(decoder, "DSE_DecodeFrameU8");
+    DSEDec_DecodeFrameS16LE = (DSEDecDecodeFrameS16LEFunction)
+        GetProcAddress(decoder, "DSE_DecodeFrameS16LE");
     DSEDec_CloseInputFile = (DSEDecCloseInputFileFunction)
         GetProcAddress(decoder, "DSE_CloseInputFile");
 }
 
 int dse_win32_close_input() {
+
+	int i;
+
+	if(dse_user_data.playing == 0) return;
+
+	dse_user_data.playing = 0;
+
     return DSEDec_CloseInputFile();
 }
 
 int dse_win32_decode_frame() {
-    int result;
-    WAVEHDR hdr;
-    int decoder_type = 0;
 
-    pcm_buf_uc = (unsigned char**)malloc((4096 + 1) * sizeof(unsigned char));
-    result = DSEDec_DecodeFrameUC(pcm_buf_uc, 4096);
+	DSE_WaveOutCallback(
+			hWaveOut, WOM_DONE, (DWORD)&dse_user_data, 
+			(DWORD)&dse_audio_out, 0
+	);
+}
 
-    if (result == -101) {
-        decoder_type = 1;
-        pcm_buf_ss = (short**)malloc((4096 + 1) * sizeof(short));
-        result = DSEDec_DecodeFrameSS(pcm_buf_ss, 4096);
-        if (result < 0) {
-            return result;
-        }
-        hdr.lpData = (LPSTR)pcm_buf_ss;
-    } else {
-        hdr.lpData = (LPSTR)pcm_buf_uc;
-    }
-    hdr.dwBufferLength = result;
-    hdr.dwFlags = 0;
-    hdr.dwLoops = 0;
-    hdr.dwUser = 0;
-
-    waveOutPrepareHeader(hWaveOut, &hdr, sizeof(WAVEHDR));
-    waveOutWrite(hWaveOut, &hdr, sizeof(WAVEHDR));
-    while ((hdr.dwFlags & WHDR_DONE) == 0) {
-        Sleep(10);
-    }
-    waveOutUnprepareHeader(hWaveOut, &hdr, sizeof(WAVEHDR));
+double dse_win32_calculate_rms_u8(
+	const unsigned char *samples, int samples_size
+) {
+    double squared_sum = 0.0;
+	double squared_mean = 0.0;
+	int i;
     
-    if (decoder_type == 1) {
-        if (pcm_buf_ss)
-            free(pcm_buf_ss);
-    } else {
-        if (pcm_buf_uc)
-            free(pcm_buf_uc);
+    for(i = 0; i < samples_size; ++i) {
+        squared_sum += samples[i] * samples[i];
     }
+    
+    squared_mean = squared_sum / samples_size;
 
+	return sqrt(squared_mean);
+}
+
+double dse_win32_get_frame_rms() {
+	return dse_current_frame_rms;
+}
+
+double dse_win32_calculate_rms_s16le(
+	const short *samples, int samples_size
+) {
+    double squared_sum = 0.0;
+	double squared_mean = 0.0;
+	int i;
+    
+    for(i = 0; i < samples_size; ++i) {
+        squared_sum += samples[i] * samples[i];
+    }
+    
+    squared_mean = squared_sum / samples_size;
+
+	return sqrt(squared_mean);
+}
+
+void CALLBACK DSE_WaveOutCallback(
+	HWAVEOUT hWaveOut,
+	UINT uMsg,
+	DWORD uParam,
+	DWORD lParam,
+	DWORD pParam
+) {
+
+	DSE_USER_DATA* user_data = (DSE_USER_DATA*)uParam;
+	DSE_AUDIO_OUTPUT_INFO* info = (DSE_AUDIO_OUTPUT_INFO*)lParam;
+
+	int result, i;
+    int decoder_type = 0;
+	HANDLE eventHandle;
+	DWORD waitResult;
+	char debug[250];
+
+	user_data->playing = 1;
+
+	for(i = 0; i < 4; i++) {
+
+		ZeroMemory(&buffers[i], sizeof(WAVEHDR));
+
+		buffers[i].dwBufferLength = user_data->buffer_size;
+		buffers[i].lpData = malloc(user_data->buffer_size); 
+
+		buffers[i].dwFlags = WHDR_BEGINLOOP | WHDR_ENDLOOP;
+		buffers[i].dwLoops = 1;
+		buffers[i].dwUser = 0; 
+	}
+
+	for(i = 0; i < 4; i++) {
+
+		waveOutPrepareHeader(hWaveOut, &buffers[i], sizeof(WAVEHDR));
+
+		if(out_info.bits_per_sample == 8) {
+			if(is_riff == 1) {
+				result = DSE_RIFF_DecodeFrameU8(&buffers[i].lpData, user_data->buffer_size);
+			} else {
+				result = DSEDec_DecodeFrameU8(&buffers[i].lpData, user_data->buffer_size);
+			}
+
+			dse_current_frame_rms = 
+				dse_win32_calculate_rms_u8(
+					(unsigned char*)&buffers[i].lpData, user_data->buffer_size
+				);
+		} else {
+			decoder_type = 1;
+
+			if(is_riff == 1) {
+				result = DSE_RIFF_DecodeFrameS16LE(&buffers[i].lpData, user_data->buffer_size);
+			} else {
+				result = DSEDec_DecodeFrameS16LE(&buffers[i].lpData, user_data->buffer_size);
+			}
+
+			dse_current_frame_rms = 
+				dse_win32_calculate_rms_s16le(
+					(short*)&buffers[i].lpData, user_data->buffer_size
+				);
+
+		}
+
+		if (result <= 0) {
+			dse_win32_free_frame();
+			return;
+		}
+
+		waveOutWrite(hWaveOut, &buffers[i], sizeof(WAVEHDR));
+
+		frames_count++;
+	}
+
+	dse_win32_free_frame();
+}
+
+void dse_win32_free_frame() {
+	int i;
+
+	for(i = 0; i < 4; i++) {
+
+		while((buffers[i].dwFlags & WHDR_DONE) == 0) {
+			Sleep(40);
+		}
+
+		if(buffers[i].lpData != NULL) {
+			free(buffers[i].lpData);
+			buffers[i].lpData = NULL;
+		}
+	}
 }

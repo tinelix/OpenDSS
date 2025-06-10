@@ -1,0 +1,74 @@
+--------------------Configuration: dse_mp3dec - Win32 Debug--------------------
+Begining build with project "E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\vc5.0\mp3dec.dsp", at root.
+Active configuration is Win32 (x86) Dynamic-Link Library (based on Win32 (x86) Dynamic-Link Library)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /MTd /W3 /Gm /GX /Zi /Od /I "../include" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MSVC" /Fp"out/interm/mp3dec.pch" /YX /Fo"out/interm/" /Fd"out/interm/" /FD /c "
+			"OLE Type Library Maker" with flags "/nologo /D "_DEBUG" /mktyplib203 /o NUL /win32 "
+			"Win32 Resource Compiler" with flags "/l 0x419 /d "_DEBUG" "
+			"Browser Database Maker" with flags "/nologo /o"out/obj/mp3dec.bsc" "
+			"COFF Linker for 80x86" with flags "kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:"out/obj/mp3dec.pdb" /debug /machine:I386 /out:"out/bin/mp3dec.dll" /implib:"out/obj/mp3dec.lib" /pdbtype:sept "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "C:\TEMP\RSP1BE.tmp" with contents </nologo /MTd /W3 /Gm /GX /Zi /Od /I "../include" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MSVC" /Fp"out/interm/mp3dec.pch" /YX /Fo"out/interm/" /Fd"out/interm/" /FD /c 
+"E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\platform\windows\mp3decw.c"
+"E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mpeges\stream.c"
+"E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\descale.c"
+"E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\huffman.c"
+"E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\imdct.c"
+"E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\utils\intext.c"
+"E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c"
+>
+Creating command line "cl.exe @C:\TEMP\RSP1BE.tmp" 
+Creating temp file "C:\TEMP\RSP1BF.tmp" with contents <kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:"out/obj/mp3dec.pdb" /debug /machine:I386 /out:"out/bin/mp3dec.dll" /implib:"out/obj/mp3dec.lib" /pdbtype:sept 
+.\out\interm\mp3decw.obj
+.\out\interm\stream.obj
+.\out\interm\descale.obj
+.\out\interm\huffman.obj
+.\out\interm\imdct.obj
+.\out\interm\intext.obj
+.\out\interm\mp3dec.obj>
+Creating command line "link.exe @C:\TEMP\RSP1BF.tmp" 
+Compiling...
+mp3decw.c
+stream.c
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mpeges\stream.c(17) : warning C4028: formal parameter 1 different from declaration
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mpeges\stream.c(17) : warning C4028: formal parameter 2 different from declaration
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mpeges\stream.c(25) : warning C4013: 'memcmp' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mpeges\stream.c(46) : warning C4028: formal parameter 3 different from declaration
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mpeges\stream.c(50) : warning C4013: 'strncmp' undefined; assuming extern returning int
+descale.c
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\descale.c(29) : warning C4244: '*=' : conversion from 'float ' to 'int ', possible loss of data
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\descale.c(52) : warning C4013: 'pow' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\descale.c(52) : warning C4244: '=' : conversion from 'int ' to 'float ', possible loss of data
+huffman.c
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\huffman.c(33) : warning C4018: '==' : signed/unsigned mismatch
+imdct.c
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\imdct.c(26) : warning C4013: 'cos' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\imdct.c(29) : warning C4013: 'sqrt' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\math\imdct.c(39) : warning C4013: 'sin' undefined; assuming extern returning int
+intext.c
+mp3dec.c
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(34) : warning C4101: 'out_info' : unreferenced local variable
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(52) : warning C4013: 'malloc' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(63) : warning C4047: 'function' : 'const unsigned char *' differs in levels of indirection from 'unsigned char ** '
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(63) : warning C4024: 'dse_mp3dec_bypass_id3v2' : different types for formal and actual parameter 1
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(68) : warning C4013: 'free' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(100) : warning C4018: '>' : signed/unsigned mismatch
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(102) : warning C4013: 'realloc' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(112) : warning C4013: 'memmove' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(139) : warning C4013: 'dse_mp3dec_descale' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(150) : warning C4013: 'memset' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(152) : warning C4013: 'dse_mp3dec_huffman_select' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(152) : warning C4047: '=' : 'const unsigned int *' differs in levels of indirection from 'int '
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(166) : warning C4013: 'dse_mp3dec_huffman_decode' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(178) : warning C4013: 'dse_mp3dec_imdct_decode' undefined; assuming extern returning int
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(182) : warning C4018: '<' : signed/unsigned mismatch
+E:\Users\tretdm\Sources\OpenDSS\libs\dse\decoders\mp3dec\src\mp3dec.c(198) : warning C4101: 'scale_factors' : unreferenced local variable
+Linking...
+   Creating library out/obj/mp3dec.lib and object out/obj/mp3dec.exp
+
+
+
+mp3dec.dll - 0 error(s), 28 warning(s)

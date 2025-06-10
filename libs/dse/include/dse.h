@@ -29,20 +29,16 @@
     #include "../include/platform/linux/errcodes.h"
 #endif
 
+
+
 #define STD_SAMPLE_RATE 44100
 #define STD_BUFFER_SIZE 44100 * sizeof(short)
 
 unsigned char *dse_audio_buffer;
 char* dse_file_path;
 
-LIB_EXPORT int dse_init(void);
-LIB_EXPORT int dse_prepare(void);
+LIB_EXPORT int dse_init();
+LIB_EXPORT int dse_prepare();
 LIB_EXPORT int dse_open_src(char path[260]);
-
-typedef struct {
-    int sample_rate;
-    int bits_per_sample;
-    int channels;
-} DSE_PCM_OUTPUT_PARAMS;
 
 #endif // DSE_DSE_H

@@ -24,6 +24,7 @@
 
 #include "../../utils/errcodes.h"
 #include <windows.h>
+#include <dse.h>
 
 typedef struct {
     char path[400];
@@ -31,10 +32,10 @@ typedef struct {
 } dse_source;
 
 typedef struct {
-    int bits_per_sample;
-    int channels;
     int sample_rate;
-} DSE_PCM_OUTPUT_FORMAT;
+	int channels;
+    int bits_per_sample;
+} DSE_AUDIO_OUTPUT_INFO;
 
 typedef struct {
     WORD wFormatTag;
@@ -45,9 +46,25 @@ typedef struct {
     WORD wBitsPerSample;
 } DSE_WAVE_OUTPUT_FORMAT;
 
-int dse_win32_init(void);
-int dse_win32_prepare(DSE_PCM_OUTPUT_FORMAT out);
+typedef struct {
+	int		 buffer_size;
+	WAVEHDR	 *header;
+	WAVEHDR  *next_header;
+	int		 finished;
+	int		 playing;
+} DSE_USER_DATA;
+
+DSE_AUDIO_OUTPUT_INFO out_info;
+
+int dse_win32_init();
+int dse_win32_prepare(DSE_AUDIO_OUTPUT_INFO out);
 int dse_win32_open_src(char path[260]);
+double dse_win32_calculate_rms_u8(
+	const unsigned char *samples, int samples_size
+);
+double dse_win32_calculate_rms_s16le(
+	const unsigned char *samples, int samples_size
+);
 int dse_win32_close_input();
 
 #endif // DSE_WINDOWS_DSE_H

@@ -33,7 +33,7 @@ LIB_EXPORT int dse_init(void) {
     return result;
 }
 
-LIB_EXPORT int dse_prepare(DSE_PCM_OUTPUT_FORMAT out) {
+LIB_EXPORT int dse_prepare(DSE_AUDIO_OUTPUT_INFO out) {
 
     #ifdef _WIN32
         result = dse_win32_prepare(out);
@@ -57,6 +57,17 @@ LIB_EXPORT int dse_decode_frame() {
     #endif
 
     return result;
+}
+
+LIB_EXPORT double dse_get_frame_rms() {
+
+	double rms;
+
+	#ifdef _WIN32
+		rms = dse_win32_get_frame_rms();
+	#endif
+
+	return rms;
 }
 
 LIB_EXPORT int dse_close_input(const char path[512]) {

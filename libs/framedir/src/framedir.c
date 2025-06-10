@@ -193,6 +193,17 @@ void _framedir_get_fileext(framedir_file* file) {
 		file->ext = "";
 }
 
+char* framedir_get_fileext(const char* fpath) {
+	char* file_ext;
+	char* pos = strrchr(fpath, '.');
+	if(pos)
+		file_ext = strdup(pos + 1);
+	else
+		file_ext = "";
+
+	return file_ext;
+}
+
 void framedir_close(framedir_dir* dir) {
 	if (dir == NULL)
 		return;
