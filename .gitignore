@@ -7,5 +7,8 @@ out/
 *.obj
 *.exe
 *.res
+*.ncb
+*.opt
+*.plg
 *.o
 .vs
