@@ -10,5 +10,5 @@ Virtual music center for Windows and Linux. Inspired by Digital Sound System DOS
 
 ### Structure of `main` branch
 * `linux` - OpenDSS graphical version for Linux (under construction)
-* `ps-gui` - Cross-platform pseudographical OpenDSS version
+* `tui` - Cross-platform pseudographical OpenDSS version
 * `windows` - OpenDSS UWP graphical version for Windows (under construction)
