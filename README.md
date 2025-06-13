@@ -6,7 +6,7 @@ Virtual music center for Windows and Linux. Inspired by Digital Sound System DOS
 ### Branches
 * `main` - projects suitable for assembly on modern development machines \
   _for example, PCs with installed Visual Studio 2019+ or GCC 12_
-* `legacy` - projects suitable for assembly on older development machines
+* `retro` - projects suitable for assembly on older development machines
 
 ### Structure of `main` branch
 * `tui` - Cross-platform pseudographical OpenDSS version
