@@ -17,4 +17,6 @@ out/
 *.opt
 *.plg
 *.o
+*.suo
+*.user
 .vs
