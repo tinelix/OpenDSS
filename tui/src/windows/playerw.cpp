@@ -136,30 +136,7 @@ void AudioPlayerWnd::prepare() {
 }
 
 void AudioPlayerWnd::loadAudioTags() {
-    /*AudioTager* pTagger = new AudioTager();
-    AudioTags *data = pTagger->readTags(gFileName);
-
-    ExtWindowCtrl* fileInfoWnd = hChildWnds[2];
-
-    if(data) {
-        mvwprintw(
-            fileInfoWnd->hWnd,
-            2, 2,
-            "Title:\t%s", data->title
-        );
-        mvwprintw(
-            fileInfoWnd->hWnd,
-            3, 2,
-            "Artist:\t%s", data->artist
-        );
-        mvwprintw(
-            fileInfoWnd->hWnd,
-            4, 2,
-            "Album:\t%s", data->album
-        );
-    }
-
-    wrefresh(fileInfoWnd->hWnd);*/
+    // TODO: Add ID3v1/ID3v2/APE implementation
 }
 
 void AudioPlayerWnd::openAudioFile() {
@@ -201,71 +178,60 @@ void AudioPlayerWnd::openAudioFile() {
         0, 0
     );
 
-    /*if(gAudioDec->open(gFileName) == 0) {
-        mvwprintw(
-            playerCtrlWnd->hWnd,
-            2, 2,
-            "\u25BA Processing"
-        );
+	dsePrepared = gWrapper->init() >= 0;
+	if(dsePrepared)
+		result = gWrapper->openInputFile(gFileName);
 
-        gStreamInfo = gAudioDec->getStreamInfo();
+	if(dsePrepared) {
+        gStreamInfo = gWrapper->getStreamInfo();
+
         mvwprintw(
             statsWnd->hWnd,
             6, 2,
-            "%s", getCodecName(gStreamInfo->codec)
+            "%s", getCodecName(gStreamInfo.codec_id)
         );
 
         mvwchgat(statsWnd->hWnd, 6, 2, 10, A_BOLD, 6, NULL);
 
         mvwprintw(
             statsWnd->hWnd,
-            6, 14,
-            "%7d Hz", gStreamInfo->sampleRate
+            6, 12,
+            "%7d Hz", gStreamInfo.sample_rate
         );
         mvwchgat(statsWnd->hWnd, 6, 14, 10, A_BOLD, 6, NULL);
 
         mvwprintw(
             statsWnd->hWnd,
-            6, 26,
-            "%5d kbps", gStreamInfo->bitrate
+            6, 24,
+            "%5d kbps", gStreamInfo.bitrate / 1000
         );
-        mvwchgat(statsWnd->hWnd, 6, 26, 10, A_BOLD, 6, NULL);
+        mvwchgat(statsWnd->hWnd, 6, 24, 10, A_BOLD, 6, NULL);
 
         char* channelsIndicator = new char[10];
 
         sprintf(
             channelsIndicator,
-            gStreamInfo->channels == 1 ? "Mono" : "Stereo"
+            gStreamInfo.channels == 1 ? "Mono" : "Stereo"
         );
 
         mvwprintw(
             statsWnd->hWnd,
-            6, 48 - strlen(channelsIndicator),
+            6, 46 - strlen(channelsIndicator),
             "%s",
             channelsIndicator
         );
-        mvwchgat(statsWnd->hWnd, 6, 38, 10, A_BOLD, 6, NULL);
+        mvwchgat(statsWnd->hWnd, 6, 36, 10, A_BOLD, 6, NULL);
 
-        mvwprintw(
+        /*mvwprintw(
             playerCtrlWnd->hWnd,
             4, playerCtrlWnd->hWidth - 5 - 2,
             "%02d:%02d",
             gStreamInfo->lengthSec / 60, gStreamInfo->lengthSec % 60
-        );
-    } else {
-        mvwprintw(
-            playerCtrlWnd->hWnd,
-            2, 2,
-            "\u25BA Error #%d", gAudioDec->getErrorNumber()
-        );
-    }*/
+        );*/
+    }
 
     wrefresh(playerCtrlWnd->hWnd);
     wrefresh(statsWnd->hWnd);
-
-	dsePrepared = gWrapper->init() >= 0;
-	if(dsePrepared)
-		result = gWrapper->openInputFile(gFileName);
 
     free(trackBar);
 }
@@ -358,11 +324,14 @@ char* AudioPlayerWnd::getCodecName(int pCodecId) {
         case STREAMINFO_CODEC_PCM_S8:
             sprintf(codecName, "PCM-S8");
             break;
-        case STREAMINFO_CODEC_PCM_S16BE:
-            sprintf(codecName, "PCM-S16BE");
-            break;
         case STREAMINFO_CODEC_PCM_S16LE:
             sprintf(codecName, "PCM-S16LE");
+            break;
+		case STREAMINFO_CODEC_PCM_S24LE:
+            sprintf(codecName, "PCM-S24LE");
+            break;
+		case STREAMINFO_CODEC_PCM_S32LE:
+            sprintf(codecName, "PCM-S32LE");
             break;
         case STREAMINFO_CODEC_FLAC_8:
             sprintf(codecName, "FLAC-8");
@@ -417,9 +386,17 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
 
     // ColorPair 9 = COLOR_DARK_GRAY
 
-    mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 3, 4, maxBlocksSize, A_BOLD, 9, NULL);
+	if(left > 100) {
+		left = 100;
+	}
+
+	if(right > 100) {
+		right = 100;
+	}
+
+    /*mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, maxBlocksSize, A_BOLD, 9, NULL);
     mvwchgat(
-		statsWnd->hWnd, statsWnd->hHeight - 3, 4, 
+		statsWnd->hWnd, statsWnd->hHeight - 2, 4, 
 		(double)((double)left / 100) * maxBlocksSize, A_BOLD, 6, NULL
 	);
 
@@ -427,7 +404,7 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
     mvwchgat(
 		statsWnd->hWnd, statsWnd->hHeight - 2, 4, 
 		(double)((double)right / 100) * maxBlocksSize, A_BOLD, 6, NULL
-	);
+	);*/
 
     wrefresh(statsWnd->hWnd);
 }

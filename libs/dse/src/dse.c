@@ -93,6 +93,12 @@ LIB_EXPORT double dse_get_frame_rms() {
 	return rms;
 }
 
+LIB_EXPORT int dse_get_stream_info(DSE_STREAM_INFO* info) {
+
+	#ifdef _WIN32
+		return dse_win32_get_stream_info(info);
+	#endif
+}
 
 LIB_EXPORT int dse_free_frame() {
     #ifdef _WIN32

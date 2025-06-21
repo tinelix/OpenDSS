@@ -66,7 +66,7 @@
 #define COLOR_LIGHT_RED_4BIT		  1
 #define COLOR_LIGHT_GREEN_4BIT		  2
 #define COLOR_BLUE_SKY_4BIT		      3
-#define COLOR_LIGHT_CYAN_4BIT		  11
+#define COLOR_LIGHT_CYAN_4BIT		 11
 
 class PseudoGUIManager
 {

@@ -1,16 +1,17 @@
 #include "dsewrap.h"
 
 #ifdef _WIN32
-	typedef int		(WINAPI* DSEInitFunction)		 ();
-	typedef int		(WINAPI* DSEPrepareFunction)	 (DSE_PCM_OUTPUT_FORMAT);
-	typedef int		(WINAPI* DSEOpenInputFunction)	 (const char[512]);
-	typedef void	(WINAPI* DSEAllocateFrameFunction) ();
-	typedef int		(WINAPI* DSEDecodeFrameFunction) ();
-	typedef void	(WINAPI* DSEPlayFunction) ();
-	typedef void	(WINAPI* DSEFreeFrameFunction) ();
-	typedef double	(WINAPI* DSEGetFrameRMSFunction) ();
-	typedef int		(WINAPI* DSEIsEndOfFileFunction) ();
-	typedef int		(WINAPI* DSECloseInputFunction)  ();
+	typedef int				(WINAPI* DSEInitFunction)			();
+	typedef int				(WINAPI* DSEPrepareFunction)		(DSE_PCM_OUTPUT_FORMAT);
+	typedef int				(WINAPI* DSEOpenInputFunction)		(const char[512]);
+	typedef void			(WINAPI* DSEAllocateFrameFunction)	();
+	typedef int				(WINAPI* DSEDecodeFrameFunction)	();
+	typedef void			(WINAPI* DSEPlayFunction)			();
+	typedef void			(WINAPI* DSEFreeFrameFunction)		();
+	typedef double			(WINAPI* DSEGetFrameRMSFunction)	();
+	typedef int				(WINAPI* DSEGetStreamInfoFunction)	(DSE_STREAM_INFO*);
+	typedef int				(WINAPI* DSEIsEndOfFileFunction)	();
+	typedef int				(WINAPI* DSECloseInputFunction)		();
 #endif
 
 DSEInitFunction				dse_init;
@@ -21,6 +22,7 @@ DSEDecodeFrameFunction		dse_decode_frame;
 DSEPlayFunction				dse_play;
 DSEFreeFrameFunction		dse_free_frame;
 DSEGetFrameRMSFunction		dse_get_frame_rms;
+DSEGetStreamInfoFunction	dse_get_stream_info;
 DSEIsEndOfFileFunction      dse_feof;
 DSECloseInputFunction		dse_close_input;
 
@@ -59,8 +61,13 @@ void SoundEngineWrapper::prepare() {
 }
 
 int SoundEngineWrapper::openInputFile(const char fname[512]) {
-	int result = dse_open_input(fname);
-	return result;
+	return dse_open_input(fname);
+}
+
+DSE_STREAM_INFO SoundEngineWrapper::getStreamInfo() {
+	DSE_STREAM_INFO info;
+	dse_get_stream_info(&info);
+	return info;
 }
 
 void SoundEngineWrapper::play() {
@@ -106,6 +113,8 @@ void SoundEngineWrapper::importLib() {
 			GetProcAddress(_dse, "dse_free_frame");
 		dse_get_frame_rms = (DSEGetFrameRMSFunction)
 			GetProcAddress(_dse, "dse_get_frame_rms");
+		dse_get_stream_info = (DSEGetStreamInfoFunction)
+			GetProcAddress(_dse, "dse_get_stream_info");
 		dse_feof = (DSEIsEndOfFileFunction)
 			GetProcAddress(_dse, "dse_is_eof");
 		dse_close_input = (DSECloseInputFunction)

@@ -50,6 +50,7 @@ typedef int (WINAPI* DSEDecOpenInputFileFunction) (const char*);
 typedef int (WINAPI* DSEDecDecodeFrameU8Function) (unsigned char**, size_t);
 typedef int (WINAPI* DSEDecDecodeFrameS16LEFunction) (short**, size_t);
 typedef DSE_AUDIO_OUTPUT_INFO (WINAPI* DSEDecGetOutputInfoFunction) ();
+typedef int (WINAPI* DSEDecGetStreamInfoFunction) (DSE_STREAM_INFO* info);
 typedef int (WINAPI* DSEDecIsEndOfFileFunction) ();
 typedef int (WINAPI* DSEDecCloseInputFileFunction) ();
 
@@ -57,6 +58,7 @@ DSEDecDecodeFrameU8Function			DSEDec_DecodeFrameU8;
 DSEDecDecodeFrameS16LEFunction	    DSEDec_DecodeFrameS16LE;
 DSEDecOpenInputFileFunction			DSEDec_OpenInputFile;
 DSEDecGetOutputInfoFunction			DSEDec_GetOutputInfo;
+DSEDecGetStreamInfoFunction			DSEDec_GetStreamInfo;
 DSEDecIsEndOfFileFunction			DSEDec_IsEndOfFile;
 DSEDecCloseInputFileFunction		DSEDec_CloseInputFile;
 
@@ -105,7 +107,12 @@ int dse_win32_prepare(DSE_AUDIO_OUTPUT_INFO out) {
 
     result = waveOutOpen(
 		&hWaveOut, WAVE_MAPPER, &wf, 
-		(DWORD)DSE_WaveOutCallback, 0, CALLBACK_FUNCTION);
+		#ifdef _MSVC2005G
+			(DWORD_PTR)DSE_WaveOutCallback, 
+		#else
+			(DWORD)DSE_WaveOutCallback, 
+		#endif
+		0, CALLBACK_FUNCTION);
 
 	frames_count = 0;
 	buffer_idx = 0;
@@ -173,6 +180,8 @@ void dse_win32_import_decoder() {
         GetProcAddress(decoder, "DSE_DecodeFrameU8");
     DSEDec_DecodeFrameS16LE = (DSEDecDecodeFrameS16LEFunction)
         GetProcAddress(decoder, "DSE_DecodeFrameS16LE");
+	DSEDec_GetStreamInfo = (DSEDecGetStreamInfoFunction)
+        GetProcAddress(decoder, "DSE_GetStreamInfo");
 	DSEDec_IsEndOfFile = (DSEDecIsEndOfFileFunction)
         GetProcAddress(decoder, "DSE_IsEndOfFile");
     DSEDec_CloseInputFile = (DSEDecCloseInputFileFunction)
@@ -258,7 +267,7 @@ void dse_win32_play() {
 	buffer_idx++;
 	buffer_idx %= 6;
 
-	Sleep(40);
+	Sleep(20);
 
 	dse_win32_decode_frame();
 
@@ -303,6 +312,14 @@ double dse_win32_calculate_rms_s16le(
 	return sqrt(squared_mean);
 }
 
+int dse_win32_get_stream_info(DSE_STREAM_INFO* info) {
+
+	if(is_riff == 1) {
+		return DSE_RIFF_GetStreamInfo(info);
+	} else {
+		return DSEDec_GetStreamInfo(info);
+	}
+}
 
 void dse_win32_free_frame() {
 	int i;
@@ -333,7 +350,6 @@ int dse_win32_close_input() {
 
     return DSEDec_CloseInputFile();
 }
-
 
 BOOL CALLBACK DSE_WaveOutCallback(
 	HWAVEOUT hWaveOut,

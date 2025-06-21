@@ -23,11 +23,10 @@
 
 #define STREAMINFO_CODEC_PCM_U8             0x2000      // or Unsigned PCM 8-bit
 #define STREAMINFO_CODEC_PCM_S8             0x2001      // or Signed PCM 8-bit
-#define STREAMINFO_CODEC_PCM_S16BE          0x2010      // or Signed PCM 16-bit Big-Endian
-#define STREAMINFO_CODEC_PCM_S16LE          0x2011      // or Signed PCM 16-bit Little-Endian
-#define STREAMINFO_CODEC_PCM_S24            0x2020
-#define STREAMINFO_CODEC_PCM_S32            0x2030
-#define STREAMINFO_CODEC_PCM_S32F           0x2031      // or Signed PCM 32-bit with floating point
+#define STREAMINFO_CODEC_PCM_S16LE          0x2011      // or Signed PCM 16-bit little-endian
+#define STREAMINFO_CODEC_PCM_S24LE          0x2021		// or Signed PCM 24-bit little-endian
+#define STREAMINFO_CODEC_PCM_S32LE          0x2031		// or Signed PCM 32-bit little-endian
+#define STREAMINFO_CODEC_PCM_S32LE_F        0x2032      // or Signed PCM 32-bit little-endian with floating point
 
 // Free Lossless Audio Coding (*.flac)
 
@@ -48,9 +47,14 @@
 #define STREAMINFO_CODEC_HE_AAC_V2          0x4012
 #define STREAMINFO_CODEC_HE_AAC_V3          0x4013      // or xHE-AAC
 
-typedef struct DSE_STREAM_INFO {
-    int codec, sampleRate, bitrate, channels, lengthSec;
-};
+typedef struct {
+	int codec_id;
+	int sample_rate;
+	int bits_per_sample;
+	long bitrate;
+	int channels;
+	int bitrate_mode; // 0 - CBR, 1 - ABR, 2 - VBR
+} DSE_STREAM_INFO;
 
 typedef struct DSE_STREAM_TIMESTAMP {
     int position, duration;

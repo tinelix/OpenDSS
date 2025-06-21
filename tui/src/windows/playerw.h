@@ -48,11 +48,7 @@
 #include "../wrappers/dsewrap.h"
 
 #include <interfaces/auddeci.h>
-
-//#include <utils/audtags.h>
 #include <utils/extstr.h>
-
-//#include <decoders/common/audiodec.h>
 
 class AudioPlayerWnd : ExtWindowCtrl {
     public:
@@ -63,7 +59,6 @@ class AudioPlayerWnd : ExtWindowCtrl {
         void drawVisualizer(int left, int right);
         //void updatePosition(StreamTimestamp *streamTs);
         void freeWnd();
-        //AudioDecoder* gAudioDec;
     private:
         void prepare();
         void openAudioFile();
@@ -73,7 +68,7 @@ class AudioPlayerWnd : ExtWindowCtrl {
         int gActiveWidth, gActiveHeight;
         char gFileName[384];
 		SoundEngineWrapper *gWrapper;
-        //StreamInfo* gStreamInfo;
+        DSE_STREAM_INFO gStreamInfo;
 };
 
 #endif

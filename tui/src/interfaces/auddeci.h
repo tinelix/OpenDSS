@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include <dse/include/utils/stream.h>
 #include <controls/extwnd.h>
 
 class IAudioDecoder {

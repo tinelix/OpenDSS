@@ -23,6 +23,7 @@
 #define LIB_IMPORT __declspec(dllimport)
 
 #include "../../utils/errcodes.h"
+#include "../../utils/stream.h"
 #include <windows.h>
 #include <dse.h>
 
@@ -33,8 +34,8 @@ typedef struct {
 
 typedef struct {
     int sample_rate;
-	int channels;
     int bits_per_sample;
+	int channels;
 } DSE_AUDIO_OUTPUT_INFO;
 
 typedef struct {
@@ -72,6 +73,7 @@ double dse_win32_calculate_rms_s16le(
 	const unsigned char *samples, int samples_size
 );
 
+int dse_win32_get_stream_info(DSE_STREAM_INFO* info);
 int dse_win32_is_eof();
 int dse_win32_close_input();
 

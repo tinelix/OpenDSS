@@ -49,7 +49,7 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager* pInterface) {
             init_pair(3,	COLOR_WHITE,			COLOR_DARK_GRAY_4BIT);
             init_pair(4,	COLOR_WHITE,			COLOR_RED);
             init_pair(5,	COLOR_WHITE,			COLOR_GREEN);
-            init_pair(6,	COLOR_GREEN,			COLOR_WHITE);
+            init_pair(6,	COLOR_GREEN,			COLOR_BLACK);
             init_pair(7,	COLOR_GREEN,			COLOR_DEEP_BLACK);
             init_pair(8,	COLOR_RED,				COLOR_BLACK);
             init_pair(9,	COLOR_DARK_GRAY_4BIT,	COLOR_BLACK);

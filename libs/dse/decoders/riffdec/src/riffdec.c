@@ -8,6 +8,7 @@
 FILE *_in_f = NULL;
 RIFF_WAVE_HEADER _wav_h;
 DSE_AUDIO_OUTPUT_INFO out_info;
+DSE_STREAM_INFO stream_info;
 
 int riff_bytes_read = 0;
 
@@ -38,9 +39,31 @@ int DSE_RIFF_OpenInputFile(const char f_path[MAX_PATH_LENGTH]) {
 	fread(_wav_h.subchunk2_id,		4, 1, _in_f);    
 	fread(&_wav_h.subchunk2_size,	4, 1, _in_f);
 
-	out_info.sample_rate	 = _wav_h.sample_rate;
-	out_info.bits_per_sample = _wav_h.bits_per_sample;
-	out_info.channels	     = _wav_h.channels;
+	out_info.sample_rate			= _wav_h.sample_rate;
+	out_info.bits_per_sample		= _wav_h.bits_per_sample;
+	out_info.channels				= _wav_h.channels;
+
+	stream_info.sample_rate			= _wav_h.sample_rate;
+	stream_info.bits_per_sample		= _wav_h.bits_per_sample;
+	stream_info.channels			= _wav_h.channels;
+	stream_info.bitrate				= _wav_h.sample_rate * 
+									  _wav_h.bits_per_sample *
+									  _wav_h.channels;
+	stream_info.bits_per_sample		= _wav_h.bits_per_sample;
+
+	if(_wav_h.audio_fmt == 0x0100) {
+		switch(stream_info.bits_per_sample) {
+			case 8:
+				stream_info.codec_id = STREAMINFO_CODEC_PCM_U8;
+				break;
+			case 16:
+				stream_info.codec_id = STREAMINFO_CODEC_PCM_S16LE;
+				break;
+			case 32:
+				stream_info.codec_id = STREAMINFO_CODEC_PCM_S32LE;
+				break;
+		}
+	}
 
     if (
         memcmp(_wav_h.chunk_id, "RIFF", 4) != 0 ||
@@ -109,6 +132,11 @@ int DSE_RIFF_DecodeFrameU8(unsigned char** pcm_buf, size_t pcm_len) {
     }
 
     return -1;
+}
+
+int DSE_RIFF_GetStreamInfo(DSE_STREAM_INFO* info) {
+	*(info) = stream_info;
+	return 0;
 }
 
 int DSE_RIFF_IsEndOfFile() {
