@@ -16,7 +16,7 @@ class SoundEngineWrapper {
 public:
 	SoundEngineWrapper();
 	~SoundEngineWrapper();
-	void init();
+	int init();
 	void prepare();
 	int  openInputFile(const char fname[512]);
 	void play();

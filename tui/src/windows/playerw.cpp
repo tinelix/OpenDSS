@@ -22,6 +22,7 @@ int duplicateKeys = 0;
 char prev_key;
 bool disableListening;
 int result;
+bool dsePrepared;
 
 #define MAX_FILE_LENGTH 80
 
@@ -262,8 +263,9 @@ void AudioPlayerWnd::openAudioFile() {
     wrefresh(playerCtrlWnd->hWnd);
     wrefresh(statsWnd->hWnd);
 
-	gWrapper->init();
-    result = gWrapper->openInputFile(gFileName);
+	dsePrepared = gWrapper->init() >= 0;
+	if(dsePrepared)
+		result = gWrapper->openInputFile(gFileName);
 
     free(trackBar);
 }
@@ -291,8 +293,9 @@ void AudioPlayerWnd::playAudioFile() {
     int status          = 0;
     int seconds         = 0;
     int minutes         = 0;
-
-    gWrapper->play();
+	
+	if(dsePrepared)
+		gWrapper->play();
 
     wrefresh(playerCtrlWnd->hWnd);
 }

@@ -36,17 +36,17 @@ SoundEngineWrapper::~SoundEngineWrapper() {
 	#endif
 }
 
-void SoundEngineWrapper::init() {
+int SoundEngineWrapper::init() {
 	#ifdef _WIN32
 		_dse = LoadLibrary("libs/opendse.dll");
 	#endif
 
-	if (!_dse) {
-		errno = -4;
-		return;
+	if (_dse == NULL) {
+		return -4;
 	}
 	importLib();
 	dse_init();
+	return 0;
 }
 
 void SoundEngineWrapper::prepare() {
