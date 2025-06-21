@@ -34,8 +34,8 @@ class ISoundEngineWrapper {
         ISoundEngineWrapper();
         ~ISoundEngineWrapper();
         void setWindow(ExtWindowCtrl* pExtWnd);
-		void onPlaybackStateChanged(int state);
-		void onStreamClock(DSE_AUDIO_SPECTRUM *spectrum, DSE_STREAM_TIMESTAMP *streamTs);
+		void onPlaybackStateChanged(int state) {};
+		void onStreamClock(DSE_AUDIO_SPECTRUM spectrum, DSE_STREAM_TIMESTAMP streamTs) {};
     protected:
         ExtWindowCtrl* hExtWnd;
 };

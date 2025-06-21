@@ -65,6 +65,7 @@ public:
 private:
 #ifdef _WIN32
 	HMODULE _dse;
+	ISoundEngineWrapper* gInterface;
 #endif
 	void importLib();
 };

@@ -39,7 +39,7 @@ SoundEngineWrapper::~SoundEngineWrapper() {
 }
 
 void SoundEngineWrapper::setInterface(ISoundEngineWrapper* pInterface) {
-
+	gInterface = pInterface;
 }
 
 int SoundEngineWrapper::init() {
@@ -79,14 +79,24 @@ void SoundEngineWrapper::play() {
 	int result;
 	double rms;
 	double elapsedMs;
-	LARGE_INTEGER perfFreq, perfCnt, newPerfCnt;;
+	LARGE_INTEGER perfFreq, perfCnt, newPerfCnt;
+	DSE_AUDIO_SPECTRUM spectrum;
+	DSE_STREAM_TIMESTAMP timestamp;
 
 	dse_allocate_frame();
 	dse_decode_frame();
 
 	while(dse_feof() == 0) {
-		rms = dse_get_frame_rms();
 		dse_play();
+		rms = dse_get_frame_rms();
+		if(gInterface != NULL) {
+			spectrum.channels = 2;
+			spectrum.left			= rms;
+			spectrum.right			= rms;
+			timestamp.position		= 0;
+			timestamp.duration		= 0;
+			gInterface->onStreamClock(spectrum, timestamp);
+		}
 	}
 
 	dse_free_frame();

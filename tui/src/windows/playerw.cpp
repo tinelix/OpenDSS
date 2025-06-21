@@ -28,7 +28,7 @@ bool dsePrepared;
 
 class IOpenDSSAudioDecoder : ISoundEngineWrapper {
     public:
-        void onStreamClock(DSE_AUDIO_SPECTRUM *spectrum, DSE_STREAM_TIMESTAMP *streamTs);
+        void onStreamClock(DSE_AUDIO_SPECTRUM spectrum, DSE_STREAM_TIMESTAMP streamTs);
         void onPlaybackStateChanged(int state);
         void setWindow(ExtWindowCtrl* pExtWnd);
 };
@@ -146,6 +146,7 @@ void AudioPlayerWnd::openAudioFile() {
 
     IOpenDSSAudioDecoder* decInterface = new IOpenDSSAudioDecoder();
     decInterface->setWindow(this);
+	gWrapper->setInterface((ISoundEngineWrapper*)decInterface);
 
     mvwprintw(
         playerCtrlWnd->hWnd,
@@ -394,17 +395,21 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
 		right = 100;
 	}
 
-    /*mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, maxBlocksSize, A_BOLD, 9, NULL);
-    mvwchgat(
-		statsWnd->hWnd, statsWnd->hHeight - 2, 4, 
-		(double)((double)left / 100) * maxBlocksSize, A_BOLD, 6, NULL
-	);
+	if(left > 0) {
+		mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 3, 4, maxBlocksSize, A_BOLD, 9, NULL);
+		mvwchgat(
+			statsWnd->hWnd, statsWnd->hHeight - 3, 4, 
+			(int)(((double)left / 100) * maxBlocksSize), A_BOLD, 6, NULL
+		);
+	}
 
-    mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, maxBlocksSize, A_BOLD, 9, NULL);
-    mvwchgat(
-		statsWnd->hWnd, statsWnd->hHeight - 2, 4, 
-		(double)((double)right / 100) * maxBlocksSize, A_BOLD, 6, NULL
-	);*/
+	if(right > 0) {
+		mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, maxBlocksSize, A_BOLD, 9, NULL);
+		mvwchgat(
+			statsWnd->hWnd, statsWnd->hHeight - 2, 4, 
+			(int)(((double)right / 100) * maxBlocksSize), A_BOLD, 6, NULL
+		);
+	}
 
     wrefresh(statsWnd->hWnd);
 }
@@ -462,29 +467,25 @@ AudioPlayerWnd::~AudioPlayerWnd() {
     freeWnd();
 }
 
-//void IOpenDSSAudioDecoder::onStreamClock(
-//    AudioSpectrum *spectrum, StreamTimestamp *streamTs
-//) {
-//    streamTs->position = ((AudioPlayerWnd*)hExtWnd)->gAudioDec->getPlaybackPosition();
-//    streamTs->duration = ((AudioPlayerWnd*)hExtWnd)->gAudioDec->getPlaybackDuration();
-//    ((AudioPlayerWnd*)hExtWnd)->updatePosition(streamTs);
-//    ((AudioPlayerWnd*)hExtWnd)->drawVisualizer(spectrum->left, spectrum->right);
-//    char k = wgetch(hExtWnd->hWnd);
-//    if(!disableListening) {
-//        if(k != prev_key)
-//            ((AudioPlayerWnd*)hExtWnd)->onKeyPressed(k, prev_key);
-//        prev_key = k;
-//    }
-//}
-
-void ISoundEngineWrapper::onStreamClock(DSE_AUDIO_SPECTRUM *spectrum, DSE_STREAM_TIMESTAMP *streamTs) {
-
+void IOpenDSSAudioDecoder::onStreamClock(
+    DSE_AUDIO_SPECTRUM spectrum, DSE_STREAM_TIMESTAMP streamTs
+) {
+    //streamTs->position = ((AudioPlayerWnd*)hExtWnd)->gAudioDec->getPlaybackPosition();
+    //streamTs->duration = ((AudioPlayerWnd*)hExtWnd)->gAudioDec->getPlaybackDuration();
+    //((AudioPlayerWnd*)hExtWnd)->updatePosition(streamTs);
+    ((AudioPlayerWnd*)hExtWnd)->drawVisualizer(spectrum.left, spectrum.right);
+    char k = wgetch(hExtWnd->hWnd);
+    if(!disableListening) {
+        if(k != prev_key)
+            ((AudioPlayerWnd*)hExtWnd)->onKeyPressed(k, prev_key);
+        prev_key = k;
+    }
 }
 
-void ISoundEngineWrapper::onPlaybackStateChanged(int state) {
+void IOpenDSSAudioDecoder::onPlaybackStateChanged(int state) {
 	
 }
 
-void ISoundEngineWrapper::setWindow(ExtWindowCtrl* pExtWnd) {
+void IOpenDSSAudioDecoder::setWindow(ExtWindowCtrl* pExtWnd) {
     hExtWnd = pExtWnd;
 }
