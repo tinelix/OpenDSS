@@ -83,7 +83,7 @@ PseudoGUIManager::PseudoGUIManager(IPseudoGUIManager* pInterface) {
 
             init_color(COLOR_DARK_GRAY, 255, 255, 255);
 
-            init_pair(9,	COLOR_DARK_GRAY,	COLOR_GRAY);
+            init_pair(9,	COLOR_BLACK,			COLOR_BLACK);
             init_pair(10,	COLOR_DARK_GRAY,		COLOR_DEEP_BLACK);
 
             bkgd(COLOR_PAIR(3));

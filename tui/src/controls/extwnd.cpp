@@ -78,6 +78,7 @@ void ExtWindowCtrl::addChildWindow(char* id, char* title, int width, int height,
 
     int realWidth = 5;
     int realHeight = 5;
+	int startOfTitle = 0;
 
     realWidth = width;
     if (width <= 5) {
@@ -105,13 +106,33 @@ void ExtWindowCtrl::addChildWindow(char* id, char* title, int width, int height,
     pExtWnd->hWidth = realWidth;
     pExtWnd->hHeight = realHeight;
 
+	startOfTitle = (pExtWnd->hWidth - strlen(pExtWnd->hTitle) - 4) / 2;
+
     box(pExtWnd->hWnd, 0, 0);                   // <-- draw window borders
 
-    mvwprintw(                                  // <-- draw window text in top border area
-        pExtWnd->hWnd,
-        0, (pExtWnd->hWidth - strlen(pExtWnd->hTitle) - 4) / 2,
-        "%c %s %c", 0xB4, pExtWnd->hTitle, 0xC3
-    );
+	#ifdef _WIDE
+		mvwaddch(pExtWnd->hWnd,
+			0, startOfTitle,
+			0x2524
+		);
+
+		mvwprintw( 
+			pExtWnd->hWnd,
+			0, startOfTitle + 1,
+			" %s ", pExtWnd->hTitle
+		);
+
+		mvwaddch(pExtWnd->hWnd,
+			0, startOfTitle + 2 + strlen(pExtWnd->hTitle) + 1,
+			0x251C
+		);
+	#else
+		mvwprintw(                                  // <-- draw window text in top border area
+			pExtWnd->hWnd,
+			0, (pExtWnd->hWidth - strlen(pExtWnd->hTitle) - 4) / 2,
+			"%c %s %c", 0xB4, pExtWnd->hTitle, 0xC3
+		);
+	#endif
 
     wbkgd(pExtWnd->hWnd, COLOR_PAIR(2));
 

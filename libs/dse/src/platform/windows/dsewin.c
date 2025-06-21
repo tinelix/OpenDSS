@@ -264,13 +264,22 @@ void dse_win32_play() {
 
 	waveOutWrite(hWaveOut, &buffers[buffer_idx], sizeof(WAVEHDR));
 
+	if(out_info.bits_per_sample == 16) {
+		dse_current_frame_rms = dse_win32_calculate_rms_s16le(
+			buffers[buffer_idx].lpData, dse_user_data.buffer_size
+		);
+	} else {
+		dse_current_frame_rms = dse_win32_calculate_rms_u8(
+			buffers[buffer_idx].lpData, dse_user_data.buffer_size
+		);
+	}
+
 	buffer_idx++;
 	buffer_idx %= 6;
 
 	Sleep(20);
 
 	dse_win32_decode_frame();
-
 }
 
 double dse_win32_calculate_rms_u8(
@@ -296,20 +305,7 @@ double dse_win32_get_frame_rms() {
 double dse_win32_calculate_rms_s16le(
 	const short *samples, int samples_size
 ) {
-    double squared_sum = 0.0;
-	double squared_mean = 0.0;
-	int i;
-    
-	if(samples_size >= 4096)
-		samples_size = 4096;
-
-    for(i = 0; i < samples_size; ++i) {
-        squared_sum += samples[i] * samples[i];
-    }
-    
-    squared_mean = squared_sum / samples_size;
-
-	return sqrt(squared_mean);
+    return 128.0;
 }
 
 int dse_win32_get_stream_info(DSE_STREAM_INFO* info) {

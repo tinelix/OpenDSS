@@ -80,11 +80,6 @@ AudioPlayerWnd::AudioPlayerWnd(char* fname, ExtWindowCtrl* pParent, WINDOW* scre
     keypad(hWnd, true);
 
     box(hWnd, 0, 0);                            // <-- draw window borders
-    mvwprintw(                                  // <-- draw window text in top border area
-        hWnd,
-        0, (gActiveWidth - strlen(hTitle) - 4) / 2.5,
-        "%c %s %c", 0xB4, hTitle, 0xC3
-    );
 
     wbkgd(hWnd, COLOR_PAIR(2));
 
@@ -148,12 +143,26 @@ void AudioPlayerWnd::openAudioFile() {
     decInterface->setWindow(this);
 	gWrapper->setInterface((ISoundEngineWrapper*)decInterface);
 
-    mvwprintw(
-        playerCtrlWnd->hWnd,
-        2, 2,
-        "%c Opening",
-		0xFE
-    );
+	#ifdef _WIDE
+		mvwaddch(
+			playerCtrlWnd->hWnd,
+			2, 2,
+			0x2192
+		);
+	
+		mvwprintw(
+			playerCtrlWnd->hWnd,
+			2, 4,
+			"Opening"
+		);
+	#else
+		mvwprintw(
+			playerCtrlWnd->hWnd,
+			2, 2,
+			"%c Opening",
+			0x1A
+		);
+	#endif
 
     char* trackBar;
     int maxBlocksSize = (playerCtrlWnd->hWidth - 4);
@@ -162,7 +171,7 @@ void AudioPlayerWnd::openAudioFile() {
     wrefresh(playerCtrlWnd->hWnd);
 
     for(int i = 0; i < maxBlocksSize; i++) {
-        mvwprintw(playerCtrlWnd->hWnd, 5, i + 2, "%c", 0xC4);
+        mvwaddch(playerCtrlWnd->hWnd, 5, i + 2, ACS_HLINE);
     }
 
     mvwprintw(
@@ -183,7 +192,7 @@ void AudioPlayerWnd::openAudioFile() {
 	if(dsePrepared)
 		result = gWrapper->openInputFile(gFileName);
 
-	if(dsePrepared) {
+	if(result == 0) {
         gStreamInfo = gWrapper->getStreamInfo();
 
         mvwprintw(
@@ -250,12 +259,26 @@ void AudioPlayerWnd::playAudioFile() {
         mvwaddch(playerCtrlWnd->hWnd, 2, 2 + i, ' ');
     }
 
-    mvwprintw(
-        playerCtrlWnd->hWnd,
-        2, 2,
-        "%c Playing",
-		0xE2
-    );
+    #ifdef _WIDE
+		mvwaddch(
+			playerCtrlWnd->hWnd,
+			2, 2,
+			0x25BA
+		);
+	
+		mvwprintw(
+			playerCtrlWnd->hWnd,
+			2, 4,
+			"Playing"
+		);
+	#else
+		mvwprintw(
+			playerCtrlWnd->hWnd,
+			2, 2,
+			"%c Playing",
+			0x10
+		);
+	#endif
 
     int status          = 0;
     int seconds         = 0;
@@ -377,12 +400,20 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
 
     mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 3, 2, "L");
     for(int i = 0; i < maxBlocksSize; i++) {
-        mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 3, i + 4, "%c", 0xFE);
+        #ifdef _WIDE
+			mvwaddch(statsWnd->hWnd, statsWnd->hHeight - 3, i + 4, 0x25A0);
+		#else
+			mvwaddch(statsWnd->hWnd, statsWnd->hHeight - 3, i + 4, 0xFE);
+		#endif
     }
 
     mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 2, 2, "R");
     for(int i2 = 0; i2 < maxBlocksSize; i2++) {
-        mvwprintw(statsWnd->hWnd, statsWnd->hHeight - 2, i2 + 4, "%c", 0xFE);
+		#ifdef _WIDE
+			mvwaddch(statsWnd->hWnd, statsWnd->hHeight - 2, i2 + 4, 0x25A0);
+		#else
+			mvwaddch(statsWnd->hWnd, statsWnd->hHeight - 2, i2 + 4, 0xFE);
+		#endif
     }
 
     // ColorPair 9 = COLOR_DARK_GRAY
@@ -395,8 +426,10 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
 		right = 100;
 	}
 
+	mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 3, 4, maxBlocksSize, A_BOLD, 9, NULL);
+	mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, maxBlocksSize, A_BOLD, 9, NULL);
+
 	if(left > 0) {
-		mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 3, 4, maxBlocksSize, A_BOLD, 9, NULL);
 		mvwchgat(
 			statsWnd->hWnd, statsWnd->hHeight - 3, 4, 
 			(int)(((double)left / 100) * maxBlocksSize), A_BOLD, 6, NULL
@@ -404,7 +437,6 @@ void AudioPlayerWnd::drawVisualizer(int left, int right) {
 	}
 
 	if(right > 0) {
-		mvwchgat(statsWnd->hWnd, statsWnd->hHeight - 2, 4, maxBlocksSize, A_BOLD, 9, NULL);
 		mvwchgat(
 			statsWnd->hWnd, statsWnd->hHeight - 2, 4, 
 			(int)(((double)right / 100) * maxBlocksSize), A_BOLD, 6, NULL

@@ -26,6 +26,7 @@
 #include "../../utils/stream.h"
 #include <windows.h>
 #include <dse.h>
+#include <math.h>
 
 typedef struct {
     char path[400];
