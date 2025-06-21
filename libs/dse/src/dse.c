@@ -51,6 +51,14 @@ LIB_EXPORT int dse_open_input(const char path[512]) {
     return result;
 }
 
+LIB_EXPORT int dse_allocate_frame() {
+    #ifdef _WIN32
+        dse_win32_allocate_frame();
+    #endif
+
+    return result;
+}
+
 LIB_EXPORT int dse_decode_frame() {
     #ifdef _WIN32
         result = dse_win32_decode_frame();
@@ -58,6 +66,21 @@ LIB_EXPORT int dse_decode_frame() {
 
     return result;
 }
+
+LIB_EXPORT void dse_play() {
+    #ifdef _WIN32
+        dse_win32_play();
+    #endif
+}
+
+LIB_EXPORT int dse_is_eof() {
+    #ifdef _WIN32
+        result = dse_win32_is_eof();
+    #endif
+
+	return result;
+}
+
 
 LIB_EXPORT double dse_get_frame_rms() {
 
@@ -68,6 +91,15 @@ LIB_EXPORT double dse_get_frame_rms() {
 	#endif
 
 	return rms;
+}
+
+
+LIB_EXPORT int dse_free_frame() {
+    #ifdef _WIN32
+        dse_win32_free_frame();
+    #endif
+
+    return result;
 }
 
 LIB_EXPORT int dse_close_input(const char path[512]) {

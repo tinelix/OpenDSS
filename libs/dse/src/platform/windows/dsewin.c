@@ -28,16 +28,18 @@ DSE_USER_DATA dse_user_data;
 DSE_AUDIO_OUTPUT_INFO dse_audio_out;
 
 double dse_current_frame_rms;
-int frames_count;
-int is_riff;
-WAVEHDR buffers[4];
+int frames_count = 0;
+int is_riff = 0;
+WAVEHDR buffers[6];
+HANDLE hEvent;
+int buffer_idx = 0;
+DWORD remainingSmp = 4294967295;
 
 HMODULE dse_win32_load_decoder();
 void dse_win32_import_decoder();
-void dse_win32_free_frame();
 
-void CALLBACK DSE_WaveOutCallback(
-	HWAVEOUT handleWaveOut,
+BOOL CALLBACK DSE_WaveOutCallback(
+	HWAVEOUT hWaveOut,
 	UINT uMsg,
 	DWORD uParam,
 	DWORD lParam,
@@ -48,12 +50,14 @@ typedef int (WINAPI* DSEDecOpenInputFileFunction) (const char*);
 typedef int (WINAPI* DSEDecDecodeFrameU8Function) (unsigned char**, size_t);
 typedef int (WINAPI* DSEDecDecodeFrameS16LEFunction) (short**, size_t);
 typedef DSE_AUDIO_OUTPUT_INFO (WINAPI* DSEDecGetOutputInfoFunction) ();
+typedef int (WINAPI* DSEDecIsEndOfFileFunction) ();
 typedef int (WINAPI* DSEDecCloseInputFileFunction) ();
 
 DSEDecDecodeFrameU8Function			DSEDec_DecodeFrameU8;
 DSEDecDecodeFrameS16LEFunction	    DSEDec_DecodeFrameS16LE;
 DSEDecOpenInputFileFunction			DSEDec_OpenInputFile;
 DSEDecGetOutputInfoFunction			DSEDec_GetOutputInfo;
+DSEDecIsEndOfFileFunction			DSEDec_IsEndOfFile;
 DSEDecCloseInputFileFunction		DSEDec_CloseInputFile;
 
 BOOL APIENTRY DllMain(HMODULE hModule,
@@ -92,22 +96,25 @@ int dse_win32_prepare(DSE_AUDIO_OUTPUT_INFO out) {
     wf.wBitsPerSample	= out.bits_per_sample;
     wf.nChannels		= out.channels;
     wf.nBlockAlign		= wf.nChannels * (wf.wBitsPerSample / 8);
-    wf.nAvgBytesPerSec	= wf.nSamplesPerSec * wf.nBlockAlign;
+    wf.nAvgBytesPerSec	= (wf.nSamplesPerSec * wf.nBlockAlign);
 
-	dse_user_data.buffer_size	= 4096;
+
+	dse_user_data.buffer_size	= (wf.nSamplesPerSec * wf.nBlockAlign) / 6;
 	dse_user_data.header		= NULL;
 	dse_user_data.next_header	= NULL;
 
-	dse_user_data.finished = CreateEvent(NULL, TRUE, FALSE, NULL);
-
     result = waveOutOpen(
 		&hWaveOut, WAVE_MAPPER, &wf, 
-		NULL, NULL, 0
-	);
+		(DWORD)DSE_WaveOutCallback, 0, CALLBACK_FUNCTION);
 
+	frames_count = 0;
+	buffer_idx = 0;
+	
 	if (result != MMSYSERR_NOERROR) {
 		return -1;
 	}
+
+	hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
 
     return result;
 }
@@ -155,7 +162,7 @@ HMODULE dse_win32_load_decoder() {
 			return decoder;
 		}
     }
-
+	
     return NULL;
 }
 
@@ -166,27 +173,95 @@ void dse_win32_import_decoder() {
         GetProcAddress(decoder, "DSE_DecodeFrameU8");
     DSEDec_DecodeFrameS16LE = (DSEDecDecodeFrameS16LEFunction)
         GetProcAddress(decoder, "DSE_DecodeFrameS16LE");
+	DSEDec_IsEndOfFile = (DSEDecIsEndOfFileFunction)
+        GetProcAddress(decoder, "DSE_IsEndOfFile");
     DSEDec_CloseInputFile = (DSEDecCloseInputFileFunction)
         GetProcAddress(decoder, "DSE_CloseInputFile");
 }
 
-int dse_win32_close_input() {
+void dse_win32_allocate_frame() {
+	int i = 0;
+	buffer_idx = 0;
 
-	int i;
+	for(i + 0; i < 6; i++) {
+		buffers[i].lpData = malloc((dse_user_data.buffer_size)); 
+		buffers[i].dwFlags			= WHDR_BEGINLOOP | WHDR_ENDLOOP;
+		buffers[i].dwLoops			= 1;
+		buffers[i].dwUser			= 0;
+		buffers[i].lpNext			= NULL;
+		buffers[i].reserved			= 0;
+		buffers[i].dwBytesRecorded	= 0;
+	}
 
-	if(dse_user_data.playing == 0) return;
-
-	dse_user_data.playing = 0;
-
-    return DSEDec_CloseInputFile();
 }
 
 int dse_win32_decode_frame() {
+	int result;
+	int i = 0;
+    int decoder_type = 0;
+	HANDLE eventHandle;
+	DWORD waitResult;
 
-	DSE_WaveOutCallback(
-			hWaveOut, WOM_DONE, (DWORD)&dse_user_data, 
-			(DWORD)&dse_audio_out, 0
-	);
+	if(out_info.bits_per_sample == 8) {
+		buffers[buffer_idx].dwBufferLength = (dse_user_data.buffer_size);
+
+		if(is_riff == 1) {
+			result = DSE_RIFF_DecodeFrameU8(
+				&buffers[buffer_idx].lpData, dse_user_data.buffer_size
+			);
+		} else {
+			result = DSEDec_DecodeFrameU8(
+				&buffers[buffer_idx].lpData, dse_user_data.buffer_size
+			);
+		}
+	} else {
+		buffers[buffer_idx].dwBufferLength = (dse_user_data.buffer_size / 2);
+
+		if(is_riff == 1) {
+			result = DSE_RIFF_DecodeFrameS16LE(
+				&buffers[buffer_idx].lpData, dse_user_data.buffer_size
+			);
+		} else {
+			result = DSEDec_DecodeFrameS16LE(
+				&buffers[buffer_idx].lpData, dse_user_data.buffer_size
+			);
+		}
+	}
+
+	frames_count++;
+}
+
+void dse_win32_play() {
+	int result = 0;
+	MMTIME positionInfo = {0};
+	char debug[320];
+	MMRESULT mmresult;
+
+	positionInfo.wType = TIME_SAMPLES;
+
+	if (!(buffers[0].dwFlags & WHDR_PREPARED)) {
+		buffers[0].dwFlags |= WHDR_PREPARED;
+		waveOutPrepareHeader(hWaveOut, &buffers[0], sizeof(WAVEHDR));
+	}
+
+	result = waveOutGetPosition(hWaveOut, &positionInfo, sizeof(MMTIME));
+
+	if (result == MMSYSERR_NOERROR) {
+			remainingSmp = 
+				(positionInfo.u.sample <= buffers[buffer_idx].dwBufferLength) ?
+                (buffers[buffer_idx].dwBufferLength - positionInfo.u.sample) :
+                0;
+	}
+
+	waveOutWrite(hWaveOut, &buffers[buffer_idx], sizeof(WAVEHDR));
+
+	buffer_idx++;
+	buffer_idx %= 6;
+
+	Sleep(40);
+
+	dse_win32_decode_frame();
+
 }
 
 double dse_win32_calculate_rms_u8(
@@ -216,6 +291,9 @@ double dse_win32_calculate_rms_s16le(
 	double squared_mean = 0.0;
 	int i;
     
+	if(samples_size >= 4096)
+		samples_size = 4096;
+
     for(i = 0; i < samples_size; ++i) {
         squared_sum += samples[i] * samples[i];
     }
@@ -225,7 +303,39 @@ double dse_win32_calculate_rms_s16le(
 	return sqrt(squared_mean);
 }
 
-void CALLBACK DSE_WaveOutCallback(
+
+void dse_win32_free_frame() {
+	int i;
+
+	char debug[250];
+
+	for(i + 0; i < 6; i++) {
+		if(buffers[i].lpData != NULL) {
+			waveOutUnprepareHeader(hWaveOut, &buffers[i], sizeof(WAVEHDR));
+			free(buffers[i].lpData);
+			buffers[i].lpData = NULL;
+		}
+	}
+}
+
+int dse_win32_is_eof() {
+	if(is_riff == 1)
+		return DSE_RIFF_IsEndOfFile();
+	else
+		return DSEDec_IsEndOfFile();
+}
+
+int dse_win32_close_input() {
+
+	if(dse_user_data.playing == 0) return;
+
+	dse_user_data.playing = 0;
+
+    return DSEDec_CloseInputFile();
+}
+
+
+BOOL CALLBACK DSE_WaveOutCallback(
 	HWAVEOUT hWaveOut,
 	UINT uMsg,
 	DWORD uParam,
@@ -233,85 +343,15 @@ void CALLBACK DSE_WaveOutCallback(
 	DWORD pParam
 ) {
 
-	DSE_USER_DATA* user_data = (DSE_USER_DATA*)uParam;
-	DSE_AUDIO_OUTPUT_INFO* info = (DSE_AUDIO_OUTPUT_INFO*)lParam;
-
-	int result, i;
-    int decoder_type = 0;
-	HANDLE eventHandle;
-	DWORD waitResult;
-	char debug[250];
-
-	user_data->playing = 1;
-
-	for(i = 0; i < 4; i++) {
-
-		ZeroMemory(&buffers[i], sizeof(WAVEHDR));
-
-		buffers[i].dwBufferLength = user_data->buffer_size;
-		buffers[i].lpData = malloc(user_data->buffer_size); 
-
-		buffers[i].dwFlags = WHDR_BEGINLOOP | WHDR_ENDLOOP;
-		buffers[i].dwLoops = 1;
-		buffers[i].dwUser = 0; 
-	}
-
-	for(i = 0; i < 4; i++) {
-
-		waveOutPrepareHeader(hWaveOut, &buffers[i], sizeof(WAVEHDR));
-
-		if(out_info.bits_per_sample == 8) {
-			if(is_riff == 1) {
-				result = DSE_RIFF_DecodeFrameU8(&buffers[i].lpData, user_data->buffer_size);
-			} else {
-				result = DSEDec_DecodeFrameU8(&buffers[i].lpData, user_data->buffer_size);
-			}
-
-			dse_current_frame_rms = 
-				dse_win32_calculate_rms_u8(
-					(unsigned char*)&buffers[i].lpData, user_data->buffer_size
-				);
-		} else {
-			decoder_type = 1;
-
-			if(is_riff == 1) {
-				result = DSE_RIFF_DecodeFrameS16LE(&buffers[i].lpData, user_data->buffer_size);
-			} else {
-				result = DSEDec_DecodeFrameS16LE(&buffers[i].lpData, user_data->buffer_size);
-			}
-
-			dse_current_frame_rms = 
-				dse_win32_calculate_rms_s16le(
-					(short*)&buffers[i].lpData, user_data->buffer_size
-				);
-
-		}
-
-		if (result <= 0) {
-			dse_win32_free_frame();
-			return;
-		}
-
-		waveOutWrite(hWaveOut, &buffers[i], sizeof(WAVEHDR));
-
-		frames_count++;
-	}
-
-	dse_win32_free_frame();
-}
-
-void dse_win32_free_frame() {
 	int i;
+	int result;
 
-	for(i = 0; i < 4; i++) {
+	switch(uMsg)
+    {
+        case MM_WOM_DONE:
+			SetEvent(hEvent);  
+            break;
+    }
+    return TRUE;
 
-		while((buffers[i].dwFlags & WHDR_DONE) == 0) {
-			Sleep(40);
-		}
-
-		if(buffers[i].lpData != NULL) {
-			free(buffers[i].lpData);
-			buffers[i].lpData = NULL;
-		}
-	}
 }

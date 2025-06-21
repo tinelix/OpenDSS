@@ -57,7 +57,13 @@ typedef struct {
 DSE_AUDIO_OUTPUT_INFO out_info;
 
 int dse_win32_init();
+
 int dse_win32_prepare(DSE_AUDIO_OUTPUT_INFO out);
+void dse_win32_allocate_frame();
+int dse_win32_decode_frame();
+void dse_win32_play();
+void dse_win32_free_frame();
+
 int dse_win32_open_src(char path[260]);
 double dse_win32_calculate_rms_u8(
 	const unsigned char *samples, int samples_size
@@ -65,6 +71,8 @@ double dse_win32_calculate_rms_u8(
 double dse_win32_calculate_rms_s16le(
 	const unsigned char *samples, int samples_size
 );
+
+int dse_win32_is_eof();
 int dse_win32_close_input();
 
 #endif // DSE_WINDOWS_DSE_H

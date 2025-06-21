@@ -77,11 +77,11 @@ int DSE_RIFF_DecodeFrameS16LE(short** pcm_buf, size_t pcm_len) {
 		return -2;
 
 	if (*pcm_buf == NULL)
-		*pcm_buf = (short *)malloc(pcm_len * sizeof(short));
+		*pcm_buf = (short *)malloc(pcm_len / sizeof(short));
 
     if (*pcm_buf == NULL) return -1;
 
-    frame_size = fread(*pcm_buf, 1, pcm_len, _in_f);
+    frame_size = fread(*pcm_buf, 1, pcm_len / sizeof(short), _in_f);
 
     if (frame_size > 0 && frame_size <= pcm_len) {
 		riff_bytes_read += frame_size;
@@ -109,6 +109,13 @@ int DSE_RIFF_DecodeFrameU8(unsigned char** pcm_buf, size_t pcm_len) {
     }
 
     return -1;
+}
+
+int DSE_RIFF_IsEndOfFile() {
+	if(feof(_in_f))
+		return 1;
+	else
+		return 0;
 }
 
 int DSE_RIFF_GetOutputInfo(DSE_AUDIO_OUTPUT_INFO* info) {
