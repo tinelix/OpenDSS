@@ -1,5 +1,10 @@
+libs/fraemdir/vc08/out/
+libs/framedir/vc5.0/out
+libs/dse/vc08/out/
 libs/dse/out/
 libs/framedir/out/
+tui/vc5.0/out
+tui/vc08/out
 tui/vc5.0/out
 tui/vc2.0/out
 out/
