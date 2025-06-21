@@ -325,7 +325,7 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
         // After child items
 
         for (int y3 = firstSubItemY; y3 <= (getItemsCount() % hHeight - 1); y3++) {
-            ListItem* item = gListItems[y];
+            ListItem* item = gListItems[y3];
             if (item != NULL) {
                 #ifdef _MSVC2005G
                     strcpy_s(shortestTitle, 288, item->title);
