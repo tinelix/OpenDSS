@@ -47,7 +47,7 @@
 #include "../controls/listbox.h"
 #include "../wrappers/dsewrap.h"
 
-#include <interfaces/auddeci.h>
+#include <interfaces/dsewrapi.h>
 #include <utils/extstr.h>
 
 class AudioPlayerWnd : ExtWindowCtrl {

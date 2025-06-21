@@ -26,9 +26,9 @@ bool dsePrepared;
 
 #define MAX_FILE_LENGTH 80
 
-class IOpenDSSAudioDecoder : IAudioDecoder {
+class IOpenDSSAudioDecoder : ISoundEngineWrapper {
     public:
-        //void onStreamClock(AudioSpectrum *spectrum, StreamTimestamp *streamTs);
+        void onStreamClock(DSE_AUDIO_SPECTRUM *spectrum, DSE_STREAM_TIMESTAMP *streamTs);
         void onPlaybackStateChanged(int state);
         void setWindow(ExtWindowCtrl* pExtWnd);
 };
@@ -477,10 +477,14 @@ AudioPlayerWnd::~AudioPlayerWnd() {
 //    }
 //}
 
-void IOpenDSSAudioDecoder::onPlaybackStateChanged(int state) {
+void ISoundEngineWrapper::onStreamClock(DSE_AUDIO_SPECTRUM *spectrum, DSE_STREAM_TIMESTAMP *streamTs) {
 
 }
 
-void IOpenDSSAudioDecoder::setWindow(ExtWindowCtrl* pExtWnd) {
+void ISoundEngineWrapper::onPlaybackStateChanged(int state) {
+	
+}
+
+void ISoundEngineWrapper::setWindow(ExtWindowCtrl* pExtWnd) {
     hExtWnd = pExtWnd;
 }

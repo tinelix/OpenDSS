@@ -38,6 +38,10 @@ SoundEngineWrapper::~SoundEngineWrapper() {
 	#endif
 }
 
+void SoundEngineWrapper::setInterface(ISoundEngineWrapper* pInterface) {
+
+}
+
 int SoundEngineWrapper::init() {
 	#ifdef _WIN32
 		_dse = LoadLibrary("libs/opendse.dll");
@@ -81,6 +85,7 @@ void SoundEngineWrapper::play() {
 	dse_decode_frame();
 
 	while(dse_feof() == 0) {
+		rms = dse_get_frame_rms();
 		dse_play();
 	}
 

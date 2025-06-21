@@ -420,7 +420,7 @@
 				Name="Interfaces (H)"
 				>
 				<File
-					RelativePath="..\src\interfaces\auddeci.h"
+					RelativePath="..\src\interfaces\dsewrapi.h"
 					>
 				</File>
 				<File
@@ -645,7 +645,7 @@
 				Name="Interfaces (S)"
 				>
 				<File
-					RelativePath="..\src\interfaces\auddeci.cpp"
+					RelativePath="..\src\interfaces\dsewrapi.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"

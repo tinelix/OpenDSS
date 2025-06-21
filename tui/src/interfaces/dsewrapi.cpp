@@ -16,15 +16,19 @@
  *  information, (in the opening comment of each file).
  */
 
-#pragma once
+#include <interfaces/dsewrapi.h>
 
-#include <controls/extwnd.h>
+#ifdef _WIN32
+    #include <Windows.h>
+#endif
 
-class IAudioDecoder {
-    public:
-        IAudioDecoder();
-        ~IAudioDecoder();
-        void setWindow(ExtWindowCtrl* pExtWnd);
-    protected:
-        ExtWindowCtrl* hExtWnd;
-};
+ISoundEngineWrapper::ISoundEngineWrapper() {
+}
+
+ISoundEngineWrapper::~ISoundEngineWrapper() {
+
+}
+
+void ISoundEngineWrapper::setWindow(ExtWindowCtrl* pExtWnd) {
+    hExtWnd = pExtWnd;
+}

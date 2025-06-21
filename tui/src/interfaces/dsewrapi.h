@@ -16,25 +16,26 @@
  *  information, (in the opening comment of each file).
  */
 
-#include <interfaces/auddeci.h>
+#pragma once
 
-#ifdef _WIN32
-    #include <Windows.h>
-    HMODULE OpenDSE;
-#endif
+#include <controls/extwnd.h>
 
-IAudioDecoder::IAudioDecoder() {
-    #ifdef _WIN32
-        OpenDSE = LoadLibrary("dse/dse.dll");
-    #endif
-}
+typedef struct DSE_STREAM_TIMESTAMP {
+    int position, duration;
+};
 
-IAudioDecoder::~IAudioDecoder() {
-    #ifdef _WIN32
-        FreeLibrary(OpenDSE);
-    #endif
-}
+typedef struct DSE_AUDIO_SPECTRUM {
+    int left, right;
+    int channels;
+};
 
-void IAudioDecoder::setWindow(ExtWindowCtrl* pExtWnd) {
-    hExtWnd = pExtWnd;
-}
+class ISoundEngineWrapper {
+    public:
+        ISoundEngineWrapper();
+        ~ISoundEngineWrapper();
+        void setWindow(ExtWindowCtrl* pExtWnd);
+		void onPlaybackStateChanged(int state);
+		void onStreamClock(DSE_AUDIO_SPECTRUM *spectrum, DSE_STREAM_TIMESTAMP *streamTs);
+    protected:
+        ExtWindowCtrl* hExtWnd;
+};

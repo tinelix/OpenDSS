@@ -4,6 +4,8 @@
 	#include <windows.h>
 #endif
 
+#include <interfaces/dsewrapi.h>
+
 #include <stdio.h>
 
 // Pulse Code Modulation (PCM)
@@ -53,6 +55,7 @@ class SoundEngineWrapper {
 public:
 	SoundEngineWrapper();
 	~SoundEngineWrapper();
+	void setInterface(ISoundEngineWrapper* pInterface);
 	int init();
 	void prepare();
 	int  openInputFile(const char fname[512]);
