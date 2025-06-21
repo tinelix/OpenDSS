@@ -299,10 +299,10 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
         // Child items
 
         for (int y2 = firstSubItemY; y2 < endOfSubItems; y2++) {
-            ListItem* item = gListItems[pIndex2]->subItems[y2 - firstSubItemY];
+            ListItem* item = gListItems[pIndex2]->subItems[y - firstSubItemY];
             if (item != NULL) {
                 for (int x = hX; x <= hWidth; x++) {
-                    mvwaddch(gParent->hWnd, y2 + hY, x, ' ');
+                    mvwaddch(gParent->hWnd, y + hY, x, ' ');
                 }
                 #ifdef _MSVC2005G
                     strcpy_s(shortestTitle, 288, item->title);
@@ -313,7 +313,7 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
                     ExtString::strcut(shortestTitle, hWidth + 12, -1);
                 }
 
-                if (y2 < endOfSubItems - 1) {
+                if (y < endOfSubItems - 1) {
                     mvwprintw(gParent->hWnd, hY + y2, 4, "\u251C\u2500 %s", shortestTitle);
                 }
                 else {
@@ -325,7 +325,7 @@ void ListBoxCtrl::expand(int pIndex, bool status) {
         // After child items
 
         for (int y3 = firstSubItemY; y3 <= (getItemsCount() % hHeight - 1); y3++) {
-            ListItem* item = gListItems[y3];
+            ListItem* item = gListItems[y];
             if (item != NULL) {
                 #ifdef _MSVC2005G
                     strcpy_s(shortestTitle, 288, item->title);
