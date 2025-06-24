@@ -100,7 +100,6 @@ int dse_win32_prepare(DSE_AUDIO_OUTPUT_INFO out) {
     wf.nBlockAlign		= wf.nChannels * (wf.wBitsPerSample / 8);
     wf.nAvgBytesPerSec	= (wf.nSamplesPerSec * wf.nBlockAlign);
 
-
 	dse_user_data.buffer_size	= (wf.nSamplesPerSec * wf.nBlockAlign) / 6;
 	dse_user_data.header		= NULL;
 	dse_user_data.next_header	= NULL;
@@ -277,7 +276,7 @@ void dse_win32_play() {
 	buffer_idx++;
 	buffer_idx %= 6;
 
-	Sleep(20);
+	Sleep(80);
 
 	dse_win32_decode_frame();
 }
@@ -309,7 +308,6 @@ double dse_win32_calculate_rms_s16le(
 }
 
 int dse_win32_get_stream_info(DSE_STREAM_INFO* info) {
-
 	if(is_riff == 1) {
 		return DSE_RIFF_GetStreamInfo(info);
 	} else {
