@@ -59,13 +59,15 @@ void FileManagerWnd::readCurrentDir() {
 
     int result = hFileMan->readCurrentDir();
 
+	char* path = hFileMan->getCurrentPath();
+
     if(result < 0) {
         mvwprintw(hWnd, 2, 2, "Epic Fail");
-        mvwprintw(hWnd, 4, 2, "Path: [%s]", hFileMan->getCurrentPath());
+        mvwprintw(hWnd, 4, 2, "Path: [%s]", path);
         wrefresh(hWnd);
     } else {
         mvwprintw(hWnd, 2, 2, "Success!");
-        mvwprintw(hWnd, 4, 2, "Path: [%s]", hFileMan->getCurrentPath());
+        mvwprintw(hWnd, 4, 2, "Path: [%s]", path);
         wrefresh(hWnd);
     }
 }
