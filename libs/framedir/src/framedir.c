@@ -2,17 +2,17 @@
  *  ----------------------------------------------------------------------------
  *  Copyright © 2024, 2025 Dmitry Tretyakov (aka. Tinelix)
  *
- *  This library is free software: you can redistribute it and/or modify it 
- *  under the terms of the GNU Lesser General Public License 3 (or any later 
+ *  This library is free software: you can redistribute it and/or modify it
+ *  under the terms of the GNU Lesser General Public License 3 (or any later
  *  version) and/or Apache License 2.
  *
- *  See the following files in repository directory for the precise terms and 
+ *  See the following files in repository directory for the precise terms and
  *  conditions of either license:
  *
  *     LICENSE.APACHE
  *     LICENSE.LGPLv3
  *
- *  Please see each file in the implementation for copyright and licensing 
+ *  Please see each file in the implementation for copyright and licensing
  *  information, (in the opening comment of each file).
  */
 
@@ -23,121 +23,201 @@ void _framedir_get_fileext(framedir_file* file);
 int framedir_open(framedir_dir* dir, const char* path) {
 
     BOOL bFileFound = FALSE;
-	char searchPattern[FRAMEDIR_PATH_MAX + 3];
-	char* ext_pos, filename[MAX_PATH];
-	int errcode, test, szFilename;
+    char* searchPattern = (char*)malloc(
+        (FRAMEDIR_PATH_MAX + 3) * sizeof(char)
+    );
+    char* ext_pos;
+    char* filename = (char*)malloc(MAX_PATH * sizeof(char));
+    int errcode, test, szFilename;
 
-	memset(dir->path, '\0', sizeof(dir->path));
+    #ifdef _DOS
+    DIR* dp;
+    #endif
+
+    memset(dir->path, '\0', sizeof(dir->path));
     strncpy(dir->path, path, FRAMEDIR_PATH_MAX - 1);
 
     dir->_files = NULL;
     dir->n_files = 0;
 
-	if (dir->i_files <= 0)
-		dir->i_files = 8;
+    if (dir->i_files <= 0)
+        dir->i_files = 8;
 
-	sprintf(
-		searchPattern, 
-		"%s\\*.*", 
-		path
-	);
+    sprintf(
+           searchPattern,
+           "%s\\*.*",
+           path
+    );
 
-	dir->_h = FindFirstFileA(searchPattern, &dir->_f);
+    #ifdef _WIN32
 
-	errcode = GetLastError();
+    dir->_h = FindFirstFileA(searchPattern, &dir->_f);
 
-	if(dir->_h != INVALID_HANDLE_VALUE) {
+    errcode = GetLastError();
 
-		do {
+    if(dir->_h != INVALID_HANDLE_VALUE) {
 
-			if (dir->allocated == 0) {
-				dir->_files = (framedir_file*)malloc(
-					dir->i_files * sizeof(framedir_file)
-				);
-				dir->allocated = 1;
-			}
-				
-			if(!dir->_files) break;
+        do {
 
-			// Filling file structure
+            if (dir->allocated == 0) {
+                dir->_files = (framedir_file*)malloc(
+                    dir->i_files * sizeof(framedir_file)
+                );
+                dir->allocated = 1;
+            }
 
-			strcpy(
-				dir->_files[dir->n_files].name, 
-				dir->_f.cFileName
-			);
+            if(!dir->_files) break;
 
-			szFilename = strlen(dir->_f.cFileName);
+                        // Filling file structure
 
-			strcpy(
-				dir->_files[dir->n_files].path, 
-				path
-			);
-			strcat(
-				dir->_files[dir->n_files].path, "\\"
-			);
-				
-			/* 
-			 * To maintain backward compatibility with Windows NT,
-			 *
-			 * FILE_ATTRIBUTE_DEVICE, 
-			 * FILE_ATTRIBUTE_ENCRYPTED, 
-			 * FILE_ATTRIBUTE_INTEGRITY_STREAM, 
-			 * FILE_ATTRIBUTE_NO_SCRUB_DAT 
-			 *
-			 * constants are not supported.
-			 */
+                strcpy(
+                    dir->_files[dir->n_files].name,
+                    dir->_f.cFileName
+                );
 
-			dir->_files[dir->n_files].is_dir = 
-				(dir->_f.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ? 
-				1 : 0;
+                szFilename = strlen(dir->_f.cFileName);
 
-			_framedir_get_fileext(&(dir->_files[dir->n_files]));
+                strcpy(
+                    dir->_files[dir->n_files].path,
+                    path
+                );
+                strcat(
+                    dir->_files[dir->n_files].path, "\\"
+                );
 
-			++dir->n_files;
+               /*
+                * To maintain backward compatibility with Windows NT,
+                *
+                * FILE_ATTRIBUTE_DEVICE,
+                * FILE_ATTRIBUTE_ENCRYPTED,
+                * FILE_ATTRIBUTE_INTEGRITY_STREAM,
+                * FILE_ATTRIBUTE_NO_SCRUB_DAT
+                *
+                * constants are not supported.
+                */
 
-			if (dir->n_files == dir->i_files) {
+                dir->_files[dir->n_files].is_dir =
+                        (dir->_f.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ?
+                        1 : 0;
 
-				if (dir->i_files < 32) {
-					dir->i_files *= 4;
-				} if (dir->i_files < 128) {
-					dir->i_files *= 2;
-				} else if (dir->i_files < 512) {
-					dir->i_files *= 1.5;
-				} else if(dir->i_files < 4096) {
-					dir->i_files *= 1.25;
-				} else {
-					dir->i_files *= 1.05;
-				}
+                strcpy(
+                    dir->_files[dir->n_files].name,
+                    dir->_f.name
+                );
 
-				dir->_files = (framedir_file*)realloc(
-					dir->_files,
-					dir->i_files * sizeof(framedir_file)
-				);
-			}
+                szFilename = strlen(dir->_f.name);
 
-		} while(FindNextFileA(dir->_h, &dir->_f));
+                strcpy(
+                    dir->_files[dir->n_files].path,
+                    path
+                );
+                strcat(
+                    dir->_files[dir->n_files].path, "\\"
+                );
 
-		return 0;
+                _framedir_get_fileext(&(dir->_files[dir->n_files]));
 
-	} else {
+                ++dir->n_files;
 
-		return -1;
+                if (dir->n_files == dir->i_files) {
 
-	}
+                    if (dir->i_files < 32) {
+                        dir->i_files *= 4;
+                    } if (dir->i_files < 128) {
+                        dir->i_files *= 2;
+                    } else if (dir->i_files < 512) {
+                        dir->i_files *= 1.5;
+                    } else if(dir->i_files < 4096) {
+                        dir->i_files *= 1.25;
+                    } else {
+                        dir->i_files *= 1.05;
+                    }
+
+                    dir->_files = (framedir_file*)realloc(
+                        dir->_files,
+                        dir->i_files * sizeof(framedir_file)
+                    );
+                }
+        } while(FindNextFileA(dir->_h, &dir->_f));
+        return 0;
+    } else {
+        return -1;
+    }
+    #elif _DOS
+
+    dp = opendir(path);
+    if(dp != NULL) {
+        while((dir->_f = readdir(dp))) {
+
+            if (dir->allocated == 0) {
+                dir->_files = (framedir_file*)malloc(
+                    dir->i_files * sizeof(framedir_file)
+                );
+                dir->allocated = 1;
+            }
+
+            strcpy(
+                dir->_files[dir->n_files].name,
+                dir->_f->d_name
+            );
+
+            szFilename = strlen(dir->_f->d_name);
+
+            strcpy(
+                dir->_files[dir->n_files].path,
+                path
+            );
+            strcat(
+                dir->_files[dir->n_files].path, "\\"
+            );
+
+            _framedir_get_fileext(&(dir->_files[dir->n_files]));
+
+            ++dir->n_files;
+
+            if (dir->n_files == dir->i_files) {
+                if (dir->i_files < 32) {
+                    dir->i_files *= 4;
+                } if (dir->i_files < 128) {
+                    dir->i_files *= 2;
+                } else if (dir->i_files < 512) {
+                    dir->i_files *= 1.5;
+                } else if(dir->i_files < 4096) {
+                    dir->i_files *= 1.25;
+                } else {
+                    dir->i_files *= 1.05;
+                }
+
+                dir->_files = (framedir_file*)realloc(
+                    dir->_files,
+                    dir->i_files * sizeof(framedir_file)
+                );
+            }
+        }
+
+        closedir(dp);
+    } else {
+        return -1;
+    }
+
+    free(searchPattern);
+
+    return 0;
+    #endif
 }
 
 char* framedir_normalize_path(const char* path) {
 
     size_t len = strlen(path);
     char *n_path = (char*)malloc(FRAMEDIR_FN_MAX * sizeof(char));
-	const char delimiter[] = "\\";
-	char *token;
-	int depth;
-    
+    const char delimiter[] = "\\";
+    char *token;
+    int depth;
+
     if (!n_path) {
         return NULL;
     }
-    
+
     n_path[0] = '\0';
 
     token = strtok((char*)path, delimiter);
@@ -148,7 +228,7 @@ char* framedir_normalize_path(const char* path) {
         if (strcmp(token, "..") == 0) {
             if (depth > 0) {
                 char *lastSlash = strrchr(n_path, '\\');
-                
+
                 if (lastSlash != NULL) {
                     *lastSlash = '\0';
                     depth--;
@@ -158,10 +238,10 @@ char* framedir_normalize_path(const char* path) {
             if (strlen(n_path) > 0) {
                 strcat(n_path, "\\");
             }
-            strcat(n_path, token); 
-            depth++;  
+            strcat(n_path, token);
+            depth++;
         }
-        
+
         token = strtok(NULL, delimiter);
     }
 
@@ -169,53 +249,54 @@ char* framedir_normalize_path(const char* path) {
 }
 
 int framedir_readfile_n(
-	const framedir_dir* dir, 
-	framedir_file *file, 
-	int index
+    const framedir_dir* dir,
+    framedir_file *file,
+    int index
 ) {
-	if(dir == NULL || file == NULL) {
-		errno = EINVAL; // invalid argument;
-		return -1;
-	} else if(index >= dir->n_files) {
-		errno = ENOENT;
-		return -1;
-	}
+    if(dir == NULL || file == NULL) {
+        errno = EINVAL; // invalid argument;
+        return -1;
+    } else if(index >= dir->n_files) {
+        errno = ENOENT;
+        return -1;
+    }
 
-	memcpy(file, &dir->_files[index], sizeof(framedir_file));
-	_framedir_get_fileext(file);
+    memcpy(file, &dir->_files[index], sizeof(framedir_file));
+    _framedir_get_fileext(file);
+    return 0;
 }
 
 void _framedir_get_fileext(framedir_file* file) {
-	char* pos = strrchr(file->name, '.');
-	if(pos)
-		file->ext = strdup(pos + 1);
-	else
-		file->ext = "";
+    char* pos = strrchr(file->name, '.');
+    if(pos)
+        file->ext = strdup(pos + 1);
+    else
+        file->ext = "";
 }
 
 char* framedir_get_fileext(const char* fpath) {
-	char* file_ext;
-	char* pos = strrchr(fpath, '.');
-	if(pos)
-		file_ext = strdup(pos + 1);
-	else
-		file_ext = "";
+    char* file_ext;
+    char* pos = strrchr(fpath, '.');
+    if(pos)
+        file_ext = strdup(pos + 1);
+    else
+        file_ext = "";
 
-	return file_ext;
+    return file_ext;
 }
 
 void framedir_close(framedir_dir* dir) {
-	if (dir == NULL)
-		return;
+    if (dir == NULL)
+        return;
 
-	memset(dir->path, 0, sizeof(dir->path));
-	dir->n_files = 0;
-	free(dir->_files);
-	dir->_files = NULL;
-	#ifdef _WIN32
-		if (dir->_h != INVALID_HANDLE_VALUE) {
-			FindClose(dir->_h);
-		}
-		dir->_h = INVALID_HANDLE_VALUE;
-	#endif
+    memset(dir->path, 0, sizeof(dir->path));
+    dir->n_files = 0;
+    free(dir->_files);
+    dir->_files = NULL;
+    #ifdef _WIN32
+        if (dir->_h != INVALID_HANDLE_VALUE) {
+            FindClose(dir->_h);
+        }
+        dir->_h = INVALID_HANDLE_VALUE;
+    #endif
 }
