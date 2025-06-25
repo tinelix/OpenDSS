@@ -1,0 +1,64 @@
+!define BLANK ""
+C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16\extwnd.obj : C:\U&
+SERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\CONTROLS\extwnd.cpp .AUTODEPEND
+ @C:
+ cd C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16
+ *wpp ..\..\..\..\SRC\CONTROLS\extwnd.cpp -i="C:\PROGRAMS\WATCOM/h" -i="../.&
+./../../include" -i="../../../../../libs" -i="../../../../libs/pdcurses" -w4&
+ -e25 -d_WATCOM -d_DOS -zq -od -d2 -bt=dos -fo=.obj -ml -xs -xr
+
+C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16\OPENDSS.obj : C:\&
+USERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\OPENDSS.CPP .AUTODEPEND
+ @C:
+ cd C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16
+ *wpp ..\..\..\..\SRC\OPENDSS.CPP -i="C:\PROGRAMS\WATCOM/h" -i="../../../../&
+include" -i="../../../../../libs" -i="../../../../libs/pdcurses" -w4 -e25 -d&
+_WATCOM -d_DOS -zq -od -d2 -bt=dos -fo=.obj -ml -xs -xr
+
+C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16\fileman.obj : C:\&
+USERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\UTILS\fileman.cpp .AUTODEPEND
+ @C:
+ cd C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16
+ *wpp ..\..\..\..\SRC\UTILS\fileman.cpp -i="C:\PROGRAMS\WATCOM/h" -i="../../&
+../../include" -i="../../../../../libs" -i="../../../../libs/pdcurses" -w4 -&
+e25 -d_WATCOM -d_DOS -zq -od -d2 -bt=dos -fo=.obj -ml -xs -xr
+
+C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16\TUIMAN.obj : C:\U&
+SERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\UTILS\TUIMAN.CPP .AUTODEPEND
+ @C:
+ cd C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16
+ *wpp ..\..\..\..\SRC\UTILS\TUIMAN.CPP -i="C:\PROGRAMS\WATCOM/h" -i="../../.&
+./../include" -i="../../../../../libs" -i="../../../../libs/pdcurses" -w4 -e&
+25 -d_WATCOM -d_DOS -zq -od -d2 -bt=dos -fo=.obj -ml -xs -xr
+
+C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16\filemanw.obj : C:&
+\USERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\WINDOWS\filemanw.cpp .AUTODEPEND
+ @C:
+ cd C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16
+ *wpp ..\..\..\..\SRC\WINDOWS\filemanw.cpp -i="C:\PROGRAMS\WATCOM/h" -i="../&
+../../../include" -i="../../../../../libs" -i="../../../../libs/pdcurses" -w&
+4 -e25 -d_WATCOM -d_DOS -zq -od -d2 -bt=dos -fo=.obj -ml -xs -xr
+
+C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16\OpenDSS.exe : C:\&
+USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16\extwnd.obj C:\USERS\&
+TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16\OPENDSS.obj C:\USERS\TRETD&
+M\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16\fileman.obj C:\USERS\TRETDM\SOU&
+RCES\OPENDSS\TUI\out\debug\watcom\dos16\TUIMAN.obj C:\USERS\TRETDM\SOURCES\O&
+PENDSS\TUI\out\debug\watcom\dos16\filemanw.obj C:\USERS\TRETDM\SOURCES\OPEND&
+SS\TUI\INCLUDE\CONTROLS\EXTWND.H C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\INCLUDE&
+\OPENDSS.H C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\INCLUDE\UTILS\CPP_EXT.H C:\US&
+ERS\TRETDM\SOURCES\OPENDSS\TUI\INCLUDE\UTILS\fileman.h C:\USERS\TRETDM\SOURC&
+ES\OPENDSS\TUI\INCLUDE\UTILS\TUIMAN.H C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\IN&
+CLUDE\VERSION.H C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\INCLUDE\WINDOWS\filemanw&
+.h C:\USERS\TRETDM\SOURCES\OPENDSS\LIBS\FRAMEDIR\WATCOM\OUT\DOS16\framedir.l&
+ib C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\LIBS\PDCURSES\DOS\panel.lib C:\USERS\&
+TRETDM\SOURCES\OPENDSS\TUI\LIBS\PDCURSES\DOS\pdcurses.lib .AUTODEPEND
+ @C:
+ cd C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\out\debug\watcom\dos16
+ @%write OpenDSS.lk1 FIL extwnd.obj,OPENDSS.obj,fileman.obj,TUIMAN.obj,filem&
+anw.obj
+ @%append OpenDSS.lk1 LIBR ..\..\..\..\..\LIBS\FRAMEDIR\WATCOM\OUT\DOS16\fra&
+medir.lib,..\..\..\..\LIBS\PDCURSES\DOS\panel.lib,..\..\..\..\LIBS\PDCURSES\&
+DOS\pdcurses.lib
+ *wlink name OpenDSS d all sys dos op m op maxe=25 op q op symf @OpenDSS.lk1
+

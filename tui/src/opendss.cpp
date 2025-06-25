@@ -1,15 +1,21 @@
 #include <opendss.h>
-
 #include <utils/tuiman.h>
+#include <windows/filemanw.h>
 
-TUIManager* gTuiMan;
+TUIManager*     gTuiMan;
 
 int main() {
-	
-	gTuiMan = new TUIManager();
+    FileManagerWnd* gFileManWnd;
 
-	gTuiMan->showTopBanner();
-	gTuiMan->listenKbd();
+    gTuiMan = new TUIManager();
+    gTuiMan->showTopBanner();
 
-	return 0;
+    gFileManWnd = new FileManagerWnd();
+    gFileManWnd->createWnd();
+
+    gFileManWnd->readCurrentDir();
+
+    gFileManWnd->listenKbd();
+
+    return 0;
 }
