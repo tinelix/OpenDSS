@@ -27,7 +27,7 @@ void FileManager::freeFilesArray() {
 }
 
 int FileManager::readCurrentDir() {
-    char* cwd = (char*)malloc(FRAMEDIR_FN_MAX * sizeof(char));
+    char* cwd = (char*)malloc((FRAMEDIR_FN_MAX+1) * sizeof(char));
     #ifdef _MSVC
         if(_getcwd(cwd, sizeof(cwd)) != NULL) {
     #elif _WATCOM
@@ -48,15 +48,7 @@ int FileManager::readDir(char* pDirPath) {
     if(dir.i_files < 32)
         dir.i_files = 32;
 
-    #ifdef _MSVC
-        #if _MSC_VER = 1400
-            sprintf_s(hCurrentPath, FRAMEDIR_FN_MAX, "%s", pDirPath);
-        #else
-            sprintf(hCurrentPath, "%s", pDirPath);
-        #endif
-    #else
-        sprintf(hCurrentPath, "%s", pDirPath);
-    #endif
+    hCurrentPath = pDirPath;
 
     if(framedir_open(&dir, (const char*)pDirPath) == -1) {
 
