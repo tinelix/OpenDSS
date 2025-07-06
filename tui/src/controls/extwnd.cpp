@@ -36,3 +36,7 @@ void ExtWindowCtrl::createWnd(int x, int y) {
     keypad(hWnd, true);
     wrefresh(hWnd);
 }
+
+WINDOW* ExtWindowCtrl::getWnd() {
+    return hWnd;
+}

@@ -1,0 +1,2 @@
+FIL extwnd.obj,OPENDSS.obj,fileman.obj,TUIMAN.obj,filemanw.obj
+LIBR ..\..\..\..\..\LIBS\FRAMEDIR\WATCOM\OUT\DOS16\framedir.lib,..\..\..\..\LIBS\PDCURSES\DOS\panel.lib,..\..\..\..\LIBS\PDCURSES\DOS\pdcurses.lib

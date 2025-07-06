@@ -11,10 +11,10 @@ int main() {
     gTuiMan->showTopBanner();
 
     gFileManWnd = new FileManagerWnd();
+
     gFileManWnd->createWnd();
-
+    gFileManWnd->prepare();
     gFileManWnd->readCurrentDir();
-
     gFileManWnd->listenKbd();
 
     return 0;

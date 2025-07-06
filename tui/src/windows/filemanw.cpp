@@ -4,9 +4,7 @@
 
 int scrWidth, scrHeight;
 
-FileManagerWnd::FileManagerWnd(
-
-) {
+FileManagerWnd::FileManagerWnd() {
     hTitle = (char*)malloc(85 * sizeof(char));
 
     #ifdef _MSVC2005G
@@ -44,6 +42,18 @@ void FileManagerWnd::createWnd() {
     wrefresh(hWnd);
 }
 
+WINDOW* FileManagerWnd::getWnd() {
+    return hWnd;
+}
+
+void FileManagerWnd::prepare() {
+    if(hFileMan == NULL || hInterface == NULL) {
+        hInterface = new IFileSelector();
+        hInterface->setFileManager(this, hFileMan);
+        hFileMan = new FileManager(hInterface);
+    }
+}
+
 void FileManagerWnd::listenKbd() {
     hKbdListening = true;
     while(hKbdListening) {
@@ -53,21 +63,7 @@ void FileManagerWnd::listenKbd() {
 }
 
 void FileManagerWnd::readCurrentDir() {
-    if(hFileMan == NULL) {
-        hFileMan = new FileManager(/* */);
-    }
-
-    int result = hFileMan->readCurrentDir();
-
-    if(result < 0) {
-        mvwprintw(hWnd, 2, 2, "Epic Fail");
-        mvwprintw(hWnd, 4, 2, "Path: [%s]", hFileMan->getCurrentPath());
-        wrefresh(hWnd);
-    } else {
-        mvwprintw(hWnd, 2, 2, "Success!");
-        mvwprintw(hWnd, 4, 2, "Path: [%s]", hFileMan->getCurrentPath());
-        wrefresh(hWnd);
-    }
+    hFileMan->readCurrentDir();
 }
 
 void FileManagerWnd::onKeyPressed(char key) {
@@ -76,10 +72,59 @@ void FileManagerWnd::onKeyPressed(char key) {
         return;
     }
 
-    /*mvwprintw(
-        hWnd, 2, 2, "%s",
-        hFileMan->getRealPath(hFileMan->getCurrentPath())
-    );*/
-
     wrefresh(hWnd);
+}
+
+void FileManagerWnd::onFileSelectorSuccess() {
+    return;
+}
+
+void IFileSelector::setFileManager(
+    ExtWindowCtrl* pWindow,
+    FileManager* pFileMan
+) {
+    hWindow     = pWindow;
+    hFileMan    = pFileMan;
+}
+
+void IFileSelector::onError(char* path, int cmdId, int errorCode) {
+    if(cmdId == 0) {
+        char msgTitle[] = "Error";
+        char msgText[480];
+
+        #ifdef _MSVC2005G
+            sprintf_s(
+                msgText, 256,
+        #else
+            sprintf(
+                msgText,
+        #endif
+                "Cannot open this directory! Path: %s",
+                path
+            );
+    }
+}
+
+void IFileSelector::onResult(char* path, int cmdId, int resultCode) {
+    return;
+}
+
+void IFileSelector::onDirectoryRead(
+    char* path, framedir_file* files
+) {
+    WINDOW* hWnd;
+
+    if(
+        hWindow == NULL ||
+        strcmp(hWindow->id, "fileManWnd") == 0
+    )
+        return;
+
+    FileManagerWnd* hFileManWnd = (FileManagerWnd*)hWindow;
+
+    hWnd = hWindow->getWnd();
+    mvwprintw(hWnd, 2, 2, "%s", path);
+    wrefresh(hWnd);
+
+
 }

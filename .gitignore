@@ -5,12 +5,8 @@
 *.ncb
 *.opt
 *.plg
-*.lk1
 *.sym
-*.map
 *.err
-*.lb1
-*.mk1
 *.so
 *.o
 .vs

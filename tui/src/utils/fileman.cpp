@@ -4,8 +4,9 @@ framedir_dir dir;
 
 #define MAX_FILES_COUNT 4096
 
-FileManager::FileManager(/*  */) {
+FileManager::FileManager(IFileManager* pInterface) {
     hFilesCount = 0;
+    hInterface = pInterface;
 }
 
 FileManager::~FileManager() {
@@ -29,8 +30,11 @@ int FileManager::readCurrentDir() {
     char* cwd = (char*)malloc(FRAMEDIR_FN_MAX * sizeof(char));
     #ifdef _MSVC
         if(_getcwd(cwd, sizeof(cwd)) != NULL) {
+    #elif _WATCOM
+        strcpy(cwd, getcwd(NULL, 0));
+        if(cwd != NULL) {
     #else
-        if(getcwd(cwd, sizeof(cwd)) != NULL) {
+       if(getcwd(cwd, sizeof(cwd)) != NULL)
     #endif
             return readDir(cwd);
     }
@@ -55,10 +59,14 @@ int FileManager::readDir(char* pDirPath) {
     #endif
 
     if(framedir_open(&dir, (const char*)pDirPath) == -1) {
+
+        if(hInterface != NULL)
+            hInterface->onError(pDirPath, 0, -1);
+
         return -1;
     }
 
-    /*allocateFilesArray();
+    allocateFilesArray();
 
     for(int i = 1; i < dir.n_files; i++) {
         if(object_index >= MAX_FILES_COUNT) {
@@ -76,7 +84,11 @@ int FileManager::readDir(char* pDirPath) {
         object_index++;
     }
 
-    hFilesCount = object_index;*/
+    hFilesCount = object_index;
+
+    if(hInterface != NULL)
+        hInterface->onDirectoryRead(pDirPath, hFiles);
+
     framedir_close(&dir);
     return 0;
 }

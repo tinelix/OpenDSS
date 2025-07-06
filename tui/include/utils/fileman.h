@@ -2,7 +2,7 @@
 #define _OPENDSS_UTILS_FILEMAN_H
 
 #include <framedir/include/framedir.h>
-//#include <interfaces/filemani.h>
+#include <ifaces/filemani.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,7 +15,7 @@
 
 class FileManager {
     public:
-        FileManager(/* */);
+        FileManager(IFileManager* pInterface);
         ~FileManager();
         int             readCurrentDir();
         int             readDir(char* pDirPath);
@@ -27,6 +27,7 @@ class FileManager {
         void            freeFilesArray();
 
     private:
+        IFileManager*   hInterface;
         char*           hCurrentPath;
         int             hSelectionIndex;
         framedir_file*  hFiles;

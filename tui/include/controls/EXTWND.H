@@ -20,7 +20,8 @@ class ExtWindowCtrl {
 
         ExtWindowCtrl* gParent;
 
-        void createWnd(int x, int y);
+        void        createWnd(int x, int y);
+        WINDOW*     getWnd();
     protected:
         WINDOW* hWnd;
         WINDOW* hScreen;

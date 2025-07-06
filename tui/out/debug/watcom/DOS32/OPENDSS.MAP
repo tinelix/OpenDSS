@@ -1,0 +1,36 @@
+Open Watcom Linker Version 2.0 beta Jun 22 2025 02:49:08 (32-bit)
+Copyright (c) 2002-2025 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Created on:       25/06/24 14:17:43
+Error! E2064: cannot combine 32-bit segments (STACK) with 16-bit segments (CONST)
+Executable Image: OpenDSS.exe
+creating a PMODE/W executable
+
+
+                        +--------------------+
+                        |   Libraries Used   |
+                        +--------------------+
+
+..\..\..\..\LIBS\PDCURSES\DOS\panel.lib
+C:\PROGRAMS\WATCOM\lib386\dos\plbx3r.lib
+C:\PROGRAMS\WATCOM\lib386\dos\clib3r.lib
+
+
+                        +----------------------+
+                        |   Imported Symbols   |
+                        +----------------------+
+
+Symbol                              Module
+======                              ======
+
+
+
+                        +-----------------------+
+                        |   Linker Statistics   |
+                        +-----------------------+
+
+Stack size:  1000 (4096.)
+Memory size:  0000 (0.)
+Entry point address: 0000:00000000
+Stub file: pmodew.exe
+Link time: 00:00.00

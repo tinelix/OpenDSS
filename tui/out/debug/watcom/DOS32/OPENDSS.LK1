@@ -1,0 +1,2 @@
+FIL OPENDSS.obj,TUIMAN.obj
+LIBR ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib,..\..\..\..\LIBS\PDCURSES\DOS\pdcurses.lib

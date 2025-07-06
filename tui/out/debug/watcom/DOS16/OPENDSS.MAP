@@ -1,0 +1,979 @@
+Open Watcom Linker Version 2.0 beta Jun 22 2025 02:49:08 (32-bit)
+Copyright (c) 2002-2025 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Created on:       25/07/06 15:09:32
+Executable Image: OpenDSS.exe
+creating a DOS executable
+
+
+                        +------------+
+                        |   Groups   |
+                        +------------+
+
+Group                           Address              Size
+=====                           =======              ====
+
+DGROUP                          12b7:0000            00002370
+
+
+
+                        +--------------+
+                        |   Segments   |
+                        +--------------+
+
+Segment                Class          Group          Address         Size
+=======                =====          =====          =======         ====
+
+extwnd_TEXT            CODE           AUTO           0000:0000       00000268
+OPENDSS_TEXT           CODE           AUTO           0000:0268       00000234
+fileman_TEXT           CODE           AUTO           0000:049c       00000642
+TUIMAN_TEXT            CODE           AUTO           0000:0ade       000003d9
+filemanw_TEXT          CODE           AUTO           0000:0eb7       00000998
+_TEXT                  CODE           AUTO           0000:1850       00008a94
+initscr_TEXT           CODE           AUTO           0000:a2f0       000004da
+window_TEXT            CODE           AUTO           0000:a7d0       00000d08
+border_TEXT            CODE           AUTO           0000:b4e0       00000652
+bkgd_TEXT              CODE           AUTO           0000:bb40       00000220
+inopts_TEXT            CODE           AUTO           0000:bd60       00000155
+refresh_TEXT           CODE           AUTO           0000:bec0       00000405
+cppdata_TEXT           CODE           AUTO           0000:c2c5       00000000
+fsregist_TEXT          CODE           AUTO           0000:c2c5       0000039c
+opnew_TEXT             CODE           AUTO           0000:c661       00000078
+opdel_TEXT             CODE           AUTO           0000:c6d9       0000000e
+fsroot_TEXT            CODE           AUTO           0000:c6e7       0000000b
+framedir_TEXT          CODE           AUTO           0000:c6f2       00000809
+kernel_TEXT            CODE           AUTO           0000:cf00       00000221
+color_TEXT             CODE           AUTO           0000:d130       00000462
+getyx_TEXT             CODE           AUTO           0000:d5a0       000000bd
+move_TEXT              CODE           AUTO           0000:d660       00000065
+attr_TEXT              CODE           AUTO           0000:d6d0       00000481
+addch_TEXT             CODE           AUTO           0000:db60       00000447
+printw_TEXT            CODE           AUTO           0000:dfb0       0000011f
+getch_TEXT             CODE           AUTO           0000:e0d0       00000434
+dtorarst_TEXT          CODE           AUTO           0000:e504       00000029
+opdelarr_TEXT          CODE           AUTO           0000:e52d       00000005
+undefed_TEXT           CODE           AUTO           0000:e532       00000010
+iofefg_TEXT            CODE           AUTO           0000:e542       00000036
+pdcscrn_TEXT           CODE           AUTO           0000:e580       0000082c
+pdcgetsc_TEXT          CODE           AUTO           0000:edb0       00000121
+slk_TEXT               CODE           AUTO           0000:eee0       000008ae
+clear_TEXT             CODE           AUTO           0000:f790       000001b0
+touch_TEXT             CODE           AUTO           0000:f940       000001fa
+pdcutil_TEXT           CODE           AUTO           0000:fb40       000000ba
+pad_TEXT               CODE           AUTO           0fc0:0000       000004e0
+overlay_TEXT           CODE           AUTO           0fc0:04e0       000004c4
+pdckbd_TEXT            CODE           AUTO           0fc0:09b0       0000074d
+pdcdisp_TEXT           CODE           AUTO           0fc0:1100       000001b1
+stabdtor_TEXT          CODE           AUTO           0fc0:12b1       0000036b
+stabdisp_TEXT          CODE           AUTO           0fc0:161c       0000030a
+pdcsetsc_TEXT          CODE           AUTO           0fc0:1930       000000e6
+scroll_TEXT            CODE           AUTO           0fc0:1a20       00000286
+addstr_TEXT            CODE           AUTO           0fc0:1cb0       00000162
+stabadt_TEXT           CODE           AUTO           0fc0:1e12       00000114
+fatalerr_TEXT          CODE           AUTO           0fc0:1f26       0000001d
+iofnoefg_TEXT          CODE           AUTO           0fc0:1f43       00000010
+stabtrav_TEXT          CODE           AUTO           0fc0:1f53       000001e9
+callterm_TEXT          CODE           AUTO           0fc0:213c       00000058
+allocexc_TEXT          CODE           AUTO           0fc0:2194       00000518
+tsequiv_TEXT           CODE           AUTO           0fc0:26ac       00000194
+bittest_TEXT           CODE           AUTO           0fc0:2840       00000044
+termnate_TEXT          CODE           AUTO           0fc0:2884       00000049
+exc_pr_TEXT            CODE           AUTO           0fc0:28cd       000002e3
+areaexc_TEXT           CODE           AUTO           0fc0:2bb0       00000000
+tssize_TEXT            CODE           AUTO           0fc0:2bb0       0000004d
+OPENDSS_DATA1          FAR_CONST      AUTO           127f:000e       0000002e
+fileman_DATA1          FAR_CONST      AUTO           127f:003c       00000000
+fileman_DATA2          FAR_CONST      AUTO           1282:000c       00000003
+TUIMAN_DATA1           FAR_CONST      AUTO           1282:000f       00000051
+filemanw_DATA1         FAR_CONST      AUTO           1288:0000       000000c4
+filemanw_DATA2         FAR_CONST      AUTO           1294:0004       00000054
+cppdata_DATA1          FAR_CONST      AUTO           129a:0000       00000000
+fsregist_DATA1         FAR_CONST      AUTO           129a:0000       00000000
+opnew_DATA1            FAR_CONST      AUTO           129a:0000       00000000
+opdel_DATA1            FAR_CONST      AUTO           129a:0000       00000000
+fsroot_DATA1           FAR_CONST      AUTO           129a:0000       00000000
+dtorarst_DATA1         FAR_CONST      AUTO           129a:0000       00000000
+opdelarr_DATA1         FAR_CONST      AUTO           129a:0000       00000000
+undefed_DATA1          FAR_CONST      AUTO           129a:0000       00000000
+undefed_DATA1          FAR_CONST      AUTO           129a:0000       0000002c
+iofefg_DATA1           FAR_CONST      AUTO           129c:000c       00000000
+stabdtor_DATA1         FAR_CONST      AUTO           129d:0000       00000000
+stabdisp_DATA1         FAR_CONST      AUTO           129d:0000       00000000
+stabadt_DATA1          FAR_CONST      AUTO           129d:0000       00000036
+fatalerr_DATA1         FAR_CONST      AUTO           129d:0040       00000000
+iofnoefg_DATA1         FAR_CONST      AUTO           12a1:0000       00000000
+iofnoefg_DATA1         FAR_CONST      AUTO           12a1:0000       00000026
+stabtrav_DATA1         FAR_CONST      AUTO           12a4:0000       00000000
+callterm_DATA1         FAR_CONST      AUTO           12a4:0000       00000000
+callterm_DATA1         FAR_CONST      AUTO           12a4:0000       0000001f
+allocexc_DATA1         FAR_CONST      AUTO           12a6:0000       00000056
+allocexc_DATA1         FAR_CONST      AUTO           12ab:0006       0000002b
+tsequiv_DATA1          FAR_CONST      AUTO           12af:0000       00000000
+bittest_DATA1          FAR_CONST      AUTO           12af:0000       00000000
+termnate_DATA1         FAR_CONST      AUTO           12af:0000       00000000
+termnate_DATA1         FAR_CONST      AUTO           12af:0000       00000022
+exc_pr_DATA1           FAR_CONST      AUTO           12b2:0000       00000000
+areaexc_DATA1          FAR_CONST      AUTO           12b2:0000       00000000
+tssize_DATA1           FAR_CONST      AUTO           12b2:0000       00000000
+filemanw_DATA3         FAR_DATA       AUTO           12b2:0000       00000029
+FAR_DATA               FAR_DATA       AUTO           12b2:0029       00000000
+stabadt_DATA1          FAR_DATA       AUTO           12b2:0029       00000011
+allocexc_DATA2         FAR_DATA       AUTO           12b2:003a       00000014
+_NULL                  BEGDATA        DGROUP         12b7:0000       00000020
+_AFTERNULL             BEGDATA        DGROUP         12b9:0000       00000002
+CONST                  DATA           DGROUP         12b9:0002       000001b6
+CONST2                 DATA           DGROUP         12d4:0008       00000140
+_DATA                  DATA           DGROUP         12e9:0000       00000b5a
+XIB                    DATA           DGROUP         139e:000a       00000000
+XI                     DATA           DGROUP         139e:000a       0000003c
+XIE                    DATA           DGROUP         13a2:0006       00000000
+YIB                    DATA           DGROUP         13a2:0006       00000000
+YI                     DATA           DGROUP         13a2:0006       00000012
+YIE                    DATA           DGROUP         13a3:0008       00000000
+DATA                   DATA           DGROUP         13a3:0008       00000000
+_emu_init_start        EMU            DGROUP         13a3:0008       00000000
+_emu_init_end          EMU            DGROUP         13a3:0008       00000000
+_BSS                   BSS            DGROUP         13a3:0008       00000ca6
+STACK                  STACK          DGROUP         146e:0000       00000800
+
+
+                        +----------------+
+                        |   Memory Map   |
+                        +----------------+
+
+* = unreferenced symbol
++ = symbol only referenced locally
+
+Address        Symbol
+=======        ======
+
+Module: extwnd.obj(C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\CONTROLS\extwnd.cpp)
+0000:0000      __far ExtWindowCtrl::ExtWindowCtrl()
+0000:0060+     __far ExtWindowCtrl::ExtWindowCtrl( char const __far * )
+0000:00d7+     __far ExtWindowCtrl::ExtWindowCtrl( char const __far *, ExtWindowCtrl __far * )
+0000:0162+     void __far ExtWindowCtrl::createWnd( int, int )
+0000:022a      _win __far * __far ExtWindowCtrl::getWnd()
+Module: OPENDSS.obj(C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\OPENDSS.CPP)
+0000:0268      main_
+12b7:0ec8+     TUIManager __far * __far gTuiMan
+Module: fileman.obj(C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\UTILS\fileman.cpp)
+0000:049c      __far FileManager::FileManager( IFileManager __far * )
+0000:04f7+     __far FileManager::~FileManager()
+0000:0543+     void __far FileManager::allocateFilesArray()
+0000:05d6+     void __far FileManager::freeFilesArray()
+0000:060f      int __far FileManager::readCurrentDir()
+0000:06a2+     int __far FileManager::readDir( char __far * )
+0000:08a0+     __5OOC2Dframedir_file __far FileManager::getFile( int )
+0000:090a+     long __far FileManager::getFilesCount()
+0000:0948+     char __far * __far FileManager::getRealPath( char __far * )
+0000:0aa0+     char __far * __far FileManager::getCurrentPath()
+12b7:0ecc+     __1CMK5Nframedir_dir __far dir
+Module: TUIMAN.obj(C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\UTILS\TUIMAN.CPP)
+0000:0ade      __far TUIManager::TUIManager()
+0000:0c19+     __far TUIManager::~TUIManager()
+0000:0c52      void __far TUIManager::showTopBanner()
+0000:0de4+     void __far TUIManager::listenKbd()
+0000:0e44+     void __far TUIManager::onKeyPressed( char )
+0000:0e79+     _win __far * __far TUIManager::getScreen()
+12b7:0f2e+     bool __far hKbdListening
+Module: filemanw.obj(C:\USERS\TRETDM\SOURCES\OPENDSS\TUI\SRC\WINDOWS\filemanw.cpp)
+0000:1677+     __far IFileManager::~IFileManager()
+0000:0eb7      __far FileManagerWnd::FileManagerWnd()
+0000:0fb2      void __far FileManagerWnd::createWnd()
+0000:10d0+     _win __far * __far FileManagerWnd::getWnd()
+0000:110e      void __far FileManagerWnd::prepare()
+0000:13ac      void __far FileManagerWnd::listenKbd()
+0000:1412      void __far FileManagerWnd::readCurrentDir()
+0000:144d+     void __far FileManagerWnd::onKeyPressed( char )
+0000:149d+     void __far FileManagerWnd::onFileSelectorSuccess()
+0000:14c3+     void __far IFileSelector::setFileManager( ExtWindowCtrl __far *, FileManager __far * )
+0000:1511+     void __far IFileSelector::onError( char __far *, int, int )
+0000:16b0+     __far IFileSelector::IFileSelector()
+0000:16f7+     __far IFileSelector::~IFileSelector()
+0000:1578+     void __far IFileSelector::onResult( char __far *, int, int )
+0000:15a2+     void __far IFileSelector::onDirectoryRead( char __far *, __5OOC2Dframedir_file __far * )
+12b7:0f30+     int __far scrWidth
+12b7:0f32+     int __far scrHeight
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(stk)
+0000:1855      __STK
+0000:1875*     __STKOVERFLOW_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fmalloc)
+0000:1892      _fmalloc_
+0000:1892      malloc_
+12b7:0328+     ___fheapbeg
+12b7:032a      ___fheapRover
+12b7:032c      ___LargestSizeB4Rover
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(strcpy)
+0000:19a2      strcpy_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(initscr)
+0000:a2f0+     Xinitscr_
+0000:a590      initscr_
+0000:a5a0*     endwin_
+0000:a5b8      isendwin_
+0000:a5cc*     newterm_
+0000:a5f6*     set_term_
+0000:a618*     delscreen_
+0000:a68a      resize_term_
+0000:a7b4*     is_termresized_
+0000:a7c0*     curses_version_
+12b7:0330+     __curses_notice
+12b7:0334      _SP
+12b7:0338      _curscr
+12b7:033c      _stdscr
+12b7:0340      _LINES
+12b7:0342      _COLS
+12b7:0344      _TABSIZE
+12b7:0f34+     _ttytype
+12b7:0fb4      _pdc_mouse_status
+12b7:0fc0+     _Mouse_status
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(window)
+0000:a7d0      PDC_makenew_
+0000:a932      PDC_makelines_
+0000:aa0e      PDC_sync_
+0000:aa3a      newwin_
+0000:aaaa      delwin_
+0000:ab4e*     mvwin_
+0000:ab92+     subwin_
+0000:ad26*     derwin_
+0000:ad48*     mvderwin_
+0000:ae1c*     dupwin_
+0000:b064      resize_window_
+0000:b3de*     wresize_
+0000:b3f2      wsyncup_
+0000:b420*     syncok_
+0000:b43a*     wcursyncup_
+0000:b490*     wsyncdown_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(border)
+0000:b510+     wborder_
+0000:b7b0*     border_
+0000:b7f8      box_
+0000:b81e      whline_
+0000:b92c*     hline_
+0000:b94a*     mvhline_
+0000:b970*     mvwhline_
+0000:b9a0+     wvline_
+0000:babe*     vline_
+0000:badc*     mvvline_
+0000:bb02*     mvwvline_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(bkgd)
+0000:bb40      wbkgd_
+0000:bce6      bkgd_
+0000:bd06+     wbkgdset_
+0000:bd24      bkgdset_
+0000:bd44*     getbkgd_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(inopts)
+0000:bd60*     cbreak_
+0000:bd6e*     nocbreak_
+0000:bd82*     echo_
+0000:bd90      noecho_
+0000:bd9e*     halfdelay_
+0000:bdba*     typeahead_
+0000:bdba*     notimeout_
+0000:bdba*     intrflush_
+0000:bdbe      keypad_
+0000:bdd8*     meta_
+0000:bde6*     nl_
+0000:bdf4*     nonl_
+0000:be02*     nodelay_
+0000:be1c      raw_
+0000:be32*     noraw_
+0000:be46*     qiflush_
+0000:be46*     noqiflush_
+0000:be48+     wtimeout_
+0000:be78*     timeout_
+0000:be94*     crmode_
+0000:bea2*     nocrmode_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(refresh)
+0000:bec0      wnoutrefresh_
+0000:c084      doupdate_
+0000:c1be      wrefresh_
+0000:c22c      refresh_
+0000:c23c+     wredrawln_
+0000:c2a2*     redrawwin_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(cmodel)
+0000:19ee      _big_code_
+0000:19ee*     CodeModelMismatch
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(cppdata)
+12b7:0fcc      __wint_thread_data
+12b7:0ff0      __compiled_under_generic
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(fsregist)
+0000:c2c5*     __wcpp_4_dispatch_dummy__
+0000:c2fe*     __wcpp_4_fs_lookup__
+0000:c425      __wcpp_4_fs_handler_rtn__
+0000:c593*     __wcpp_4_unwind_global__
+0000:c60c*     __wcpp_4_raise_exception__
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(opnew)
+0000:c661      void __far * __far operator new( int unsigned )
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(opdel)
+0000:c6d9      void __far operator delete( void __far * )
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(cstart)
+12b7:0000*     __nullarea
+12b7:0346*     __ovlflag
+12b7:0347*     __intno
+12b7:0348*     __ovlvec
+0000:19ee      _cstart_
+0000:1b9f      __exit_
+0000:1bbc      __do_exit_with_msg_
+0000:1c9b      __GETDS
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(fsroot)
+12b7:0e86      ___wcpp_4_data_init_fs_root_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(ffree)
+0000:1ca5      _ffree_
+0000:1ca5      free_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(frealloc)
+0000:1ced*     _frealloc_
+0000:1ced      realloc_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(gtcwd)
+0000:1db1      getcwd_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(sprintf)
+0000:1e52      sprintf_
+Module: ..\..\..\..\..\LIBS\FRAMEDIR\WATCOM\OUT\DOS16\framedir.lib(C:\USERS\TRETDM\SOURCES\OPENDSS\LIBS\FRAMEDIR\SRC\framedir.c)
+0000:c6f2      framedir_open_
+0000:cad4+     framedir_normalize_path_
+0000:cc94      framedir_readfile_n_
+0000:cd69+     _framedir_get_fileext_
+0000:cdf4+     framedir_get_fileext_
+0000:ce80      framedir_close_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(strlen)
+0000:1e73      strlen_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(kernel)
+0000:d040*     saveterm_
+0000:d040      def_prog_mode_
+0000:d04a      def_shell_mode_
+0000:d052*     fixterm_
+0000:d052      reset_prog_mode_
+0000:d060*     resetterm_
+0000:d060      reset_shell_mode_
+0000:d06e*     resetty_
+0000:d076*     savetty_
+0000:d080      curs_set_
+0000:d0ba      napms_
+0000:d0ca*     ripoffline_
+0000:d112*     draino_
+12b7:034e      _linesrippedoff
+12b7:10a6      _linesripped
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(color)
+12b7:0350      _COLORS
+12b7:0352+     _COLOR_PAIRS
+12b7:0354      _pdc_color_started
+12b7:0358      _pdc_atrtab
+0000:d130      start_color_
+0000:d270      init_pair_
+0000:d312      has_colors_
+0000:d326*     init_color_
+0000:d36a*     color_content_
+0000:d41a*     can_change_color_
+0000:d420+     pair_content_
+0000:d482+     assume_default_colors_
+0000:d508*     use_default_colors_
+0000:d51e*     PDC_set_line_color_
+0000:d53c      PDC_init_atrtab_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(getyx)
+0000:d5a0*     getbegy_
+0000:d5b8*     getbegx_
+0000:d5d0*     getcury_
+0000:d5e6*     getcurx_
+0000:d5fe*     getpary_
+0000:d616*     getparx_
+0000:d62e      getmaxy_
+0000:d646      getmaxx_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(move)
+0000:d660      move_
+0000:d698      wmove_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(attr)
+0000:d6d0      wattroff_
+0000:d6ee      attroff_
+0000:d70e      wattron_
+0000:d76e      attron_
+0000:d78e      wattrset_
+0000:d7aa*     attrset_
+0000:d7ca*     standend_
+0000:d7e2*     standout_
+0000:d7fc*     wstandend_
+0000:d80a*     wstandout_
+0000:d818*     getattrs_
+0000:d834      wcolor_set_
+0000:d868*     color_set_
+0000:d880+     wattr_get_
+0000:d8d2*     attr_get_
+0000:d8fc*     wattr_off_
+0000:d908*     attr_off_
+0000:d924*     wattr_on_
+0000:d930*     attr_on_
+0000:d94c+     wattr_set_
+0000:d97c*     attr_set_
+0000:d9a6+     wchgat_
+0000:dac4*     chgat_
+0000:dae6*     mvchgat_
+0000:db18*     mvwchgat_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(addch)
+0000:db60      waddch_
+0000:de8e*     addch_
+0000:deae      mvaddch_
+0000:dec6*     mvwaddch_
+0000:def4*     echochar_
+0000:df14+     wechochar_
+0000:df32*     addrawch_
+0000:df52*     mvaddrawch_
+0000:df66+     waddrawch_
+0000:df7a*     mvwaddrawch_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(printw)
+0000:dfb0+     vwprintw_
+0000:dffe      printw_
+0000:e022*     wprintw_
+0000:e042*     mvprintw_
+0000:e07a      mvwprintw_
+0000:e0be*     vw_printw_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(getch)
+0000:e3b8*     mvgetch_
+0000:e3d0      wgetch_
+0000:e47c*     mvwgetch_
+0000:e49a*     PDC_ungetch_
+0000:e4c4*     flushinp_
+0000:e4dc*     PDC_get_key_modifiers_
+0000:e4e6*     PDC_save_key_modifiers_
+0000:e4f4*     PDC_return_key_modifiers_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\emu87.lib(initemu)
+0000:8000      FJSRQQ
+0000:0632      FISRQQ
+0000:1632*     FIERQQ
+0000:5c32      FIDRQQ
+0000:a23d      FIWRQQ
+0000:c000      FJCRQQ
+0000:4000*     FJARQQ
+0000:0e32      FICRQQ
+0000:fe32*     FIARQQ
+0000:1ec0      __init_87_emulator
+0000:1f53*     __fini_87_emulator
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(fchop87)
+0000:1fca      __CHP
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(strcmp)
+0000:1ff1      strcmp_
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(dtorarst)
+0000:e504      __wcpp_4_dtor_array_store__
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(opdelarr)
+0000:e52d      void __far operator delete []( void __far * )
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(undefed)
+0000:e532      __wcpp_4_undefed_cdtor__
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fltused)
+12b7:038e      _fltused_
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(iofefg)
+12b7:0e98      __ppfltused_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(_8087)
+12b7:0390      __8087
+12b7:0391      __real87
+12b7:0392      __dos87emucall
+12b7:0394      __dos87real
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(xmsg)
+0000:201a      __exit_with_msg_
+0000:201f      __fatal_runtime_error_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(crwdata)
+12b7:0396      __curbrk
+12b7:039e      __STACKLOW
+12b7:03a0      __STACKTOP
+12b7:03a2      __cbyte
+12b7:03a4      __child
+12b7:03a6      __no87
+12b7:03b3      ___FPE_handler
+12b7:0398      __psp
+12b7:03a7      __get_ovl_stack
+12b7:03ab      __restore_ovl_stack
+12b7:03af      __close_ovl_file
+12b7:03b7      __LpCmdLine
+12b7:03bb      __LpPgmName
+12b7:039a      __osmajor
+12b7:039b      __osminor
+12b7:039c      __osmode
+12b7:039d      __HShift
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(mem)
+0000:2040      __MemAllocator
+0000:2106      __MemFree
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(growseg)
+0000:227d      __GrowSeg_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(allocseg)
+0000:234c      __AllocSeg_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fmemneed)
+0000:23eb      __fmemneed_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(nmalloc)
+0000:23ee      _nmalloc_
+12b7:03c0      ___nheapbeg
+12b7:03c2      ___MiniHeapRover
+12b7:03c4      ___LargestSizeB4MiniHeapRover
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(heapgrow)
+0000:24c5*     _heapgrow_
+0000:24c5*     _fheapgrow_
+0000:24c6      _nheapgrow_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(pdcscrn)
+0000:e982      PDC_scr_close_
+0000:ea16      PDC_scr_free_
+0000:ea4a      PDC_scr_open_
+0000:eb98      PDC_resize_screen_
+0000:ebcc      PDC_reset_shell_mode_
+0000:ebcc      PDC_reset_prog_mode_
+0000:ebf4      PDC_restore_screen_mode_
+0000:ec2c      PDC_save_screen_mode_
+0000:ec78      PDC_can_change_color_
+0000:ec86      PDC_color_content_
+0000:ed32      PDC_init_color_
+12b7:17d0+     _pdc_font
+12b7:17d2      _pdc_scrnmode
+12b7:17d4      _pdc_video_seg
+12b7:17d6      _pdc_adapter
+12b7:17d8      _pdc_video_ofs
+12b7:17da      _pdc_direct_video
+12b7:17db+     _pdc_bogus_adapter
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(iob)
+12b7:03dc      ___iob
+12b7:17dc      ___OpenStreams
+12b7:17e0      ___ClosedStreams
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fprintf)
+0000:253d      fprintf_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(exit)
+0000:255e+     __null_int23_exit_
+0000:255f      exit_
+0000:258e*     _exit_
+12b7:0544+     ___int23_exit
+12b7:0548      ___FPE_handler_exit
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(pdcgetsc)
+0000:edb0      PDC_get_columns_
+0000:ee24      PDC_get_cursor_mode_
+0000:ee30      PDC_get_rows_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(slk)
+0000:eee0*     slk_init_
+0000:f0b2*     slk_set_
+0000:f1ec*     slk_refresh_
+0000:f20e      slk_noutrefresh_
+0000:f224*     slk_label_
+0000:f286*     slk_clear_
+0000:f2b2*     slk_restore_
+0000:f2d0*     slk_touch_
+0000:f2e6*     slk_attron_
+0000:f2e6*     slk_attr_on_
+0000:f30e*     slk_attroff_
+0000:f30e*     slk_attr_off_
+0000:f336+     slk_attrset_
+0000:f35e*     slk_color_
+0000:f38c*     slk_attr_set_
+0000:f52c      PDC_slk_initialize_
+0000:f696      PDC_slk_free_
+0000:f706      PDC_mouse_in_slk_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(clear)
+0000:f790      wclrtoeol_
+0000:f864*     clrtoeol_
+0000:f874      wclrtobot_
+0000:f8cc*     clrtobot_
+0000:f8dc      werase_
+0000:f904*     erase_
+0000:f914+     wclear_
+0000:f930*     clear_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(touch)
+0000:f940      touchwin_
+0000:f9a0*     touchline_
+0000:fa06      untouchwin_
+0000:fa50*     wtouchln_
+0000:fad2*     is_linetouched_
+0000:fb06      is_wintouched_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(pdcutil)
+0000:fb40*     PDC_beep_
+0000:fb66      PDC_napms_
+0000:fbf4      PDC_sysname_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(calloc)
+0000:25a6      calloc_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(pad)
+0fc0:0000*     newpad_
+0fc0:0090      subpad_
+0fc0:0222+     prefresh_
+0fc0:024a+     pnoutrefresh_
+0fc0:04a4*     pechochar_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(overlay)
+0fc0:0692*     overlay_
+0fc0:07c0*     overwrite_
+0fc0:08ec      copywin_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(pdckbd)
+12b7:06b0      _pdc_key_modifiers
+0fc0:09b0*     PDC_get_input_fd_
+0fc0:09b6      PDC_set_keyboard_binary_
+0fc0:09b8      PDC_check_key_
+0fc0:0d8e      PDC_get_key_
+0fc0:1006      PDC_flushinp_
+0fc0:101a*     PDC_mouse_set_
+0fc0:10f4      PDC_modifiers_set_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(pdcdisp)
+0fc0:1100      PDC_gotoyx_
+0fc0:112a      PDC_transform_line_
+12b7:06c0+     _acs_map
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(stabdtor)
+0fc0:15ab      __wcpp_4_destruct_internal__
+0fc0:15c9*     __wcpp_4_destruct_all__
+0fc0:15f6*     __wcpp_4_destruct__
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(stabdisp)
+0fc0:1704      __wcpp_4_dispatchable__
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(cmain086)
+0000:25d7      __CMain
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(initrtns)
+0000:2629      __InitRtns
+0000:2629*     __FInitRtns
+0000:2680      __FiniRtns
+0000:2680*     __FFiniRtns
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(uselfn)
+12b7:08c0      ___uselfn
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(dosseg)
+0000:26e0      __DOSseg__
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(nfree)
+0000:26e1      _nfree_
+12b7:1848+     ___MiniHeapFreeRover
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fmsize)
+0000:27de*     _msize_
+0000:27de      _fmsize_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(nexpand)
+0000:27ef      _nexpand_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fmemcpy)
+0000:283f      _fmemcpy_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fexpand)
+0000:2864      _fexpand_
+0000:2864*     _expand_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(_getdcwd)
+0000:2899      __getdcwd_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(strncpy)
+0000:28ae      strncpy_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(errno)
+0000:28ea      __get_errno_ptr_
+12b7:184a+     _errno
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(vsprintf)
+0000:290a      vsprintf_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(memset)
+0000:2935      memset_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(dir)
+0000:2b7b      opendir_
+0000:2b7f      readdir_
+0000:2be6      closedir_
+0000:2c3c*     rewinddir_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(strcat)
+0000:2c63      strcat_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(strtok)
+0000:2c8e+     strtok_r_
+0000:2d5f      strtok_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(strrchr)
+0000:2d6e      strrchr_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(memcpy)
+0000:2d94      memcpy_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(strdup)
+0000:2db6      __clib_strdup_
+0000:2db6      strdup_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(pdcsetsc)
+0fc0:1930      PDC_curs_set_
+0fc0:197a*     PDC_set_title_
+0fc0:1990      PDC_set_blink_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(getenv)
+0000:2df3      getenv_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(scroll)
+0fc0:1a20      wscrl_
+0fc0:1c80*     scrl_
+0fc0:1c9c*     scroll_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(snprintf)
+0000:2ef9      vsnprintf_
+0000:2f78*     snprintf_
+Module: ..\..\..\..\LIBS\PDCURSES\DOS\panel.lib(addstr)
+0fc0:1cb0+     waddnstr_
+0fc0:1d1e*     addstr_
+0fc0:1d42*     addnstr_
+0fc0:1d60      waddstr_
+0fc0:1d6c*     mvaddstr_
+0fc0:1d8a*     mvaddnstr_
+0fc0:1db0*     mvwaddstr_
+0fc0:1de2*     mvwaddnstr_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(init8087)
+0000:2f9a      __init_8087_emu
+0000:2fa0      __x87id
+Module: C:\PROGRAMS\WATCOM\lib286\dos\emu87.lib(emu8087)
+0000:3113      __int34
+0000:3150      __int3c
+Module: C:\PROGRAMS\WATCOM\lib286\dos\emu87.lib(dosinit)
+0000:5a76      ___dos87emucall
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(stabadt)
+0fc0:1e12+     void __far * __far dtor_the_array( _RTARCTOR __far * )
+0fc0:1e74+     __far _RTARCTOR::~_RTARCTOR()
+0fc0:1e8f      __wcpp_4_dtor_array__
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(fatalerr)
+0fc0:1f26      __wcpp_4_fatal_runtime_error__
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(setefg)
+0000:5ab4      __setEFGfmt_
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(iofnoefg)
+12b7:0930      ___EFG_cnvs2d
+12b7:0934      ___EFG_cnvd2f
+12b7:0938      ___EFG_cvtld
+12b7:093c      ___EFG_cnvd2ld
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(cnvs2d)
+0000:5ad2      __cnvs2d_
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(cnvd2f)
+0000:5b11      __cnvd2f_
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(ldcvt)
+0000:5ce9      _LDScale10x_
+0000:6242      __cvtld_
+0000:6a69      __LDcvt_
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(cnvd2ld)
+0000:6a7a      __cnvd2ld_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(chk8087)
+0000:6aa9*     _fpreset_
+0000:6ad4      __init_8087_
+0000:6b53      __chk8087_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(enterdb)
+0000:6bc3      __EnterWVIDEO_
+12b7:09ea+     __WD_Present
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(heapen)
+0000:6be7*     _heapenable_
+12b7:09ec      ___heap_enabled
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(amblksiz)
+12b7:09ee      __amblksiz
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(nmemneed)
+0000:6bf8      __nmemneed_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(grownear)
+0000:6c7a      __LastFree_
+0000:6cf2      __ExpandDGROUP_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(intr)
+0000:6df7      intr_
+0000:6e07*     intrf_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(initfile)
+0000:6e15      __InitFiles_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(ioexit)
+0000:6f70*     fcloseall_
+0000:6f77      __full_io_exit_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fprtf)
+0000:6f9d      __fprtf_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(atoi)
+0000:7068      atoi_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(i4d)
+0000:70d8      __I4D
+0000:7127*     __U4D
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(i4m)
+0000:71ac      __I4M
+0000:71ac      __U4M
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(stabtrav)
+0fc0:1f53+     __wcpp_4_stab_entry__
+0fc0:1f6c*     __wcpp_4_stab_trav_comp__
+0fc0:2089      __wcpp_4_stab_trav_init__
+0fc0:20b7      __wcpp_4_stab_trav_next__
+0fc0:212d      __wcpp_4_stab_trav_move__
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(callterm)
+0fc0:213c      __wcpp_4_corrupted_stack__
+0fc0:2171*     __wcpp_4_call_terminate__
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(allocexc)
+0fc0:21a6*     __wcpp_4_alloc_exc__
+0fc0:2488      __wcpp_4_free_exc__
+0fc0:24f1      __wcpp_4_find_active__
+0fc0:2550      __wcpp_4_dtor_free_exc__
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(tsequiv)
+0fc0:26ac      __wcpp_4_ts_refed__
+0fc0:26ca+     __wcpp_4_ts_pnted__
+0fc0:26e4      __wcpp_4_ts_equiv__
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(___argc)
+12b7:184c      ____Argv
+12b7:1850      ____Argc
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(sgdef086)
+12b7:0e7a      __Start_XI
+12b7:0eb6      __End_XI
+12b7:0eb6      __Start_YI
+12b7:0ec8      __End_YI
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(_expand)
+0000:71c4      __HeapManager_expand_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(bexpand)
+0000:7344      _bexpand_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(doserror)
+0000:739e      __doserror_
+0000:73ac*     __doserror1_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(prtf)
+0000:7ef5      __prtf_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(mbsnextc)
+0000:812d      _mbsnextc_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(mbsinc)
+0000:8152      _mbsinc_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(finddos)
+0000:8176      _dos_findfirst_
+0000:81a9      _dos_findnext_
+0000:81bc      _dos_findclose_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(dosret)
+0000:81bf      __set_errno_dos_
+0000:824b*     __set_errno_dos_reterr_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(setbits)
+0000:8256      __setbits_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(bits)
+12b7:01de      __Bits
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(environ)
+12b7:1852      ___env_mask
+12b7:1856      _environ
+12b7:185a      __wenviron
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(mbterm)
+0000:82a4      _mbterm_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(mbcupper)
+0000:82d0      _mbctoupper_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(8087cw)
+12b7:0a04      __8087cw
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fpexcept)
+0000:82f3      __FPE_exception_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(noefgfmt)
+12b7:0a06      ___EFG_printf
+12b7:0a0a      ___EFG_scanf
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(efgfmt)
+0000:830f      _EFG_Format_
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(strtod)
+0000:887a+     __Strtold_
+0000:8a04      strtod_
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(ldclass)
+0000:8ba6      __LDClass_
+0000:8bf4*     _FLClass_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(i8ls086)
+0000:8c08*     __I8LS
+0000:8c08      __U8LS
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(ltoa)
+0000:8c18      ultoa_
+0000:8c87      ltoa_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(save8087)
+12b7:0a0e      ___Save8087
+12b7:0a12      ___Rest8087
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(grabfp87)
+0000:8cb7      __GrabFP87_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(sbrk)
+0000:8ce9      __brk_
+0000:8d4e*     sbrk_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(dointr)
+0000:8d5e      _DoINTR_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fclose)
+0000:90d3+     __doclose_
+0000:9197      __shutdown_stream_
+0000:91b1*     fclose_
+12b7:185e+     ___RmTmpFileFn
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(freefp)
+0000:91fc      __freefp_
+0000:9271      __purgefp_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fputc)
+0000:92ad      fputc_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(ioalloc)
+0000:9382      __ioalloc_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(flush)
+0000:941c      __flush_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(istable)
+12b7:01e6      __IsTable
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(bittest)
+0fc0:2840      __wcpp_4_bit_test__
+0fc0:2863      __wcpp_4_bit_off__
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(termnate)
+0fc0:2884      void __far std::terminate()
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(exc_pr)
+0fc0:28cd*     __far _EXC_PR::_EXC_PR( _RTCTL __far *, RW_DTREG __far *, EXCSTATE )
+0fc0:2946+     __far _EXC_PR::~_EXC_PR()
+0fc0:2965      __far _EXC_PR_FREE::_EXC_PR_FREE( _RTCTL __far *, RW_DTREG __far *, EXCSTATE, ACTIVE_EXC __far * )
+0fc0:29f3      __far _EXC_PR_FREE::~_EXC_PR_FREE()
+0fc0:2a34*     __far _EXC_PR_DTOR::_EXC_PR_DTOR( _RTCTL __far *, RW_DTREG __far *, EXCSTATE, ACTIVE_EXC __far * )
+0fc0:2ac2*     __far _EXC_PR_FNEXC::_EXC_PR_FNEXC( _RTCTL __far *, RW_DTREG __far *, RW_DTREG __far *, ACTIVE_EXC __far * )
+0fc0:2b79*     __far _EXC_PR_FNEXC::~_EXC_PR_FNEXC()
+0fc0:2b7c*     __far _EXC_PR_DTOR::~_EXC_PR_DTOR()
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(areaexc)
+12b7:0a30      ___EXC_AREA
+Module: C:\PROGRAMS\WATCOM\lib286\plbxl.lib(tssize)
+0fc0:2bc2      __wcpp_4_ts_size__
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(bfree)
+0000:9554      _bfree_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(wctomb)
+0000:9579      wctomb_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(itoa)
+0000:95a2+     utoa_
+0000:95ff      itoa_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(lltoa)
+0000:9623      ulltoa_
+0000:9707*     lltoa_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(strupr)
+0000:9769      _strupr_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(mbislead)
+0000:978b      _ismbblead_
+12b7:1862      ___MBCSIsTable
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(doserrno)
+0000:97a7      __get_doserrno_ptr_
+12b7:1964+     __doserrno
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(setenvp)
+0000:97cc      __setenvp_
+0000:98cd      __freeenvp_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(mbinit)
+0000:99b9      __mbinit_
+12b7:0e30      ___MBCodePage
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(mbdtoupp)
+0000:9a36      _mbdtoupper_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(toupper)
+0000:9a44      toupper_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(rtcntrl)
+0000:9a52*     _SetLD64bit_
+0000:9a5d*     _SetLD80bit_
+0000:9a68      _LDisDouble_
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(zbuf2ld)
+0000:9a9f      __ZXBuf2LD_
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(bufld086)
+0000:9bb4      __ZBuf2LD
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(seterrno)
+0000:9c7c*     __set_EDOM_
+0000:9c8e      __set_ERANGE_
+0000:9ca0*     __set_EINVAL_
+Module: C:\PROGRAMS\WATCOM\lib286\math87l.lib(inf_nan)
+12b7:02e8*     ___f_infinity
+12b7:02ec*     ___f_posqnan
+12b7:02f0      ___d_infinity
+12b7:02f8      ___d_posqnan
+12b7:0300*     ___ld_infinity
+12b7:0308*     ___ld_posqnan
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(hugeval)
+12b7:0310      __HugeValue
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(alphabet)
+0000:9cb5      ___Alphabet
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fpe87)
+0000:9cde      __Init_FPE_handler_
+0000:9d15      __Fini_FPE_handler_
+0000:9d4b*     __FPEHandler
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(__lseek)
+0000:9fdd      __lseek_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(_clse)
+0000:a017      __close_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(chktty)
+0000:a04f      __chktty_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(qwrit)
+0000:a07a      __qwrite_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(fsync)
+0000:a0dc      fsync_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(clearenv)
+0000:a0e1      clearenv_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(mbisdbcs)
+12b7:0e4a      ___IsDBCS
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(getltdos)
+0000:a22a      dos_get_dbcs_lead_table_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(getcpdos)
+0000:a253      dos_get_code_page_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(iomode)
+0000:a263      __GetIOMode_
+0000:a288      __SetIOMode_nogrow_
+12b7:0e4c+     ___NFiles
+12b7:0e4e+     ___init_mode
+12b7:0e76+     ___io_mode
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(isatt)
+0000:a2ab      isatty_
+Module: C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib(filedos)
+0000:a2c7*     _dos_close_
+0000:a2d5      _dos_commit_
+
+
+                        +--------------------+
+                        |   Libraries Used   |
+                        +--------------------+
+
+..\..\..\..\..\LIBS\FRAMEDIR\WATCOM\OUT\DOS16\framedir.lib
+..\..\..\..\LIBS\PDCURSES\DOS\panel.lib
+C:\PROGRAMS\WATCOM\lib286\plbxl.lib
+C:\PROGRAMS\WATCOM\lib286\dos\clibl.lib
+C:\PROGRAMS\WATCOM\lib286\dos\emu87.lib
+C:\PROGRAMS\WATCOM\lib286\math87l.lib
+
+
+                        +-----------------------+
+                        |   Linker Statistics   |
+                        +-----------------------+
+
+Stack size:  0800 (2048.)
+Memory size:  00014ee0 (85728.)
+Entry point address: 0000:19ee
+Link time: 00:00.20
