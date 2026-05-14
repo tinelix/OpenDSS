@@ -1,6 +1,0 @@
-[submodule "tui/libs/tinydir"]
-	path = tui/libs/tinydir
-	url = https://github.com/cxong/tinydir
-[submodule "tui/libs/pdcurses"]
-	path = tui/libs/pdcurses
-	url = https://github.com/wmcbrine/PDCurses.git
