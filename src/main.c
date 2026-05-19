@@ -1,9 +1,15 @@
 #include <stdio.h>
-#include <crocon/crocon.h>
-#include <dse/opendse.h>
 #include <stdlib.h>
 #include <locale.h>
 #include <wchar.h>
+#include <string.h>
+
+#include <crocon/crocon.h>
+#include <dse/opendse.h>
+
+#ifdef UNIX
+#include <unistd.h>
+#endif
 
 typedef enum {
 	DSS_PLAYBACK_NOT_PLAYING,
@@ -92,7 +98,7 @@ int main(int argc, char** argv) {
 			"Quit"
 		);
 
-		if(dse_open_input(argv[1]) >= 0) {
+		if((result == dse_open_input(argv[1])) >= 0) {
 			DSE_MMIO* mmio = stdmmio;
 			int full_progress_width = stdscr->metrics.width;
 
@@ -106,6 +112,12 @@ int main(int argc, char** argv) {
 					"FAILED / OutDev Error: %d",
 					result
 				);
+				
+				#ifdef WIN32
+					Sleep(4000);
+				#else
+					usleep(4000);
+				#endif
 			} else {
 
 				dse_alloc_audio();
@@ -134,15 +146,32 @@ int main(int argc, char** argv) {
 				dse_close_outdev(&outdev);
 			}
 		} else {
-			crocon_mvcprintf(
-				0, 3, COLOR_BRIGHT_RED,
-				"FAILED"
+			crocon_mvcprintf3(
+				0, 3, COLOR_BRIGHT_RED, 100,
+				"FAILED / File IO error code: %d", 
+				result
 			);
 
+			#ifdef WIN32
+				Sleep(4000);
+			#else
+				usleep(4000);
+			#endif
 		}
 
 
-	}		
+	} else {
+		crocon_mvcprintf(
+			0, 3, COLOR_BRIGHT_RED,
+			"Type the WAV file path after 'opendss' command and try again."
+		);
+		
+		#ifdef WIN32
+			Sleep(4000);
+		#else
+			usleep(4000);
+		#endif
+	}
 
 	crocon_freescr();
 
@@ -150,7 +179,7 @@ int main(int argc, char** argv) {
 }
 
 void dss_listenkbd() {
-	while(1) {		
+	while(1) {
 		char c;
 
 		c = (char)crocon_getch();
@@ -227,8 +256,13 @@ void dss_print_fileinfo(const char* path, DSE_OUTDEV outdev) {
 	}
 #endif
 
+	#ifdef WIN32
 	CharToOem(outdev.product_name, oem_outdev_name);
 	CharToOem(path, oem_path);
+	#else
+	strcpy(oem_path, path);
+	strcpy(oem_outdev_name, outdev.product_name);
+	#endif
 
 	crocon_mvcprintf3(
 		0, 4, COLOR_TRANSPARENT, 320,
@@ -342,12 +376,12 @@ void dss_start_playback() {
 
 	int full_progress_width = stdscr->metrics.width;
 	
-	dss_status = DSS_PLAYBACK_PLAYING;
-	crocon_fillchar(0, 12, full_progress_width, 1, 0xB0);
-
 	int result = 0;
 	char c;
 	int update_count = 0;
+	
+	dss_status = DSS_PLAYBACK_PLAYING;
+	crocon_fillchar(0, 12, full_progress_width, 1, 0xB0);
 	
 	while (stdmmio->bytes_read < stdmmio->bytes_total) {
 
@@ -397,7 +431,11 @@ void dss_wait_to_free_buffer() {
 	int result = 0;
 
 	do {
-		Sleep(100);
+		#ifdef WIN32
+			Sleep(100);
+		#else
+			usleep(100);
+		#endif
 		result = dse_is_busy();
 	} while(result != 0);
 

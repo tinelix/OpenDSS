@@ -31,7 +31,7 @@ CC_FLAGS_DLL    = $(C_FLAGS) -I$(INC_DIR)
 CC              = cl -nologo
 LINKER          = link.exe -nologo
 
-OUT_EXE         = $(BIN_DIR)\opendse.exe
+OUT_EXE         = $(BIN_DIR)\opendss.exe
 
 OBJECTS         = $(OBJ_DIR)\main.obj
 

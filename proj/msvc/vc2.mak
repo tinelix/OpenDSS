@@ -29,7 +29,7 @@ CC_FLAGS_DLL         	= $(C_FLAGS) -I$(INC_DIR)
 CC         	        = cl -nologo
 LINKER         	        = link.exe -nologo
 
-OUT_EXE         	= $(BIN_DIR)\opendse.exe
+OUT_EXE         	= $(BIN_DIR)\opendss.exe
 
 OBJECTS         	= $(OBJ_DIR)\main.obj
 
@@ -48,10 +48,10 @@ $(OUT_EXE): $(OBJECTS)
 prepare:
 	@if not exist $(LIBS_INC_DIR) mkdir $(LIBS_INC_DIR)
 	@if not exist $(LIBS_INC_DIR)\crocon mkdir $(LIBS_INC_DIR)\crocon
-	@if not exist $(LIBS_INC_DIR)\opendse mkdir $(LIBS_INC_DIR)\opendse
+	@if not exist $(LIBS_INC_DIR)\opendse mkdir $(LIBS_INC_DIR)\dse
 
 	xcopy $(CROCON_ROOT)\library\include  $(LIBS_INC_DIR)\crocon  /s
-	xcopy $(OPENDSE_ROOT)\include         $(LIBS_INC_DIR)\opendse /s
+	xcopy $(OPENDSE_ROOT)\include         $(LIBS_INC_DIR)\dse     /s
 
 	@if not exist $(OPENDSS_ROOT)\out mkdir $(OPENDSS_ROOT)\out
 	@if not exist $(BIN_DIR) mkdir $(BIN_DIR)
