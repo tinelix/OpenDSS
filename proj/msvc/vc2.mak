@@ -38,6 +38,10 @@ all: prepare $(OUT_EXE)
 $(OUT_EXE): $(OBJECTS)
 	@if not exist $(BIN_DIR) mkdir $(BIN_DIR)
 	$(LINKER) $(LD_FLAGS) $(LD_LIBS) -out:$@ $**
+	
+	copy $(OPENDSE_ROOT)\out\bin\opendse.dll $(BIN_DIR)\opendse.dll
+	copy $(CROCON_ROOT)\out\library\bin\crocon.dll $(BIN_DIR)\crocon.dll
+
 
 {$(SRC_DIR)}.c{$(OBJ_DIR)}.obj:
 	$(CC) $(CC_FLAGS) -c $< -Fo$@
@@ -47,10 +51,10 @@ $(OUT_EXE): $(OBJECTS)
 
 prepare:
 	@if not exist $(LIBS_INC_DIR) mkdir $(LIBS_INC_DIR)
-	@if not exist $(LIBS_INC_DIR)\crocon mkdir $(LIBS_INC_DIR)\crocon
-	@if not exist $(LIBS_INC_DIR)\opendse mkdir $(LIBS_INC_DIR)\dse
-
-	xcopy $(CROCON_ROOT)\library\include  $(LIBS_INC_DIR)\crocon  /s
+        @if not exist $(LIBS_INC_DIR)\crocon mkdir $(LIBS_INC_DIR)\crocon
+        @if not exist $(LIBS_INC_DIR)\dse    mkdir $(LIBS_INC_DIR)\dse
+	
+        xcopy $(CROCON_ROOT)\library\include  $(LIBS_INC_DIR)\crocon  /s
 	xcopy $(OPENDSE_ROOT)\include         $(LIBS_INC_DIR)\dse     /s
 
 	@if not exist $(OPENDSS_ROOT)\out mkdir $(OPENDSS_ROOT)\out
@@ -61,3 +65,4 @@ clean:
 	-del $(OBJ_DIR)\*.obj
 	-del $(BIN_DIR)\*.exe
 	-del $(BIN_DIR)\*.exp
+	@if exist $(LIBS_INC_DIR) rd $(LIBS_INC_DIR) /s

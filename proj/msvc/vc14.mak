@@ -62,3 +62,4 @@ clean:
 	-del $(OBJ_DIR)\*.obj
 	-del $(BIN_DIR)\*.exe
 	-del $(BIN_DIR)\*.exp
+	@if exist $(LIBS_INC_DIR) rd $(LIBS_INC_DIR) /s /q

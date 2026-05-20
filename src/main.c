@@ -19,6 +19,7 @@ typedef enum {
 } dss_status_t;
 
 dss_status_t dss_status = DSS_PLAYBACK_NOT_PLAYING;
+double* dss_audio_rms;
 
 void dss_listenkbd();
 
@@ -36,16 +37,18 @@ void dss_wait_to_free_buffer();
 int main(int argc, char** argv) {
 	
 	CROCVERSION crocon_ver;
-	int crocon_result;
-	DSE_OUTDEV outdev;
+	DSEVERSION  dse_ver;
+	int         crocon_result, dse_result;
+	DSE_OUTDEV  outdev;
 	
 	setlocale(LC_ALL, NULL);
 	
 	crocon_result = crocon_getver(&crocon_ver);
+    dse_result = dse_get_version(&dse_ver);
 	
 	crocon_initscr();
 	crocon_hidecurs();
-	crocon_settitle("OpenDSS");
+	crocon_settitle("OpenDSS Audio Player");
 	
 	crocon_cprintf(
 		COLOR_BRIGHT_CYAN, 
@@ -53,8 +56,9 @@ int main(int argc, char** argv) {
 	);
 	crocon_mvcprintf3(
 		0, 1, COLOR_TRANSPARENT, 300,
-		"Powered by CroconTUI %d.%d.%d", 
-		crocon_ver.major, crocon_ver.minor, crocon_ver.patch
+		"Powered by CroconTUI %d.%d.%d, OpenDSE %d.%d.%d", 
+		crocon_ver.major, crocon_ver.minor, crocon_ver.patch,
+		dse_ver.major, dse_ver.minor, dse_ver.patch
 	);
 
 	if(argc > 1) {
@@ -70,7 +74,7 @@ int main(int argc, char** argv) {
 
 		crocon_mvcprintf2(
 			0, stdscr->metrics.height - 1, COLOR_BRIGHT_CYAN, COLOR_BLACK,
-			" p "
+			" P "
 		);
 
 		crocon_mvcprintf(
@@ -80,7 +84,7 @@ int main(int argc, char** argv) {
 
 		crocon_mvcprintf2(
 			17, stdscr->metrics.height - 1, COLOR_BRIGHT_CYAN, COLOR_BLACK,
-			" s "
+			" S "
 		);
 
 		crocon_mvcprintf(
@@ -90,7 +94,7 @@ int main(int argc, char** argv) {
 
 		crocon_mvcprintf2(
 			34, stdscr->metrics.height - 1, COLOR_BRIGHT_CYAN, COLOR_BLACK,
-			" q "
+			" Q "
 		);
 
 		crocon_mvcprintf(
@@ -121,6 +125,7 @@ int main(int argc, char** argv) {
 			} else {
 
 				dse_alloc_audio();
+				dss_audio_rms = (double*)malloc(stdmmio->audio.channels * sizeof(double));
 
 				crocon_fillchar(0, 12, stdscr->metrics.width, 1, 0xB0);
 				
@@ -144,6 +149,8 @@ int main(int argc, char** argv) {
 				);
 
 				dse_close_outdev(&outdev);
+				
+				free(dss_audio_rms);
 			}
 		} else {
 			crocon_mvcprintf3(
@@ -308,38 +315,100 @@ void dss_print_fileinfo(const char* path, DSE_OUTDEV outdev) {
 	);
 }
 
+void dss_draw_audio_rms(
+	double* rms, 
+	unsigned int y, 
+	unsigned int progress_width,
+	unsigned int rms_count
+) {
+	unsigned int i = 0;
+	unsigned int rms_progress_width = progress_width - 2;
+	unsigned int low_level     = (unsigned int)((double)rms_progress_width * 0.2);
+	unsigned int medium_level  = (unsigned int)((double)rms_progress_width * 0.4);
+	unsigned int high_level    = (unsigned int)((double)rms_progress_width * 0.8);
+	unsigned int current_level = 0;
+
+	for(i = 0; i < rms_count; i++) {
+
+		current_level = (unsigned int)((double)rms_progress_width * rms[i]);
+
+		if(rms[i] > 1.0) {
+			rms[i] = 1.0;
+		}
+
+		crocon_fillchar(2, y + i, rms_progress_width, 1, 0x07);
+		crocon_fillcolor(
+				3, y + i, rms_progress_width, 
+				1, COLOR_TRANSPARENT, COLOR_BRIGHT
+		);
+
+		if(rms_count == 2) {
+			if(i % 2 == 0)
+				crocon_mvcprintf(0, y + i, COLOR_WHITE, "L");
+			else
+				crocon_mvcprintf(0, y + i, COLOR_WHITE, "R");
+		} else 
+			crocon_mvcprintf(0, y + i, COLOR_WHITE, "C");
+		
+		if(rms[i] <= 0.4)
+			crocon_fillcolor(
+				2, y + i, current_level, 1, 
+				COLOR_TRANSPARENT, COLOR_BRIGHT_GREEN
+			);
+		else
+			crocon_fillcolor(
+				2, y + i, medium_level, 
+				1, COLOR_TRANSPARENT, COLOR_BRIGHT_GREEN
+			);
+			
+		if(rms[i] > 0.4 && rms[i] <= 0.8)
+			crocon_fillcolor(
+				medium_level + 1, y + i, current_level - medium_level + 1, 1, 
+				COLOR_TRANSPARENT, COLOR_BRIGHT_YELLOW
+			);
+		else if(rms[i] > 0.4)
+			crocon_fillcolor(
+				medium_level + 1, y + i, 
+				high_level - medium_level, 
+				1, COLOR_TRANSPARENT, COLOR_BRIGHT_YELLOW
+			);
+			
+		if(rms[i] > 0.8)
+			crocon_fillcolor(
+				high_level + 1, y + i, high_level - medium_level + 1, 1, 
+				COLOR_TRANSPARENT, COLOR_BRIGHT_RED
+			);
+	}
+}
+
 void dss_print_bytes_progress(
 	unsigned int progress_width,
 	unsigned int bytes_read, unsigned int bytes_total
 ) {
 	
 	double read_progress = ((double)bytes_read / bytes_total);
-	rgbi4_t fg_color;
+	rgbi4_t fg_color, fg_color2;
+	int rms_count = stdmmio->audio.channels;
+	
+	rms_count = dse_get_frame_rms(dss_audio_rms, stdmmio->audio.channels);
+
+	dss_draw_audio_rms(dss_audio_rms, 14, progress_width, rms_count);
 	
 	switch(dss_status) {
 		case DSS_PLAYBACK_PLAYING:
-			fg_color = COLOR_BRIGHT_GREEN;
-
-			crocon_mvcprintf(
-				0, 3, fg_color,
-				"PLAYING"
-			);
+			fg_color  = COLOR_BRIGHT_GREEN;
+			fg_color2 = COLOR_GREEN;
+			crocon_mvcprintf(0, 3, fg_color, "PLAYING");
 			break;
 		case DSS_PLAYBACK_PAUSED:
-			fg_color = COLOR_BRIGHT_YELLOW;
-
-			crocon_mvcprintf(
-				0, 3, fg_color,
-				"PAUSED "
-			);
+			fg_color  = COLOR_BRIGHT_YELLOW;
+			fg_color2 = COLOR_YELLOW;
+			crocon_mvcprintf(0, 3, fg_color, "PAUSED ");
 			break;
 		case DSS_PLAYBACK_STOPPED:
-			fg_color = COLOR_BRIGHT_CYAN;
-
-			crocon_mvcprintf(
-				0, 3, fg_color,
-				"STOPPED"
-			);
+			fg_color  = COLOR_BRIGHT_CYAN;
+			fg_color2 = COLOR_CYAN;
+			crocon_mvcprintf(0, 3, fg_color, "STOPPED");
 			break;
 		default:
 			fg_color = COLOR_TRANSPARENT;
@@ -369,7 +438,15 @@ void dss_print_bytes_progress(
 		);
 
 	crocon_fillchar(0, 12, (int)(progress_width * read_progress), 1, 0xDB);
-	crocon_fillcolor(0, 12, progress_width, 1, COLOR_TRANSPARENT, fg_color);
+
+	crocon_fillcolor(
+		0, 12, progress_width, 1, 
+		COLOR_TRANSPARENT, fg_color2
+	);
+	crocon_fillcolor(
+		0, 12, (int)(progress_width * read_progress), 1, 
+		COLOR_TRANSPARENT, fg_color
+	);
 }
 
 void dss_start_playback() {
