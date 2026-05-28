@@ -41,13 +41,13 @@ int main(int argc, char** argv) {
 	int         crocon_result, dse_result;
 	DSE_OUTDEV  outdev;
 	
-	setlocale(LC_ALL, NULL);
+	setlocale(LC_ALL, "");
 	
 	crocon_result = crocon_getver(&crocon_ver);
     dse_result = dse_get_version(&dse_ver);
 	
 	crocon_initscr();
-	crocon_hidecurs();
+	crocon_hidecurs(ctrue);
 	crocon_settitle("OpenDSS Audio Player");
 	
 	crocon_cprintf(
@@ -102,13 +102,11 @@ int main(int argc, char** argv) {
 			"Quit"
 		);
 
-		if((result == dse_open_input(argv[1])) >= 0) {
+		if((result = dse_open_input(argv[1])) >= 0) {
 			DSE_MMIO* mmio = stdmmio;
 			int full_progress_width = stdscr->metrics.width;
 
 			result = dse_open_outdev(&outdev);
-
-			dss_print_fileinfo(argv[1], outdev);
 
 			if(result < 0) {
 				crocon_mvcprintf3(
@@ -118,11 +116,13 @@ int main(int argc, char** argv) {
 				);
 				
 				#ifdef WIN32
-					Sleep(4000);
+					Sleep(8000);
 				#else
-					usleep(4000);
+					usleep(8000);
 				#endif
 			} else {
+
+				dss_print_fileinfo(argv[1], outdev);
 
 				dse_alloc_audio();
 				dss_audio_rms = (double*)malloc(stdmmio->audio.channels * sizeof(double));
@@ -188,6 +188,7 @@ int main(int argc, char** argv) {
 void dss_listenkbd() {
 	while(1) {
 		char c;
+		DSE_MMIO* mmio = stdmmio;
 
 		c = (char)crocon_getch();
 
@@ -214,7 +215,6 @@ void dss_listenkbd() {
 		} else if(c == 'q'){
 		  	break;
 		}
-
 	};
 }
 
@@ -330,11 +330,11 @@ void dss_draw_audio_rms(
 
 	for(i = 0; i < rms_count; i++) {
 
-		current_level = (unsigned int)((double)rms_progress_width * rms[i]);
-
 		if(rms[i] > 1.0) {
 			rms[i] = 1.0;
 		}
+
+		current_level = (unsigned int)((double)rms_progress_width * rms[i]);
 
 		crocon_fillchar(2, y + i, rms_progress_width, 1, 0x07);
 		crocon_fillcolor(
@@ -375,7 +375,7 @@ void dss_draw_audio_rms(
 			
 		if(rms[i] > 0.8)
 			crocon_fillcolor(
-				high_level + 1, y + i, high_level - medium_level + 1, 1, 
+				high_level + 1, y + i, rms_progress_width - current_level + 1, 1, 
 				COLOR_TRANSPARENT, COLOR_BRIGHT_RED
 			);
 	}
