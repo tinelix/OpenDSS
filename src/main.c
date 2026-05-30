@@ -336,7 +336,11 @@ void dss_draw_audio_rms(
 
 		current_level = (unsigned int)((double)rms_progress_width * rms[i]);
 
-		crocon_fillchar(2, y + i, rms_progress_width, 1, 0x07);
+		#ifdef WIN32
+			crocon_fillchar(2, y + i, rms_progress_width, 1, 0x07);
+		#else
+			crocon_fillchar(2, y + i, rms_progress_width, 1, '*');
+		#endif
 		crocon_fillcolor(
 				3, y + i, rms_progress_width, 
 				1, COLOR_TRANSPARENT, COLOR_BRIGHT
@@ -437,7 +441,11 @@ void dss_print_bytes_progress(
 			read_progress * 100
 		);
 
-	crocon_fillchar(0, 12, (int)(progress_width * read_progress), 1, 0xDB);
+	#ifdef WIN32
+		crocon_fillchar(0, 12, (int)(progress_width * read_progress), 1, 0xDB);
+	#else
+		crocon_fillchar(0, 12, (int)(progress_width * read_progress), 1, '*');
+	#endif
 
 	crocon_fillcolor(
 		0, 12, progress_width, 1, 
@@ -458,7 +466,11 @@ void dss_start_playback() {
 	int update_count = 0;
 	
 	dss_status = DSS_PLAYBACK_PLAYING;
-	crocon_fillchar(0, 12, full_progress_width, 1, 0xB0);
+	#ifdef WIN32
+		crocon_fillchar(0, 12, full_progress_width, 1, 0xB0);
+	#else
+		crocon_fillchar(0, 12, full_progress_width, 1, '*');
+	#endif
 	
 	while (stdmmio->bytes_read < stdmmio->bytes_total) {
 
