@@ -26,7 +26,7 @@ nmake -f [MSVC target].mak
 
 ### Linux
 
-To build the program in Linux origin UNIX-like operating system, use the commands below:
+To build the program in Linux or UNIX-like operating system, use the commands below:
 
 ```sh
 export CROCON_ROOT=[CroconTUI path]
