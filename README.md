@@ -31,7 +31,7 @@ To build the program in Linux origin UNIX-like operating system, use the command
 ```sh
 export CROCON_ROOT=[CroconTUI path]
 export OPENDSE_ROOT=[OpenDSE path]
-cd [OpenDSS root]/proj/msvc
+cd [OpenDSS root]/proj/gcc
 make
 ```
 
