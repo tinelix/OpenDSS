@@ -118,7 +118,8 @@ int main(int argc, char** argv) {
 				#ifdef WIN32
 					Sleep(8000);
 				#else
-					usleep(8000);
+					fflush(stdout);
+					usleep(8000000);
 				#endif
 			} else {
 
@@ -160,9 +161,10 @@ int main(int argc, char** argv) {
 			);
 
 			#ifdef WIN32
-				Sleep(4000);
+				Sleep(8000);
 			#else
-				usleep(4000);
+				fflush(stdout);
+				usleep(8000000);
 			#endif
 		}
 
@@ -174,9 +176,10 @@ int main(int argc, char** argv) {
 		);
 		
 		#ifdef WIN32
-			Sleep(4000);
+			Sleep(8000);
 		#else
-			usleep(4000);
+			fflush(stdout);
+			usleep(8000000);
 		#endif
 	}
 

@@ -13,7 +13,7 @@ RES_DIR         = $(OPENDSS_ROOT)/res
 
 SRC_DIRS        = $(SRC_DIR)
 
-LD_LIBS         = -lcrocon -lopendse
+LD_LIBS         = -lcrocon -lopendse -lasound
 
 ifeq ($(OPENDSS_LEGACY),true)
 
