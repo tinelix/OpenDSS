@@ -18,8 +18,11 @@ Uses [CroconTUI](https://github.com/CroconTUI/crocon-lib) and [OpenDSE](https://
 To build the program in Windows, use the commands below:
     
 ```bat
+REM Set enviroment variables for Crocon and OpenDSE include directories...
 set CROCON_ROOT=[CroconTUI root]
 set OPENDSE_ROOT=[OpenDSE root]
+
+REM Build...
 cd [OpenDSS root]\proj\msvc
 nmake -f [MSVC target].mak
 ```
@@ -29,8 +32,11 @@ nmake -f [MSVC target].mak
 To build the program in Linux or UNIX-like operating system, use the commands below:
 
 ```sh
+# Set enviroment variables for Crocon and OpenDSE include directories...
 export CROCON_ROOT=[CroconTUI path]
 export OPENDSE_ROOT=[OpenDSE path]
+
+# Build...
 cd [OpenDSS root]/proj/gcc
 make
 ```
