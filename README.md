@@ -1,7 +1,7 @@
 # OpenDSS
 Virtual music center for DOS, Windows and Linux. Inspired by Digital Sound System DOS version from Sergey Sapelin.
 
-Uses [CroconTUI](https://github.com/CroconTUI/crocon-lib) and [OpenDSE](https://github.com/tinelix/OpenDSE) libraries for WAV support and TUI implementation.
+Uses [CroconTUI](https://github.com/CroconTUI/crocon-lib) framework and [OpenDSE](https://github.com/tinelix/OpenDSE) library for WAV support.
 
 ## Building
 
@@ -18,7 +18,7 @@ Uses [CroconTUI](https://github.com/CroconTUI/crocon-lib) and [OpenDSE](https://
 To build the program in Windows, use the commands below:
     
 ```bat
-REM Set enviroment variables for Crocon and OpenDSE include directories...
+REM Set enviroment variables for CroconTUI and OpenDSE include directories...
 set CROCON_ROOT=[CroconTUI root]
 set OPENDSE_ROOT=[OpenDSE root]
 
@@ -32,7 +32,7 @@ nmake -f [MSVC target].mak
 To build the program in Linux or UNIX-like operating system, use the commands below:
 
 ```sh
-# Set enviroment variables for Crocon and OpenDSE include directories...
+# Set enviroment variables for CroconTUI and OpenDSE include directories...
 export CROCON_ROOT=[CroconTUI path]
 export OPENDSE_ROOT=[OpenDSE path]
 
