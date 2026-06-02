@@ -41,6 +41,10 @@ cd [OpenDSS root]/proj/gcc
 make
 ```
 
+### DOS
+
+Still in the plans.
+
 ## Running
 
 ```sh
