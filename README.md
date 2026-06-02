@@ -15,7 +15,7 @@ Uses [CroconTUI](https://github.com/CroconTUI/crocon-lib) framework and [OpenDSE
 
 ### Windows 
 
-To build the program in Windows, use the commands below:
+To build the program in Windows, download the source code of the required libraries and run the commands below:
     
 ```bat
 REM Set enviroment variables for CroconTUI and OpenDSE include directories...
@@ -29,7 +29,7 @@ nmake -f [MSVC target].mak
 
 ### Linux
 
-To build the program in Linux or UNIX-like operating system, use the commands below:
+To build the program on a Linux or UNIX-like operating system, download the source code of the required libraries and run the commands below:
 
 ```sh
 # Set enviroment variables for CroconTUI and OpenDSE include directories...
