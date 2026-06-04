@@ -101,6 +101,8 @@ int main(int argc, char** argv) {
 			38, stdscr->metrics.height - 1, COLOR_TRANSPARENT,
 			"Quit"
 		);
+		
+		dse_select_frontend(DSE_FRONTEND_AUTO);
 
 		if((result = dse_open_input(argv[1])) >= 0) {
 			DSE_MMIO* mmio = stdmmio;
