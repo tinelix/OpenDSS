@@ -13,22 +13,38 @@ RES_DIR         = $(OPENDSS_ROOT)/res
 
 SRC_DIRS        = $(SRC_DIR)
 
-LD_LIBS         = -lcrocon -lopendse -lasound
+ifeq ($(OPENDSE_AOUT),true)
+C_PIE           = -fno-pic
+else
+C_PIE           = -fPIC
+endif
+
+ifeq ($(OPENDSE_FRONTEND),alsa)
+LD_LIBS         = -lcrocon -lopendse -lasound -lm
+else
+
+ifeq ($(OPENDSE_FRONTEND),pulseaudio)
+LD_LIBS         = -lcrocon -lopendse -lpulse -lpulse-simple -lm
+else
+LD_LIBS         = -lcrocon -lopendse -lm
+endif
+
+endif
 
 ifeq ($(OPENDSS_LEGACY),true)
 
-ifeq ($(OPENDSS_DEBUG),true)
-C_FLAGS         =  -O0 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer
+ifeq ($(DEBUG),1)
+C_FLAGS         =  -O0 $(C_PIE) -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer
 else
-C_FLAGS         =  -O2 -fPIC -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF
+C_FLAGS         =  -O2 $(C_PIE) -DUNIX -DUNIX_LEGACY -DHAVE_VPRINTF
 endif
 
 else
 
-ifeq ($(OPENDSS_DEBUG),true)
-C_FLAGS         =  -O0 -fPIC -DUNIX -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls 
+ifeq ($(DEBUG),1)
+C_FLAGS         =  -O0 $(C_PIE) -DUNIX -DHAVE_VPRINTF -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls 
 else
-C_FLAGS         =  -O2 -fPIC -DUNIX -DHAVE_VPRINTF 
+C_FLAGS         =  -O2 $(C_PIE) -DUNIX -DHAVE_VPRINTF 
 endif
 
 endif
@@ -59,7 +75,7 @@ $(BIN_DIR)/$(PROJECT).bin: $(OBJECTS)
 	$(LD_LIBS) -o $@ $(LD_FLAGS)
 
 clean:
-	rm -rf $(OBJ_DIR) $(LIB_DIR)
+	rm -rf $(OBJ_DIR) $(LIBS_DIR)
 
 rebuild:
 	clean all
